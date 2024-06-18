@@ -1,12 +1,65 @@
 import React, { useState } from "react";
 
 export default function VoucherAddnew({ onClose }) {
-  const [type, setType] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [checkboxes, setCheckboxes] = useState([
+    { option1: false, value: "0h - 6h" },
+    { option2: false, value: "6h - 12h" },
+    { option3: false, value: "12h - 18h" },
+    { option4: false, value: "18h - 0h" },
+  ]);
 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleCheckboxChange = (event) => {
+    const { id, checked } = event.target;
+    setCheckboxes((prevCheckboxes) =>
+      prevCheckboxes.map((checkbox) => {
+        if (id in checkbox) {
+          return { ...checkbox, [id]: checked };
+        }
+        return checkbox;
+      })
+    );
+  };
+  const [type, setType] = useState(false);
+  const [typeSale, settypeSale] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleFileInputClick = () => {
+    document.getElementById("fileInput").click();
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const checkedValues = checkboxes
+    .filter((checkbox) => checkbox[`option${checkboxes.indexOf(checkbox) + 1}`])
+    .map((checkbox) => checkbox.value);
+  console.log(checkboxes);
+  const handleButtonToggle = (id) => {
+    setCheckboxes((prevCheckboxes) =>
+      prevCheckboxes.map((checkbox) =>
+        checkbox.id === id ? { ...checkbox, checked: false } : checkbox
+      )
+    );
+  };
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white rounded-lg max-h-[90vh] overflow-y-auto">
-        <div className="absolute left-[28px] top-[28px]" onClick={onClose}>
+        <div
+          className="absolute left-[28px] top-[28px] cursor-pointer "
+          onClick={onClose}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -26,7 +79,10 @@ export default function VoucherAddnew({ onClose }) {
 
         <div className="">
           <div className="relative flex justify-center item-center w-[840px] max-w-[840px] py-5 shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]">
-            <div className="absolute left-[28px] top-[28px]" onClick={onClose}>
+            <div
+              className="absolute left-[28px] top-[28px] cursor-pointer"
+              onClick={onClose}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -51,31 +107,37 @@ export default function VoucherAddnew({ onClose }) {
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="bg-[#E7E7E7] flex py-2 px-4 rounded-lg">
                 <div
-                  className={`flex-1 flex justify-center items-center p-2 rounded-[5px] ${
+                  className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
                     type ? "bg-white" : ""
                   }`}
-                  onClick={() => setType(true)}
+                  onClick={() => {
+                    setType(true);
+                    settypeSale(1);
+                  }}
                 >
                   <p
                     className={`text-base  text-black ${
                       type ? "font-bold" : "font-medium"
                     }`}
                   >
-                    Voucher quà tặng
+                    Voucher giảm giá
                   </p>
                 </div>
                 <div
-                  className={`flex-1 flex justify-center items-center p-2 rounded-[5px] ${
+                  className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
                     type ? "" : "bg-white"
                   }`}
-                  onClick={() => setType(false)}
+                  onClick={() => {
+                    setType(false);
+                    settypeSale(null);
+                  }}
                 >
                   <p
                     className={`text-base  text-black ${
                       type ? "font-medium" : "font-bold"
                     }`}
                   >
-                    Voucher giảm giá
+                    Voucher quà tặng
                   </p>
                 </div>
               </div>
@@ -90,7 +152,10 @@ export default function VoucherAddnew({ onClose }) {
                   </p>
                 </div>
                 <div className="py-[113px] px-[193px] bg-[#EFE6FD] cursor-pointer ">
-                  <div className="text-[#9654F4] flex gap-2">
+                  <div
+                    className="text-[#9654F4] flex gap-2 "
+                    onClick={handleFileInputClick}
+                  >
                     <div className="">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -117,8 +182,22 @@ export default function VoucherAddnew({ onClose }) {
                       Thêm ảnh / video cho voucher{" "}
                     </p>
                   </div>
-                  <input type="file" hidden />
+                  <input
+                    id="fileInput"
+                    type="file"
+                    hidden
+                    onChange={handleFileChange}
+                  />
                 </div>
+                {selectedImage && (
+                  <div className="mt-4">
+                    <img
+                      src={selectedImage}
+                      alt="Selected"
+                      className="max-w-[200px] max-h-[200px] rounded-lg"
+                    />
+                  </div>
+                )}
                 <p className="mt-5 mb-2 text-black text-base font-medium">
                   Mô tả
                 </p>
@@ -129,6 +208,115 @@ export default function VoucherAddnew({ onClose }) {
                     placeholder="nhập mô tả ở đây"
                   />
                 </div>
+
+                {type && (
+                  <div className="mt-5">
+                    <p className="text-black font-medium text-base mb-2">
+                      Kiểu giảm giá
+                    </p>
+                    <div className="bg-[#E7E7E7] flex py-2 px-4 rounded-lg">
+                      <div
+                        className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
+                          typeSale === 1 ? "bg-white" : ""
+                        }`}
+                        onClick={() => settypeSale(1)}
+                      >
+                        <p
+                          className={`text-base  text-black ${
+                            typeSale === 1 ? "font-bold" : "font-medium"
+                          }`}
+                        >
+                          Phần trăm
+                        </p>
+                      </div>
+                      <div
+                        className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
+                          typeSale === 2 ? "bg-white" : ""
+                        }`}
+                        onClick={() => settypeSale(2)}
+                      >
+                        <p
+                          className={`text-base  text-black ${
+                            typeSale === 2 ? "font-bold" : "font-medium"
+                          }`}
+                        >
+                          Giá trị
+                        </p>
+                      </div>
+                      <div
+                        className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
+                          typeSale === 3 ? "bg-white" : ""
+                        }`}
+                        onClick={() => settypeSale(3)}
+                      >
+                        <p
+                          className={`text-base  text-black ${
+                            typeSale === 3 ? "font-bold" : "font-medium"
+                          }`}
+                        >
+                          Đồng giá
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {typeSale === 1 && (
+                  <div className="mt-5">
+                    <div className="flex flex-col gap-2">
+                      <p className="flex-1 font-medium text-base text-black">
+                        phần trăm giảm
+                      </p>
+                      <input
+                        type="number"
+                        name="phantramgiam"
+                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        placeholder="nhập mô tả vào đây"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 mt-5">
+                      <p className="flex-1 font-medium text-base text-black">
+                        Tối đa
+                      </p>
+                      <input
+                        type="text"
+                        name="limit"
+                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        placeholder="nhập mô tả vào đây"
+                      />
+                    </div>
+                  </div>
+                )}
+                {typeSale === 2 && (
+                  <div className="mt-5">
+                    <div className="flex flex-col gap-2">
+                      <p className="flex-1 font-medium text-base text-black">
+                        Giá trị giảm
+                      </p>
+                      <input
+                        type="number"
+                        name="giatrigiam"
+                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        placeholder="nhập mô tả vào đây"
+                      />
+                    </div>
+                  </div>
+                )}
+                {typeSale === 3 && (
+                  <div className="mt-5">
+                    <div className="flex flex-col gap-2">
+                      <p className="flex-1 font-medium text-base text-black">
+                        Giá trị giảm
+                      </p>
+                      <input
+                        type="number"
+                        name="giatrigiam"
+                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        placeholder="nhập mô tả vào đây"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="mt-6 py-5 px-[25px] rounded-lg shadow-[0px_0px_4px_0px_rgba(0,0,0,0.5)]">
@@ -200,26 +388,90 @@ export default function VoucherAddnew({ onClose }) {
                   <div className="flex flex-row flex-start gap-3">
                     <div className="flex flex-col justify-start">
                       <span className="font-medium text-base text-black">
-                        Giá trị hóa đơn tối thiểu từ:{" "}
+                        Áp dụng cho khung giờ nào:{" "}
                       </span>
                       <span className="text-[#ED2B2A] text-medium text-base">
                         (bắt buộc)
                       </span>
                     </div>
-                    <div className="py-[8px] px-[18.4px] rounded-lg bg-[#B78AF7] flex items-center justify-center">
-                      <div className="p-[0px_6.372px_0px_6.339px]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="12"
-                          height="8"
-                          viewBox="0 0 12 8"
-                          fill="none"
+                    <div className="flex flex-col gap-2.5">
+                      {checkedValues.length > 0
+                        ? checkedValues.map((value, index) => (
+                            <div className="min-w-[100px] py-1 px-2.5 flex items-center gap-2 justify-between bg-[#C1F1E1] rounded-full">
+                              <div
+                                key={index}
+                                className="text-base text-gray-700"
+                              >
+                                {value}
+                              </div>
+                              <button
+                                onClick={() => handleButtonToggle(value.id)}
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 16 16"
+                                  fill="none"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M7.99967 1.33301C4.31778 1.33301 1.33301 4.31778 1.33301 7.99967C1.33301 11.6816 4.31778 14.6663 7.99967 14.6663C11.6816 14.6663 14.6663 11.6816 14.6663 7.99967C14.6663 4.31778 11.6816 1.33301 7.99967 1.33301ZM5.52827 5.52827C5.78862 5.26792 6.21073 5.26792 6.47108 5.52827L7.99967 7.05687L9.52827 5.52827C9.78862 5.26792 10.2107 5.26792 10.4711 5.52827C10.7314 5.78862 10.7314 6.21073 10.4711 6.47108L8.94248 7.99967L10.4711 9.52827C10.7314 9.78862 10.7314 10.2107 10.4711 10.4711C10.2107 10.7314 9.78862 10.7314 9.52827 10.4711L7.99967 8.94248L6.47108 10.4711C6.21073 10.7314 5.78862 10.7314 5.52827 10.4711C5.26792 10.2107 5.26792 9.78862 5.52827 9.52827L7.05687 7.99967L5.52827 6.47108C5.26792 6.21073 5.26792 5.78862 5.52827 5.52827Z"
+                                    fill="black"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          ))
+                        : " "}
+                    </div>
+                    <div className="py-[8px] px-[18.4px] rounded-lg bg-[#B78AF7] items-center justify-center">
+                      <div className="relative">
+                        <div
+                          className="py-2 px-4 bg-[#B78AF7] rounded-lg flex items-center justify-center cursor-pointer max-h-[32px] h-[32px] w-[48px]"
+                          onClick={toggleDropdown}
                         >
-                          <path
-                            d="M6.00018 7.24992C5.90164 7.25038 5.804 7.23116 5.71299 7.19338C5.62197 7.1556 5.53942 7.10003 5.47018 7.02992L0.47018 2.02992C0.370455 1.88402 0.325452 1.70759 0.34311 1.53175C0.360767 1.35592 0.43995 1.19196 0.566693 1.0688C0.693436 0.945647 0.859597 0.871203 1.03587 0.8586C1.21214 0.845997 1.38721 0.896045 1.53018 0.999916L6.00018 5.43992L10.4702 0.999916C10.6111 0.908526 10.7787 0.867105 10.946 0.882292C11.1133 0.89748 11.2707 0.968396 11.3929 1.08368C11.5151 1.19896 11.595 1.35192 11.6199 1.51806C11.6448 1.68419 11.6132 1.85388 11.5302 1.99992L6.53018 6.99992C6.46351 7.07548 6.38212 7.13663 6.29098 7.17961C6.19984 7.2226 6.10089 7.24653 6.00018 7.24992Z"
-                            fill="white"
-                          />
-                        </svg>
+                          <div className="p-1">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="12"
+                              height="8"
+                              viewBox="0 0 12 8"
+                              fill="none"
+                            >
+                              <path
+                                d="M6 7.25C5.90164 7.25038 5.804 7.23116 5.713 7.19338C5.622 7.1556 5.53942 7.10003 5.47018 7.02992L0.47018 2.02992C0.370455 1.88402 0.325452 1.70759 0.34311 1.53175C0.360767 1.35592 0.43995 1.19196 0.566693 1.0688C0.693436 0.945647 0.859597 0.871203 1.03587 0.8586C1.21214 0.845997 1.38721 0.896045 1.53018 0.999916L6 5.43992L10.4702 0.999916C10.6111 0.908526 10.7787 0.867105 10.946 0.882292C11.1133 0.89748 11.2707 0.968396 11.3929 1.08368C11.5151 1.19896 11.595 1.35192 11.6199 1.51806C11.6448 1.68419 11.6132 1.85388 11.5302 1.99992L6.53018 6.99992C6.46351 7.07548 6.38212 7.13663 6.291 7.17961C6.19984 7.2226 6.10089 7.24653 6 7.24992Z"
+                                fill="white"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+
+                        {isOpen && (
+                          <div className="absolute mt-2 py-5 px-[25px] bg-white border rounded-lg shadow-lg w-[207px]">
+                            <div className="flex flex-col gap-4">
+                              {checkboxes.map((checkbox, index) => (
+                                <div className="flex items-center" key={index}>
+                                  <input
+                                    type="checkbox"
+                                    id={`option${index + 1}`}
+                                    name={`option${index + 1}`}
+                                    checked={checkbox[`option${index + 1}`]}
+                                    onChange={handleCheckboxChange}
+                                    className="mr-2"
+                                  />
+                                  <label
+                                    htmlFor={`option${index + 1}`}
+                                    className="text-base text-black font-medium"
+                                  >
+                                    {checkbox.value}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
