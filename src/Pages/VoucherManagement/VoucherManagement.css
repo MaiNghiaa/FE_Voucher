@@ -1,0 +1,62 @@
+li:hover a {
+  background: #9654f4;
+  color: white;
+}
+
+li:hover a span.count {
+  background: white;
+  color: black;
+}
+.icon {
+  stroke: currentColor;
+  transition: stroke 0.3s;
+}
+
+.icon:hover {
+  stroke: white;
+}
+
+.btn {
+  display: inline-flex;
+  padding: 16px 28px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 999px;
+
+  box-shadow: 0px 1px 2px 0px rgba(198, 228, 246, 0.05);
+}
+
+.btn.btnVoucher {
+  background: radial-gradient(
+      72.57% 49.33% at 70.82% 114.03%,
+      rgba(195, 45, 180, 0.15) 16.65%,
+      rgba(233, 120, 222, 0) 100%
+    ),
+    radial-gradient(
+      45.21% 68.82% at 48.05% -2.24%,
+      rgba(101, 179, 234, 0.15) 0%,
+      rgba(0, 163, 255, 0) 92.46%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.2) 100%
+    ),
+    var(--Purple-Prymary---50, #efe6fd);
+}
+
+.text-more {
+  position: relative;
+  display: inline-block;
+}
+
+.text-more::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: "";
+  display: inline-block;
+  border: 0.5px solid #000000;
+}
