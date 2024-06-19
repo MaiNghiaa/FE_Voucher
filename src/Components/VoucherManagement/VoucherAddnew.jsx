@@ -24,6 +24,46 @@ export default function VoucherAddnew({ onClose }) {
       })
     );
   };
+  const [datacheckboxItem, setDatacheckboxItem] = useState([
+    {
+      img: "./Voucher/vc1.png",
+      name: "Sản phẩm 1",
+      boxItem1: false,
+    },
+    {
+      img: "./Voucher/vc2.png",
+      name: "Sản phẩm 2",
+      boxItem1: false,
+    },
+    {
+      img: "./Voucher/vc3.png",
+      name: "Sản phẩm 3",
+      boxItem1: false,
+    },
+    {
+      img: "./Voucher/vc4.png",
+      name: "Sản phẩm 4",
+      boxItem1: false,
+    },
+  ]);
+
+  const ValidateCheck = () => {
+    const checkedCount = datacheckboxItem.filter((item) => item.checked).length;
+    return checkedCount < 3;
+  };
+  const handledataCheckboxItemClick = (index) => {
+    const updatedItems = datacheckboxItem.map((item, idx) => {
+      if (idx === index) {
+        if (item.checked || ValidateCheck()) {
+          return { ...item, checked: !item.checked };
+        } else {
+          alert("You can only select up to 2 items.");
+        }
+      }
+      return item;
+    });
+    setDatacheckboxItem(updatedItems);
+  };
   const [type, setType] = useState(false);
   const [typeSale, settypeSale] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -53,6 +93,7 @@ export default function VoucherAddnew({ onClose }) {
       )
     );
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white rounded-lg max-h-[90vh] overflow-y-auto">
@@ -356,34 +397,106 @@ export default function VoucherAddnew({ onClose }) {
                   </div>
                 </div>
 
-                <div className="mt-3  rounded-lg flex flex-col gap-2">
-                  <div className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3">
-                    <picture className="w-[48px] h-[48px] ">
-                      <img
-                        src="./Voucher/vc1.png"
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    </picture>
+                {!type ? (
+                  <div className="mt-3 rounded-lg flex flex-col gap-2">
+                    <div className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3">
+                      <picture className="w-[48px] h-[48px]">
+                        <img
+                          src="./Voucher/vc1.png"
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </picture>
 
-                    <p className="title text-base font-medium text-black">
-                      Sản phẩm 1
-                    </p>
-                  </div>
-                  <div className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3">
-                    <picture className="w-[48px] h-[48px] ">
-                      <img
-                        src="./Voucher/vc1.png"
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    </picture>
+                      <p className="title text-base font-medium text-black">
+                        Sản phẩm 1
+                      </p>
+                    </div>
+                    <div className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3">
+                      <picture className="w-[48px] h-[48px]">
+                        <img
+                          src="./Voucher/vc1.png"
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </picture>
 
-                    <p className="title text-base font-medium text-black">
-                      Sản phẩm 2
-                    </p>
+                      <p className="title text-base font-medium text-black">
+                        Sản phẩm 2
+                      </p>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  typeSale === 1 && (
+                    <div className="mt-3 rounded-lg flex flex-col gap-2">
+                      {datacheckboxItem &&
+                        datacheckboxItem.map((item, index) => (
+                          <div
+                            className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3"
+                            key={index}
+                          >
+                            <div
+                              className="checkbox-custom"
+                              onClick={() => handledataCheckboxItemClick(index)}
+                            >
+                              {item.checked ? (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM10.6931 16.3335C10.306 16.7058 9.694 16.7058 9.30689 16.3335L5.72744 12.8918C5.33038 12.51 5.33038 11.8746 5.72744 11.4928C6.10307 11.1317 6.69693 11.1317 7.07256 11.4928L9.30689 13.6412C9.694 14.0135 10.306 14.0135 10.6931 13.6412L16.9274 7.64669C17.3031 7.2855 17.8969 7.2855 18.2726 7.64669C18.6696 8.02848 18.6696 8.66383 18.2726 9.04562L10.6931 16.3335Z"
+                                    fill="#9654F4"
+                                  />
+                                </svg>
+                              ) : (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M19 5V19H5V5H19ZM19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"
+                                    fill="#9654F4"
+                                  />
+                                </svg>
+                              )}
+                            </div>
+                            <input
+                              type="checkbox"
+                              name={item.name}
+                              checked={item.checked}
+                              onChange={() =>
+                                handledataCheckboxItemClick(index)
+                              }
+                              style={{ display: "none" }}
+                            />
+                            <picture className="w-[48px] h-[48px]">
+                              <img
+                                src={item.img}
+                                alt={item.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </picture>
+
+                            <p className="title text-base font-medium text-[#B0B0B0]">
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                    </div>
+                  )
+                )}
+
                 <div className="mt-4">
                   <div className="flex flex-row flex-start gap-3">
                     <div className="flex flex-col justify-start">
@@ -426,25 +539,25 @@ export default function VoucherAddnew({ onClose }) {
                           ))
                         : " "}
                     </div>
-                    <div className="py-[8px] px-[18.4px] rounded-lg bg-[#B78AF7] items-center justify-center">
+
+                    <div className="py-[8px] px-[18.4px]  items-center justify-center">
                       <div className="relative">
-                        <div
-                          className="py-2 px-4 bg-[#B78AF7] rounded-lg flex items-center justify-center cursor-pointer max-h-[32px] h-[32px] w-[48px]"
-                          onClick={toggleDropdown}
-                        >
-                          <div className="p-1">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="8"
-                              viewBox="0 0 12 8"
-                              fill="none"
-                            >
-                              <path
-                                d="M6 7.25C5.90164 7.25038 5.804 7.23116 5.713 7.19338C5.622 7.1556 5.53942 7.10003 5.47018 7.02992L0.47018 2.02992C0.370455 1.88402 0.325452 1.70759 0.34311 1.53175C0.360767 1.35592 0.43995 1.19196 0.566693 1.0688C0.693436 0.945647 0.859597 0.871203 1.03587 0.8586C1.21214 0.845997 1.38721 0.896045 1.53018 0.999916L6 5.43992L10.4702 0.999916C10.6111 0.908526 10.7787 0.867105 10.946 0.882292C11.1133 0.89748 11.2707 0.968396 11.3929 1.08368C11.5151 1.19896 11.595 1.35192 11.6199 1.51806C11.6448 1.68419 11.6132 1.85388 11.5302 1.99992L6.53018 6.99992C6.46351 7.07548 6.38212 7.13663 6.291 7.17961C6.19984 7.2226 6.10089 7.24653 6 7.24992Z"
-                                fill="white"
-                              />
-                            </svg>
+                        <div className="" onClick={toggleDropdown}>
+                          <div>
+                            <div className="rounded-lg bg-[#B78AF7] w-12 h-8  px-[5px] py-[5px] flex justify-center items-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="12"
+                                height="8"
+                                viewBox="0 0 12 8"
+                                fill="none"
+                              >
+                                <path
+                                  d="M6 7.25C5.90164 7.25038 5.804 7.23116 5.713 7.19338C5.622 7.1556 5.53942 7.10003 5.47018 7.02992L0.47018 2.02992C0.370455 1.88402 0.325452 1.70759 0.34311 1.53175C0.360767 1.35592 0.43995 1.19196 0.566693 1.0688C0.693436 0.945647 0.859597 0.871203 1.03587 0.8586C1.21214 0.845997 1.38721 0.896045 1.53018 0.999916L6 5.43992L10.4702 0.999916C10.6111 0.908526 10.7787 0.867105 10.946 0.882292C11.1133 0.89748 11.2707 0.968396 11.3929 1.08368C11.5151 1.19896 11.595 1.35192 11.6199 1.51806C11.6448 1.68419 11.6132 1.85388 11.5302 1.99992L6.53018 6.99992C6.46351 7.07548 6.38212 7.13663 6.291 7.17961C6.19984 7.2226 6.10089 7.24653 6 7.24992Z"
+                                  fill="white"
+                                />
+                              </svg>
+                            </div>
                           </div>
                         </div>
 
@@ -491,6 +604,7 @@ export default function VoucherAddnew({ onClose }) {
 
               <div className="cta flex items-center justify-center mt-[48px] mb-[78px]">
                 <button
+                  onClick={onClose}
                   type="submit"
                   className="w-[574px] bg-[#9654F4] rounded-full border border-[#9654F4] shadow-[0px_1px_2px_0px_rgba(198,228,246,0.05) py-3 px-5 text-white"
                 >

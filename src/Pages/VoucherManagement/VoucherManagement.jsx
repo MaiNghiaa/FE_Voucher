@@ -139,7 +139,7 @@ export default function VoucherManagement() {
     SetisOpenModallAddnew(true);
   };
   return (
-    <div className="">
+    <div className="box-border">
       <button
         data-drawer-target="logo-sidebar"
         data-drawer-toggle="logo-sidebar"
@@ -390,8 +390,8 @@ export default function VoucherManagement() {
       </aside>
 
       {!showModalDetail ? (
-        <div className="p-4 sm:ml-80 bg-sky-400">
-          <div className="pt-4 px-[42px] pb-[100px] border-2 border-gray-200  rounded-lg dark:border-gray-700 bg-white">
+        <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen bg-sky-400">
+          <div className="pt-4 px-[42px] border-1 border-gray-200  rounded-lg dark:border-gray-700 bg-white h-full">
             <div className="Logo-nhatuyendung flex justify-end gap-4 items-center mb-4">
               <p className="ten-ntd font-medium text-base">Thead</p>
               <picture className="w-10 h-10 object-contain rounded-[40px]">
@@ -426,72 +426,84 @@ export default function VoucherManagement() {
                 </span>
               </button>
             </div>
-            <div className="mt-6 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.2)] rounded-lg overflow-hidden">
-              <table className="w-full text-left border-collapse box-border">
-                <thead className="">
-                  <tr className=" bg-[#EFE6FD] text-base font-bold">
-                    <th className="py-3 px-[25px] inline-block  border border-[#CACACA] text-center">
-                      Ảnh/
-                      <br />
-                      Video
+            <div className="mt-6 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.2)] rounded-lg overflow-hidden overflow-x-auto">
+              <table className="min-w-full text-left border-collapse border box-border">
+                <thead className="bg-[#EFE6FD] text-black text-base leading-normal table-header-height">
+                  <tr className="bg-[#EFE6FD] text-black text-base leading-bold h-12">
+                    <th className="py-3 px-[25px] border border-gray-300 text-center">
+                      <p className="w-[44px] whitespace-normal mx-auto">
+                        Ảnh/
+                        <br />
+                        video
+                      </p>
                     </th>
-                    <th className="   text-center">
-                      <p className="">Tên Voucher</p>
+                    <th className="py-3 px-[69px] text-center border border-gray-300">
+                      <div className="py-3 px-[111.5px]">
+                        <p>Tên Voucher</p>
+                      </div>
                     </th>
-                    <th className=" text-center py-3">
-                      <p className="flex items-center justify-center">
+                    <th className="py-3 px-6 border border-gray-300 text-center">
+                      <p className="w-[40px] whitespace-normal mx-auto">
                         Phân loại
                       </p>
                     </th>
-                    <th className="   text-center">
-                      <p className="">Đối tượng sử dụng</p>
+                    <th className="py-3 px-6 border border-gray-300 text-center">
+                      <p className="w-[102px] whitespace-normal mx-auto">
+                        Đối tượng sử dụng
+                      </p>
                     </th>
-                    <th className="   text-center">Trạng thái</th>
-                    <th className="   text-center">
-                      <p className="">Thao tác</p>
+                    <th className="py-3 px-6 border border-gray-300 text-center">
+                      <p className="w-[80px] whitespace-normal mx-auto">
+                        Trạng thái
+                      </p>
+                    </th>
+                    <th className="py-3 px-6 border border-gray-300 text-center">
+                      <p className="w-[69px] whitespace-normal mx-auto">
+                        Thao tác
+                      </p>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.slice(0, visibleCount).map((item, index) => (
-                    <tr key={index} className=" text-center">
-                      <td className="">
+                    <tr key={index} className="bg-white text-center">
+                      <td className="py-2 px-[25px] border border-gray-300 text-center">
                         <img
                           src={item.image}
                           alt="Voucher"
-                          className="w-[76px] h-[80px] object-cover p-2"
+                          className="w-[76px] h-[80px] object-cover mx-auto"
                         />
                       </td>
-                      <td className="  text-center">
+                      <td className="py-2 px-[69px] border border-gray-300 text-center">
                         <p className="flex items-center justify-center">
                           {item.voucherName}
                         </p>
                       </td>
-                      <td className="   text-center">
-                        <p className="">{item.category}</p>
+                      <td className="py-2 px-6 border border-gray-300 text-center">
+                        <p>{item.category}</p>
                       </td>
-                      <td className="   text-center">
-                        <p className="">{item.usageTarget}</p>
+                      <td className="py-2 px-6 border border-gray-300 text-center">
+                        <p>{item.usageTarget}</p>
                       </td>
-                      <td className="   text-center ">
+                      <td className="py-2 px-6 border border-gray-300 text-center">
                         <p
-                          className={`{ ${
+                          className={`${
                             item.status === "Hoạt động"
-                              ? "text-green-500 "
-                              : "text-red-500 "
+                              ? "text-green-500"
+                              : "text-red-500"
                           }`}
                         >
                           {item.status}
                         </p>
                       </td>
-                      <td className="   text-center ">
-                        <div className="flex flex-col">
+                      <td className="py-2 px-6 border border-gray-300 text-center">
+                        <div className="flex flex-col items-center justify-center">
                           <button
-                            className="text-blue-500 cursor-pointer"
+                            className="text-blue-500 cursor-pointer mb-1"
                             onClick={() => handleDetail()}
                           >
                             Chi tiết
-                          </button>{" "}
+                          </button>
                           <button
                             className="text-red-500 cursor-pointer"
                             onClick={() => {
@@ -608,194 +620,4 @@ export default function VoucherManagement() {
       )}
     </div>
   );
-}
-{
-  /* <IconButton variant="text" size="lg" onClick={openDrawer}>
-        {isDrawerOpen ? (
-          <XMarkIcon className="h-8 w-8 stroke-2" />
-        ) : (
-          <Bars3Icon className="h-8 w-8 stroke-2" />
-        )}
-      </IconButton>
-      <Drawer open={isDrawerOpen} onClose={closeDrawer}>
-        <Card
-          color="transparent"
-          shadow={false}
-          className="h-[calc(100vh-2rem)] w-full p-4"
-        >
-          <div className="mb-2 flex items-center gap-4 p-4">
-            <img
-              src="https://docs.material-tailwind.com/img/logo-ct-dark.png"
-              alt="brand"
-              className="h-8 w-8"
-            />
-            <Typography variant="h5" color="blue-gray">
-              Sidebar
-            </Typography>
-          </div>
-          <div className="p-2">
-            <Input
-              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-              label="Search"
-            />
-          </div>
-          <List>
-            <Accordion
-              open={open === 1}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 1}>
-                <AccordionHeader
-                  onClick={() => handleOpen(1)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix>
-                    <PresentationChartBarIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  <Typography color="blue-gray" className="mr-auto font-normal">
-                    Dashboard
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Analytics
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Reporting
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Projects
-                  </ListItem>
-                </List>
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              open={open === 2}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 2 ? "rotate-180" : ""
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 2}>
-                <AccordionHeader
-                  onClick={() => handleOpen(2)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix>
-                    <ShoppingBagIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  <Typography color="blue-gray" className="mr-auto font-normal">
-                    E-Commerce
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Orders
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Products
-                  </ListItem>
-                </List>
-              </AccordionBody>
-            </Accordion>
-            <hr className="my-2 border-blue-gray-50" />
-            <ListItem>
-              <ListItemPrefix>
-                <InboxIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Inbox
-              <ListItemSuffix>
-                <Chip
-                  value="14"
-                  size="sm"
-                  variant="ghost"
-                  color="blue-gray"
-                  className="rounded-full"
-                />
-              </ListItemSuffix>
-            </ListItem>
-            <ListItem>
-              <ListItemPrefix>
-                <UserCircleIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Profile
-            </ListItem>
-            <ListItem>
-              <ListItemPrefix>
-                <Cog6ToothIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Settings
-            </ListItem>
-            <ListItem>
-              <ListItemPrefix>
-                <PowerIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Log Out
-            </ListItem>
-          </List>
-          <Alert
-            open={openAlert}
-            className="mt-auto"
-            onClose={() => setOpenAlert(false)}
-          >
-            <CubeTransparentIcon className="mb-4 h-12 w-12" />
-            <Typography variant="h6" className="mb-1">
-              Upgrade to PRO
-            </Typography>
-            <Typography variant="small" className="font-normal opacity-80">
-              Upgrade to Material Tailwind PRO and get even more components,
-              plugins, advanced features and premium.
-            </Typography>
-            <div className="mt-4 flex gap-3">
-              <Typography
-                as="a"
-                href="#"
-                variant="small"
-                className="font-medium opacity-80"
-                onClick={() => setOpenAlert(false)}
-              >
-                Dismiss
-              </Typography>
-              <Typography
-                as="a"
-                href="#"
-                variant="small"
-                className="font-medium"
-              >
-                Upgrade Now
-              </Typography>
-            </div>
-          </Alert>
-        </Card>
-      </Drawer> */
 }
