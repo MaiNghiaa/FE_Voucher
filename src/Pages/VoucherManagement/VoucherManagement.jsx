@@ -2,9 +2,53 @@ import React, { useState } from "react";
 import "../VoucherManagement/VoucherManagement.css";
 import VoucherDetail from "../../Components/VoucherManagement/VoucherDetail";
 import VoucherAddnew from "../../Components/VoucherManagement/VoucherAddnew";
-// import CloseModal from "../../Components/VoucherManagement/CloseModal";
+import {
+  IconButton,
+  Typography,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+  Alert,
+  Input,
+  Drawer,
+  Card,
+} from "@material-tailwind/react";
+import {
+  PresentationChartBarIcon,
+  ShoppingBagIcon,
+  UserCircleIcon,
+  Cog6ToothIcon,
+  InboxIcon,
+  PowerIcon,
+} from "@heroicons/react/24/solid";
+import {
+  ChevronRightIcon,
+  ChevronDownIcon,
+  CubeTransparentIcon,
+  MagnifyingGlassIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 export default function VoucherManagement() {
+  //
+  const [open, setOpen] = React.useState(0);
+  const [openAlert, setOpenAlert] = React.useState(true);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+
+  const handleOpen = (value) => {
+    setOpen(open === value ? 0 : value);
+  };
+
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => setIsDrawerOpen(false);
+
+  //
   const [visibleCount, setVisibleCount] = useState(3);
   const [showModal, setShowModal] = useState(false);
   const [showModalDetail, setShowModalDetail] = useState(false);
@@ -123,7 +167,7 @@ export default function VoucherManagement() {
         aria-label="Sidebar"
       >
         <div className="h-full px-6 py-7 overflow-y-auto bg-sky-300 dark:bg-gray-800">
-          <a href="/" className="flex items-center ps-2.5 mb-5 ">
+          <div className="flex items-center ps-2.5 mb-5 ">
             <img
               src="https://flowbite.com/docs/images/logo.svg"
               className="h-6 me-3 sm:h-7"
@@ -133,13 +177,10 @@ export default function VoucherManagement() {
             <span className="flex flex-wrap self-center text-xl font-semibold whitespace-nowrap dark:text-white">
               Vouchers Business
             </span>
-          </a>
-          <ul className="space-y-2 text-base font-normal">
+          </div>
+          <ul className="space-y-2 text-base font-normal flex flex-wrap flex-col gap-3">
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -156,13 +197,10 @@ export default function VoucherManagement() {
                   />
                 </svg>
                 <span className="ms-4">Trang chủ</span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -183,13 +221,10 @@ export default function VoucherManagement() {
                 <span className="flex-1 ms-4 whitespace-nowrap">
                   Khách hàng quay lại
                 </span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -209,13 +244,10 @@ export default function VoucherManagement() {
                 <span className="count flex items-center justify-center w-3 h-3 py-2.5 px-4 ms-4 text-sm font-medium text-white bg-[#9654F4] rounded-full dark:bg-blue-900 dark:text-blue-300">
                   3
                 </span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -232,13 +264,10 @@ export default function VoucherManagement() {
                 <span className="flex-1 ms-4 whitespace-nowrap">
                   Quản lý chiến dịch voucher
                 </span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -280,13 +309,10 @@ export default function VoucherManagement() {
                 <span className="flex-1 ms-4 whitespace-nowrap">
                   Quản lý sản phẩm
                 </span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -314,13 +340,10 @@ export default function VoucherManagement() {
                 <span className="flex-1 ms-4 whitespace-nowrap">
                   Quản lý phần thưởng
                 </span>
-              </a>
+              </div>
             </li>
             <li>
-              <a
-                href="#"
-                className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group"
-              >
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
                 <svg
                   className="icon"
                   width="24"
@@ -360,11 +383,12 @@ export default function VoucherManagement() {
                 </svg>
 
                 <span className="flex-1 ms-4 whitespace-nowrap">Xem thêm</span>
-              </a>
+              </div>
             </li>
           </ul>
         </div>
       </aside>
+
       {!showModalDetail ? (
         <div className="p-4 sm:ml-80 bg-sky-400">
           <div className="pt-4 px-[42px] pb-[100px] border-2 border-gray-200  rounded-lg dark:border-gray-700 bg-white">
@@ -403,69 +427,64 @@ export default function VoucherManagement() {
               </button>
             </div>
             <div className="mt-6 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.2)] rounded-lg overflow-hidden">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left border-collapse box-border">
                 <thead className="">
-                  <tr className=" border border-[#CACACA] bg-[#EFE6FD] text-base font-bold">
-                    <th className="p-[12px_25px] border border-[#CACACA] text-center">
-                      <p className="">Ảnh/Video</p>
+                  <tr className=" bg-[#EFE6FD] text-base font-bold">
+                    <th className="py-3 px-[25px] inline-block  border border-[#CACACA] text-center">
+                      Ảnh/
+                      <br />
+                      Video
                     </th>
-                    <th className="p-[12px_70px] border border-[#CACACA] text-center">
-                      <p className="p-[12px_110px]">Tên Voucher</p>
+                    <th className="   text-center">
+                      <p className="">Tên Voucher</p>
                     </th>
-                    <th className="border border-[#CACACA] text-center py-3">
+                    <th className=" text-center py-3">
                       <p className="flex items-center justify-center">
                         Phân loại
                       </p>
                     </th>
-                    <th className="p-[12px_13px] border border-[#CACACA] text-center">
-                      <p className="px-1">Đối tượng sử dụng</p>
+                    <th className="   text-center">
+                      <p className="">Đối tượng sử dụng</p>
                     </th>
-                    <th className="p-[12px_36px] border border-[#CACACA] text-center">
-                      Trạng thái
-                    </th>
-                    <th className=" border border-[#CACACA] text-center">
-                      <p className="p-[24px_12.5px]">Thao tác</p>
+                    <th className="   text-center">Trạng thái</th>
+                    <th className="   text-center">
+                      <p className="">Thao tác</p>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.slice(0, visibleCount).map((item, index) => (
-                    <tr
-                      key={index}
-                      className="border border-[#CACACA] text-center"
-                    >
-                      <td className=" border  flex items-center justify-center">
-                        <picture className="py-1 px-2.5">
-                          <img
-                            src={item.image}
-                            alt="Voucher"
-                            className="w-[76px] h-[80px] object-cover"
-                          />
-                        </picture>
+                    <tr key={index} className=" text-center">
+                      <td className="">
+                        <img
+                          src={item.image}
+                          alt="Voucher"
+                          className="w-[76px] h-[80px] object-cover p-2"
+                        />
                       </td>
-                      <td className="py-[36px] border border-[#CACACA] text-center">
+                      <td className="  text-center">
                         <p className="flex items-center justify-center">
                           {item.voucherName}
                         </p>
                       </td>
-                      <td className="p-[12px_80px] border border-[#CACACA] text-center">
-                        <p className="p-[12px_31.5px]">{item.category}</p>
+                      <td className="   text-center">
+                        <p className="">{item.category}</p>
                       </td>
-                      <td className="p-[12px_13px] border border-[#CACACA] text-center">
-                        <p className="px-1">{item.usageTarget}</p>
+                      <td className="   text-center">
+                        <p className="">{item.usageTarget}</p>
                       </td>
-                      <td className=" border border-[#CACACA] text-center ">
+                      <td className="   text-center ">
                         <p
                           className={`{ ${
                             item.status === "Hoạt động"
-                              ? "text-green-500 p-[36px_12.5px]"
-                              : "text-red-500 p-[24px_8.5px]"
+                              ? "text-green-500 "
+                              : "text-red-500 "
                           }`}
                         >
                           {item.status}
                         </p>
                       </td>
-                      <td className="p-[12px_69px] border border-[#CACACA] text-center ">
+                      <td className="   text-center ">
                         <div className="flex flex-col">
                           <button
                             className="text-blue-500 cursor-pointer"
@@ -589,4 +608,194 @@ export default function VoucherManagement() {
       )}
     </div>
   );
+}
+{
+  /* <IconButton variant="text" size="lg" onClick={openDrawer}>
+        {isDrawerOpen ? (
+          <XMarkIcon className="h-8 w-8 stroke-2" />
+        ) : (
+          <Bars3Icon className="h-8 w-8 stroke-2" />
+        )}
+      </IconButton>
+      <Drawer open={isDrawerOpen} onClose={closeDrawer}>
+        <Card
+          color="transparent"
+          shadow={false}
+          className="h-[calc(100vh-2rem)] w-full p-4"
+        >
+          <div className="mb-2 flex items-center gap-4 p-4">
+            <img
+              src="https://docs.material-tailwind.com/img/logo-ct-dark.png"
+              alt="brand"
+              className="h-8 w-8"
+            />
+            <Typography variant="h5" color="blue-gray">
+              Sidebar
+            </Typography>
+          </div>
+          <div className="p-2">
+            <Input
+              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+              label="Search"
+            />
+          </div>
+          <List>
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Dashboard
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Analytics
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Reporting
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Projects
+                  </ListItem>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <Accordion
+              open={open === 2}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 2 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 2}>
+                <AccordionHeader
+                  onClick={() => handleOpen(2)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <ShoppingBagIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    E-Commerce
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Orders
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Products
+                  </ListItem>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <hr className="my-2 border-blue-gray-50" />
+            <ListItem>
+              <ListItemPrefix>
+                <InboxIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Inbox
+              <ListItemSuffix>
+                <Chip
+                  value="14"
+                  size="sm"
+                  variant="ghost"
+                  color="blue-gray"
+                  className="rounded-full"
+                />
+              </ListItemSuffix>
+            </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <UserCircleIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Profile
+            </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <Cog6ToothIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Settings
+            </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <PowerIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Log Out
+            </ListItem>
+          </List>
+          <Alert
+            open={openAlert}
+            className="mt-auto"
+            onClose={() => setOpenAlert(false)}
+          >
+            <CubeTransparentIcon className="mb-4 h-12 w-12" />
+            <Typography variant="h6" className="mb-1">
+              Upgrade to PRO
+            </Typography>
+            <Typography variant="small" className="font-normal opacity-80">
+              Upgrade to Material Tailwind PRO and get even more components,
+              plugins, advanced features and premium.
+            </Typography>
+            <div className="mt-4 flex gap-3">
+              <Typography
+                as="a"
+                href="#"
+                variant="small"
+                className="font-medium opacity-80"
+                onClick={() => setOpenAlert(false)}
+              >
+                Dismiss
+              </Typography>
+              <Typography
+                as="a"
+                href="#"
+                variant="small"
+                className="font-medium"
+              >
+                Upgrade Now
+              </Typography>
+            </div>
+          </Alert>
+        </Card>
+      </Drawer> */
 }
