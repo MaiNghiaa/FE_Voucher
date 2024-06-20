@@ -60,3 +60,37 @@ li:hover a span.count {
   display: inline-block;
   border: 0.5px solid #000000;
 }
+
+.inner-bg {
+  background: radial-gradient(
+      72.57% 49.33% at 70.82% 114.03%,
+      rgba(195, 45, 180, 0.15) 16.65%,
+      rgba(233, 120, 222, 0) 100%
+    ),
+    radial-gradient(
+      45.21% 68.82% at 48.05% -2.24%,
+      rgba(101, 179, 234, 0.15) 0%,
+      rgba(0, 163, 255, 0) 92.46%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.2) 100%
+    ),
+    var(--Purple-Prymary---50, #efe6fd);
+}
+
+.hover-effect:hover {
+  background: #9654f4;
+  color: white;
+}
+
+.hover-effect:hover svg path {
+  fill: white;
+}
+
+.hover-effect.stroke:hover svg path,
+.hover-effect:hover .icon rect {
+  fill: white;
+  stroke: white;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../VoucherManagement/VoucherManagement.css";
-import VoucherDetail from "../../Components/VoucherManagement/VoucherDetail";
-import VoucherAddnew from "../../Components/VoucherManagement/VoucherAddnew";
+import VoucherDetail from "../../Components/VoucherManagement/VoucherDetail/VoucherDetail";
+import VoucherAddnew from "../../Components/VoucherManagement/VoucherAddnew/VoucherAddnew";
 import {
   IconButton,
   Typography,
@@ -166,23 +166,41 @@ export default function VoucherManagement() {
         className=" fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-slate-200"
         aria-label="Sidebar"
       >
-        <div className="h-full px-6 py-7 overflow-y-auto bg-sky-300 dark:bg-gray-800">
-          <div className="flex items-center ps-2.5 mb-5 ">
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-6 me-3 sm:h-7"
-              alt=""
-            />
+        <div className="h-full px-6 py-7 overflow-y-auto bg-sky-300 dark:bg-gray-800 ">
+          <div className="flex items-center ps-2.5 mb-7 gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="32"
+              viewBox="0 0 28 32"
+              fill="none"
+            >
+              <path
+                d="M1.75 15.8734H12.25V31.6268H2.7526C2.3151 31.6268 1.91406 31.4217 1.6224 31.114C1.33073 30.7858 1.14844 30.3551 1.14844 29.8628V16.5503V15.8939H1.73177L1.75 15.8734ZM15.75 15.8734H26.25H26.8333V16.5298V29.8423C26.8333 30.3346 26.651 30.7858 26.3594 31.0935C26.0677 31.4217 25.6667 31.6063 25.2292 31.6063H15.7318V15.8529L15.75 15.8734Z"
+                fill="#9654F4"
+              />
+              <path
+                d="M14 1.18674C14.1823 0.961107 14.3646 0.776496 14.5833 0.612398C14.9844 0.325227 15.4583 0.181641 16.0599 0.181641C16.7344 0.181641 17.3359 0.550861 17.7917 1.04316C18.3021 1.6175 18.612 2.39697 18.612 3.05336C18.612 4.12 18.0469 5.14561 17.1719 6.1302C16.3698 7.05325 15.3125 7.9763 14.2734 8.87884L13.9818 9.1455L13.6901 8.87884C12.6328 7.95579 11.5938 7.05325 10.7917 6.1302C9.9349 5.1251 9.35156 4.12 9.35156 3.05336C9.35156 2.39697 9.66146 1.6175 10.1719 1.04316C10.6276 0.530349 11.2292 0.181641 11.9036 0.181641C12.5234 0.181641 12.9792 0.325227 13.3802 0.612398C13.599 0.755984 13.7995 0.961107 13.9635 1.18674H14Z"
+                fill="#9654F4"
+              />
+              <path
+                d="M27.4167 15.2171H15.75V9.96594H25.8672C26.4505 9.96594 26.9792 10.2326 27.362 10.6428C27.7448 11.0736 28 11.6479 28 12.3043V14.5607V15.2171H27.4167ZM12.25 15.2171H0.583333H0V14.5607V12.3043C0 11.6479 0.236979 11.0736 0.638021 10.6428C1.02083 10.2121 1.54948 9.96594 2.13281 9.96594H12.25V15.2171Z"
+                fill="#9654F4"
+              />
+              <path
+                d="M11.5753 8.75582C11.0102 8.26352 10.2992 7.68918 9.53361 7.17637C8.64038 6.561 7.71069 6.0482 6.87215 5.80205C6.10652 5.59693 5.41382 5.82256 5.04923 6.23281C4.88517 6.41742 4.79402 6.64305 4.79402 6.84817C4.81225 7.07381 4.93986 7.34047 5.21329 7.58662C6.05184 8.34557 7.98413 8.94043 11.5753 8.75582ZM14.5649 8.81735C15.0935 8.26352 16.406 7.0533 17.9008 6.0482C18.8852 5.37129 19.9242 4.79695 20.8904 4.53029C22.0753 4.20209 23.169 4.59182 23.807 5.28924C24.2081 5.74051 24.4268 6.29434 24.4086 6.8892C24.3904 7.48405 24.1169 8.07891 23.5518 8.59172C21.0544 10.8481 15.8409 9.71989 12.5961 9.98655C8.05704 10.3558 5.59611 9.59682 4.50236 8.59172C3.93725 8.07891 3.68204 7.48405 3.64559 6.8892C3.62736 6.29434 3.84611 5.72 4.24715 5.28924C4.88517 4.59182 5.97892 4.18158 7.16382 4.53029C8.11173 4.79695 9.16902 5.3918 10.1534 6.0482C11.63 7.0533 12.9607 8.26352 13.4893 8.81735L14.0362 9.3917L14.5831 8.81735H14.5649ZM18.5024 7.17637C17.755 7.68918 17.0258 8.26352 16.4607 8.75582C20.0518 8.94043 21.9841 8.36608 22.8227 7.58662C23.1143 7.34047 23.2419 7.07381 23.2419 6.84817C23.2419 6.64305 23.1508 6.41742 22.9867 6.23281C22.6039 5.82256 21.9294 5.59693 21.1638 5.80205C20.3253 6.02768 19.3956 6.561 18.5024 7.17637Z"
+                fill="#9654F4"
+              />
+            </svg>
 
-            <span className="flex flex-wrap self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              Vouchers Business
+            <span className="flex flex-wrap self-center text-xl tracking-[-2.105px] font-normal whitespace-normal dark:text-white w-[178px]">
+              Vouchers Blog Business
             </span>
           </div>
           <ul className="space-y-2 text-base font-normal flex flex-wrap flex-col gap-3">
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect">
                 <svg
-                  className="icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -190,8 +208,8 @@ export default function VoucherManagement() {
                   fill="none"
                 >
                   <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
                     d="M13.8186 4.6664C12.7439 3.77787 11.2561 3.77787 10.1815 4.6664L4.79539 9.11964C4.30425 9.52572 4 10.1673 4 10.8663V17.8109C4 19.0784 4.95214 20 6 20H8V16.7478C8 14.4927 9.73415 12.5587 12 12.5587C14.2659 12.5587 16 14.4927 16 16.7478V20H18C19.0479 20 20 19.0784 20 17.8109V10.8663C20 10.1673 19.6958 9.52572 19.2046 9.11965L13.8186 4.6664ZM15.093 3.12502L20.479 7.57827C21.4494 8.38059 22 9.59705 22 10.8663V17.8109C22 20.066 20.2659 22 18 22H16C14.8954 22 14 21.1046 14 20V16.7478C14 15.4803 13.0479 14.5587 12 14.5587C10.9521 14.5587 10 15.4803 10 16.7478V20C10 21.1046 9.10457 22 8 22H6C3.73415 22 2 20.066 2 17.8109V10.8663C2 9.59705 2.55059 8.38059 3.52097 7.57827L8.90703 3.12502C10.7213 1.62499 13.2787 1.62499 15.093 3.12502Z"
                     fill="black"
                   />
@@ -200,9 +218,8 @@ export default function VoucherManagement() {
               </div>
             </li>
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect stroke">
                 <svg
-                  className="icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -210,12 +227,12 @@ export default function VoucherManagement() {
                   fill="none"
                 >
                   <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
                     d="M5.25006 6C5.25006 4.74022 5.7505 3.53204 6.6413 2.64124C7.5321 1.75044 8.74028 1.25 10.0001 1.25C11.2598 1.25 12.468 1.75044 13.3588 2.64124C14.2496 3.53204 14.7501 4.74022 14.7501 6C14.7501 7.25978 14.2496 8.46796 13.3588 9.35876C12.468 10.2496 11.2598 10.75 10.0001 10.75C8.74028 10.75 7.5321 10.2496 6.6413 9.35876C5.7505 8.46796 5.25006 7.25978 5.25006 6ZM10.0001 2.75C9.1381 2.75 8.31145 3.09241 7.70196 3.7019C7.09247 4.3114 6.75006 5.13805 6.75006 6C6.75006 6.86195 7.09247 7.6886 7.70196 8.2981C8.31145 8.90759 9.1381 9.25 10.0001 9.25C10.862 9.25 11.6887 8.90759 12.2982 8.2981C12.9076 7.6886 13.2501 6.86195 13.2501 6C13.2501 5.13805 12.9076 4.3114 12.2982 3.7019C11.6887 3.09241 10.862 2.75 10.0001 2.75ZM3.97606 13.664C5.55606 12.776 7.68606 12.25 10.0001 12.25C12.3141 12.25 14.4451 12.776 16.0251 13.664C17.5811 14.54 18.7501 15.866 18.7501 17.5V17.602C18.7511 18.764 18.7531 20.222 17.4741 21.264C16.8441 21.776 15.9641 22.141 14.7741 22.381C13.5811 22.623 12.0261 22.75 10.0001 22.75C7.97406 22.75 6.42006 22.623 5.22606 22.381C4.03606 22.141 3.15606 21.776 2.52606 21.264C1.24806 20.222 1.24906 18.764 1.25006 17.602V17.5C1.25006 15.866 2.42006 14.54 3.97606 13.664ZM4.71106 14.972C3.37106 15.725 2.75106 16.649 2.75106 17.5C2.75106 18.808 2.79106 19.544 3.47406 20.1C3.84406 20.402 4.46406 20.697 5.52406 20.911C6.58106 21.125 8.02606 21.25 10.0001 21.25C11.9741 21.25 13.4201 21.125 14.4761 20.911C15.5361 20.697 16.1561 20.402 16.5261 20.101C17.2101 19.544 17.2501 18.808 17.2501 17.5C17.2501 16.649 16.6291 15.725 15.2901 14.972C13.9731 14.232 12.1051 13.75 10.0001 13.75C7.89506 13.75 6.02706 14.232 4.71106 14.972ZM16.6901 7.447C17.4111 7.128 18.2481 7.188 19.0001 7.679C19.7521 7.189 20.5901 7.128 21.3101 7.447C21.7422 7.64319 22.1081 7.9604 22.3637 8.36026C22.6193 8.76011 22.7535 9.22546 22.7501 9.7C22.7501 10.648 22.3361 11.362 21.8401 11.903C21.4521 12.325 20.9731 12.682 20.5951 12.963L20.3671 13.135L20.3651 13.136C20.2151 13.25 20.0241 13.396 19.8211 13.511C19.573 13.6604 19.2905 13.7427 19.0011 13.75C18.6661 13.75 18.3831 13.627 18.1791 13.511C17.9898 13.3984 17.8084 13.2731 17.6361 13.136L17.6341 13.135C17.5641 13.081 17.4871 13.025 17.4061 12.964C17.0271 12.682 16.5481 12.325 16.1611 11.904C15.6641 11.362 15.2511 10.648 15.2511 9.7C15.2511 8.7 15.8341 7.825 16.6901 7.447ZM16.7501 9.7C16.7501 9.288 16.9901 8.955 17.2971 8.819C17.5641 8.701 17.9871 8.689 18.4681 9.172C18.5378 9.24215 18.6206 9.29781 18.712 9.3358C18.8033 9.37379 18.9012 9.39334 19.0001 9.39334C19.0989 9.39334 19.1969 9.37379 19.2882 9.3358C19.3795 9.29781 19.4624 9.24215 19.5321 9.172C20.0121 8.689 20.4371 8.701 20.7021 8.819C20.8684 8.89735 21.0086 9.02207 21.1059 9.17817C21.2031 9.33428 21.2531 9.51513 21.2501 9.699C21.2501 10.164 21.0611 10.532 20.7341 10.889C20.4521 11.197 20.1161 11.448 19.7441 11.726L19.4571 11.942C19.3378 12.0379 19.2126 12.1261 19.0821 12.206C19.0558 12.2214 19.0284 12.2348 19.0001 12.246C18.9717 12.2348 18.9443 12.2214 18.9181 12.206C18.8181 12.15 18.7061 12.066 18.5441 11.942L18.2561 11.726C17.8841 11.448 17.5481 11.196 17.2661 10.889C16.9391 10.532 16.7501 10.165 16.7501 9.7Z"
                     fill="black"
                     stroke="black"
-                    strokeWidth="0.3"
+                    stroke-width="0.3"
                   />
                 </svg>
                 <span className="flex-1 ms-4 whitespace-nowrap">
@@ -224,9 +241,8 @@ export default function VoucherManagement() {
               </div>
             </li>
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
                 <svg
-                  className="icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -234,8 +250,8 @@ export default function VoucherManagement() {
                   fill="none"
                 >
                   <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
                     d="M15.0008 19C15.001 19.5046 14.8104 19.9906 14.4673 20.3605C14.1242 20.7305 13.654 20.9572 13.1508 20.995L13.0008 21H11.0008C10.4962 21.0002 10.0103 20.8096 9.64028 20.4665C9.2703 20.1234 9.04367 19.6532 9.00583 19.15L9.00082 19H15.0008ZM12.0008 2C13.8158 1.99997 15.5598 2.70489 16.8651 3.96607C18.1703 5.22726 18.9346 6.94609 18.9968 8.76L19.0008 9V12.764L20.8228 16.408C20.9023 16.567 20.9421 16.7429 20.9388 16.9206C20.9355 17.0984 20.8891 17.2727 20.8037 17.4286C20.7183 17.5845 20.5963 17.7174 20.4483 17.8158C20.3003 17.9143 20.1306 17.9754 19.9538 17.994L19.8388 18H4.16283C3.98499 18.0001 3.80979 17.957 3.65225 17.8745C3.4947 17.792 3.3595 17.6725 3.25824 17.5264C3.15698 17.3802 3.09267 17.2116 3.07083 17.0351C3.04899 16.8586 3.07026 16.6795 3.13283 16.513L3.17883 16.408L5.00083 12.764V9C5.00083 7.14348 5.73832 5.36301 7.05108 4.05025C8.36383 2.7375 10.1443 2 12.0008 2ZM12.0008 4C10.7124 4.00007 9.47366 4.49754 8.54305 5.38866C7.61243 6.27978 7.06174 7.49575 7.00583 8.783L7.00083 9V12.764C7.00084 13.012 6.95472 13.2579 6.86483 13.489L6.78983 13.659L5.61983 16H18.3828L17.2128 13.658C17.1018 13.4363 17.033 13.1959 17.0098 12.949L17.0008 12.764V9C17.0008 7.67392 16.474 6.40215 15.5364 5.46447C14.5987 4.52678 13.3269 4 12.0008 4Z"
                     fill="black"
                   />
@@ -247,9 +263,8 @@ export default function VoucherManagement() {
               </div>
             </li>
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
                 <svg
-                  className="icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -267,7 +282,26 @@ export default function VoucherManagement() {
               </div>
             </li>
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M14.2 8.6C14.5314 8.26863 15.0686 8.26863 15.4 8.6C15.7314 8.93137 15.7314 9.46863 15.4 9.8L9.8 15.4C9.46863 15.7314 8.93137 15.7314 8.6 15.4C8.26863 15.0686 8.26863 14.5314 8.6 14.2L14.2 8.6ZM4 4H20C21.11 4 22 4.89 22 6V9C22 9.55228 21.5258 9.98007 21.0411 10.2448C20.8753 10.3354 20.7218 10.4498 20.5858 10.5858C20.2107 10.9609 20 11.4696 20 12C20 12.5304 20.2107 13.0391 20.5858 13.4142C20.7218 13.5502 20.8753 13.6646 21.0411 13.7552C21.5258 14.0199 22 14.4477 22 15V18C22 19.11 21.11 20 20 20H4C3.46957 20 2.96086 19.7893 2.58579 19.4142C2.21071 19.0391 2 18.5304 2 18V15C2 14.4477 2.47446 14.0215 2.95961 13.7576C3.58108 13.4195 4 12.7615 4 12C4 11.4696 3.78929 10.9609 3.41421 10.5858C3.27822 10.4498 3.12466 10.3354 2.95887 10.2448C2.47419 9.98007 2 9.55228 2 9V6C2 5.46957 2.21071 4.96086 2.58579 4.58579C2.96086 4.21071 3.46957 4 4 4ZM5 6C4.44772 6 4 6.44772 4 7V7.96228C4 8.31975 4.19721 8.64238 4.4779 8.86372C4.87418 9.17619 5.20907 9.56206 5.46325 10.0021C5.81415 10.6094 5.9989 11.2985 5.9989 12C5.9989 12.7015 5.81415 13.3906 5.46325 13.9979C5.20907 14.4379 4.87418 14.8238 4.4779 15.1363C4.19721 15.3576 4 15.6803 4 16.0377V17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17V16.0377C20 15.6803 19.8028 15.3576 19.5221 15.1363C19.1258 14.8238 18.7909 14.4379 18.5367 13.9979C18.1858 13.3906 18.0011 12.7015 18.0011 12C18.0011 11.2985 18.1858 10.6094 18.5367 10.0021C18.7909 9.56206 19.1258 9.17619 19.5221 8.86372C19.8028 8.64238 20 8.31975 20 7.96228V7C20 6.44772 19.5523 6 19 6H5ZM9.5 8C10.33 8 11 8.67 11 9.5C11 10.33 10.33 11 9.5 11C8.67 11 8 10.33 8 9.5C8 8.67 8.67 8 9.5 8ZM14.5 13C15.33 13 16 13.67 16 14.5C16 15.33 15.33 16 14.5 16C13.67 16 13 15.33 13 14.5C13 13.67 13.67 13 14.5 13Z"
+                    fill="black"
+                  />
+                </svg>
+                <span className="flex-1 ms-4 whitespace-nowrap">
+                  Quản lý Voucher
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect stroke">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -311,8 +345,9 @@ export default function VoucherManagement() {
                 </span>
               </div>
             </li>
+
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"
@@ -343,7 +378,7 @@ export default function VoucherManagement() {
               </div>
             </li>
             <li>
-              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group">
+              <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
                 <svg
                   className="icon"
                   width="24"
@@ -390,8 +425,8 @@ export default function VoucherManagement() {
       </aside>
 
       {!showModalDetail ? (
-        <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen bg-sky-400">
-          <div className="pt-4 px-[42px] border-1 border-gray-200  rounded-lg dark:border-gray-700 bg-white h-full">
+        <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
+          <div className="pt-4 px-[42px] pb-[99px] border-1 border-gray-200  rounded-lg dark:border-gray-700 bg-white h-auto">
             <div className="Logo-nhatuyendung flex justify-end gap-4 items-center mb-4">
               <p className="ten-ntd font-medium text-base">Thead</p>
               <picture className="w-10 h-10 object-contain rounded-[40px]">
@@ -428,7 +463,7 @@ export default function VoucherManagement() {
             </div>
             <div className="mt-6 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.2)] rounded-lg overflow-hidden overflow-x-auto">
               <table className="min-w-full text-left border-collapse border box-border">
-                <thead className="bg-[#EFE6FD] text-black text-base leading-normal table-header-height">
+                <thead className="bg-[#EFE6FD] text-black text-base leading-normal table-header-height font-bold">
                   <tr className="bg-[#EFE6FD] text-black text-base leading-bold h-12">
                     <th className="py-3 px-[25px] border border-gray-300 text-center">
                       <p className="w-[44px] whitespace-normal mx-auto">
@@ -466,7 +501,10 @@ export default function VoucherManagement() {
                 </thead>
                 <tbody>
                   {data.slice(0, visibleCount).map((item, index) => (
-                    <tr key={index} className="bg-white text-center">
+                    <tr
+                      key={index}
+                      className="bg-white text-center text-base font-medium"
+                    >
                       <td className="py-2 px-[25px] border border-gray-300 text-center">
                         <img
                           src={item.image}
@@ -487,10 +525,10 @@ export default function VoucherManagement() {
                       </td>
                       <td className="py-2 px-6 border border-gray-300 text-center">
                         <p
-                          className={`${
+                          className={` ${
                             item.status === "Hoạt động"
-                              ? "text-green-500"
-                              : "text-red-500"
+                              ? "text-green-500 text-base font-medium"
+                              : "text-red-500 text-base font-medium"
                           }`}
                         >
                           {item.status}

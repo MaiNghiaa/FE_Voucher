@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../VoucherDetail/VoucherDetail.css";
 export default function VoucherDetail({ onClose }) {
   const bgMain = {
     borderRadius: "8px",
@@ -8,7 +8,7 @@ export default function VoucherDetail({ onClose }) {
   };
 
   return (
-    <div className="p-4 sm:p-0 sm:ml-80 bg-sky-400">
+    <div className="p-4 sm:ml-80 inner-bg">
       <div className="relative pt-4 pb-[100px] border-2 border-gray-200 rounded-lg dark:border-gray-700 bg-white">
         <div className="absolute left-[28px] top-[28px]" onClick={onClose}>
           <svg
