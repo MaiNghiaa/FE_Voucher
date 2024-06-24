@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import "../Sections/Sidebar.css";
 export default function Sidebar() {
+  const [activeIndex, setActiveIndex] = useState(() => {
+    // Initialize state from localStorage
+    const savedIndex = localStorage.getItem("activeIndex");
+    return savedIndex !== null ? Number(savedIndex) : 1;
+  });
+
+  useEffect(() => {
+    // Update localStorage whenever activeIndex changes
+    localStorage.setItem("activeIndex", activeIndex);
+  }, [activeIndex]);
+
+  const handleClick = (index) => {
+    setActiveIndex(index);
+  };
   return (
     <div>
       <button
@@ -62,9 +76,15 @@ export default function Sidebar() {
             </span>
           </div>
           <ul className="space-y-2 text-base font-normal flex flex-wrap flex-col gap-3">
-            <li>
+            <li onClick={() => handleClick(1)}>
               <Link to="/">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 1
+                      ? "active-items active-icon-svg-fath"
+                      : ""
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -83,9 +103,16 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-            <li>
-              <Link to="/">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect stroke">
+            <li onClick={() => handleClick(2)}>
+              <Link to="/Khachhangquaytrolai">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 2
+                      ? "active-items active-icon-svg-fath"
+                      : ""
+                  }`}
+                >
+                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -108,9 +135,16 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-            <li>
-              <Link to="/">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
+            <li onClick={() => handleClick(3)}>
+              <Link to="/Thongbao">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 3
+                      ? "active-items active-icon-svg-fath"
+                      : ""
+                  }`}
+                >
+                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -134,9 +168,16 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-            <li>
+            <li onClick={() => handleClick(4)}>
               <Link to="/VoucherCampaignManagement">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 4
+                      ? "active-items active-icon-svg-fath"
+                      : ""
+                  }`}
+                >
+                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -155,9 +196,16 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-            <li>
+            <li onClick={() => handleClick(5)}>
               <Link to="/VoucherManagerment">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 5
+                      ? "active-items active-icon-svg-fath"
+                      : ""
+                  }`}
+                >
+                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -176,9 +224,16 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-            <li>
-              <Link to="/">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect stroke">
+            <li onClick={() => handleClick(6)}>
+              <Link to="/Quanlysanpham">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 6
+                      ? "active-items-more"
+                      : ""
+                  }`}
+                >
+                  {" "}
                   <svg
                     className="icon"
                     xmlns="http://www.w3.org/2000/svg"
@@ -223,10 +278,15 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-
-            <li>
-              <Link to="/">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
+            <li onClick={() => handleClick(7)}>
+              <Link to="/Quanlytienthuong">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 7
+                      ? "active-items-more"
+                      : ""
+                  }`}
+                >
                   <svg
                     className="icon"
                     xmlns="http://www.w3.org/2000/svg"
@@ -257,9 +317,15 @@ export default function Sidebar() {
                 </div>
               </Link>
             </li>
-            <li>
-              <Link to="/">
-                <div className="flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white  group hover-effect">
+            <li onClick={() => handleClick(8)}>
+              <Link to="/Xemthem">
+                <div
+                  className={`flex items-center py-2.5 px-4 text-gray-900 rounded-lg dark:text-white group hover-effect ${
+                    localStorage.getItem("activeIndex") === 8
+                      ? "active-items-more"
+                      : ""
+                  }`}
+                >
                   <svg
                     className="icon"
                     width="24"

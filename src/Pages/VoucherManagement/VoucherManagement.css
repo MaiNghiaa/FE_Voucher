@@ -79,18 +79,3 @@ li:hover a span.count {
     ),
     var(--Purple-Prymary---50, #efe6fd);
 }
-
-.hover-effect:hover {
-  background: #9654f4;
-  color: white;
-}
-
-.hover-effect:hover svg path {
-  fill: white;
-}
-
-.hover-effect.stroke:hover svg path,
-.hover-effect:hover .icon rect {
-  fill: white;
-  stroke: white;
-}

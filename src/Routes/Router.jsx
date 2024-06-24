@@ -6,6 +6,11 @@ import LandingPage from "../Pages/LandingPage/LandingPage";
 import VoucherManagement from "../Pages/VoucherManagement/VoucherManagement";
 
 import VoucherCampaignManagement from "../Pages/VoucherCampaignManagement/VoucherCampaignManagement";
+import Khachhangquaytrolai from "../Pages/Khachhangquaytrolai/Khachhangquaytrolai";
+import Quanlysanpham from "../Pages/Quanlysanpham/Quanlysanpham";
+import Quanlytienthuong from "../Pages/Quanlytienthuong/Quanlytienthuong";
+import Xemthem from "../Pages/Xemthem/Xemthem";
+import Thongbao from "../Pages/Thongbao/Thongbao";
 
 const PageLayout = lazy(() => import("../Layouts/PageLayout"));
 
@@ -36,6 +41,26 @@ function RouterComponent() {
         {
           path: "/VoucherCampaignManagement",
           element: <VoucherCampaignManagement />,
+        },
+        {
+          path: "/Khachhangquaytrolai",
+          element: <Khachhangquaytrolai />,
+        },
+        {
+          path: "/Thongbao",
+          element: <Thongbao />,
+        },
+        {
+          path: "/Quanlysanpham",
+          element: <Quanlysanpham />,
+        },
+        {
+          path: "/Quanlytienthuong",
+          element: <Quanlytienthuong />,
+        },
+        {
+          path: "/Xemthem",
+          element: <Xemthem />,
         },
       ],
     },
