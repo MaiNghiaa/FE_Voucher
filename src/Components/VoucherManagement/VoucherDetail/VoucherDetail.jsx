@@ -74,7 +74,7 @@ export default function VoucherDetail({ onClose }) {
                     <input
                       type="text"
                       defaultValue="10%"
-                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[#F7F7F7] w-full"
+                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[] w-full"
                       readOnly
                     />
                   </div>
@@ -83,7 +83,7 @@ export default function VoucherDetail({ onClose }) {
                     <input
                       type="text"
                       defaultValue="10k"
-                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[#F7F7F7] w-full"
+                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[] w-full"
                       readOnly
                     />
                   </div>
@@ -102,7 +102,7 @@ export default function VoucherDetail({ onClose }) {
                     <input
                       type="text"
                       defaultValue="50k"
-                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[#F7F7F7] w-full"
+                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[] w-full"
                       readOnly
                     />
                   </div>
@@ -113,7 +113,7 @@ export default function VoucherDetail({ onClose }) {
                     <input
                       type="text"
                       defaultValue="Trà sữa chân châu, trà sữa matcha"
-                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[#F7F7F7] w-full"
+                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[] w-full"
                       readOnly
                     />
                   </div>
@@ -124,7 +124,7 @@ export default function VoucherDetail({ onClose }) {
                     <input
                       type="text"
                       defaultValue="18h - 21h"
-                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[#F7F7F7] w-full"
+                      className="outline-none p-3 rounded-lg border border-[#CACACA] bg-[] w-full"
                       readOnly
                     />
                   </div>

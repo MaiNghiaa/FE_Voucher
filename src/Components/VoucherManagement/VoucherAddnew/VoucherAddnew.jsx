@@ -54,12 +54,9 @@ export default function VoucherAddnew({ onClose }) {
   const handledataCheckboxItemClick = (index) => {
     const updatedItems = datacheckboxItem.map((item, idx) => {
       if (idx === index) {
-        if (item.checked || ValidateCheck()) {
-          return { ...item, checked: !item.checked };
-        } else {
-          alert("You can only select up to 2 items.");
-        }
+        return { ...item, checked: !item.checked };
       }
+
       return item;
     });
     setDatacheckboxItem(updatedItems);
@@ -245,7 +242,7 @@ export default function VoucherAddnew({ onClose }) {
                 <div className="flex flex-col gap-4 w-full">
                   <input
                     type="text"
-                    className="flex w-full p-3 items-start rounded-lg border border-[#CACACA] outline-none font-medium text-[14px] leading-[22px] text-[#CACACA]"
+                    className="flex w-full p-3 items-start rounded-lg border border-[#CACACA] outline-none font-medium text-[14px] leading-[22px] placeholder:text-[#CACACA] text-black"
                     placeholder="nhập mô tả ở đây"
                   />
                 </div>
@@ -311,7 +308,7 @@ export default function VoucherAddnew({ onClose }) {
                       <input
                         type="number"
                         name="phantramgiam"
-                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
                         placeholder="nhập mô tả vào đây"
                       />
                     </div>
@@ -322,7 +319,7 @@ export default function VoucherAddnew({ onClose }) {
                       <input
                         type="text"
                         name="limit"
-                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
                         placeholder="nhập mô tả vào đây"
                       />
                     </div>
@@ -337,7 +334,7 @@ export default function VoucherAddnew({ onClose }) {
                       <input
                         type="number"
                         name="giatrigiam"
-                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
                         placeholder="nhập mô tả vào đây"
                       />
                     </div>
@@ -352,7 +349,7 @@ export default function VoucherAddnew({ onClose }) {
                       <input
                         type="number"
                         name="giatrigiam"
-                        className="flex-1 p-3 text-[#CACACA] border border-[#CACACA] outline-none rounded-lg"
+                        className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
                         placeholder="nhập mô tả vào đây"
                       />
                     </div>
@@ -377,7 +374,7 @@ export default function VoucherAddnew({ onClose }) {
                     <input
                       type="text"
                       defaultValue="50.000đ"
-                      className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1"
+                      className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1 outline-none"
                     />
                   </div>
                   <div className="flex-1 flex justify-start p-4 border rounded-lg">
@@ -392,7 +389,7 @@ export default function VoucherAddnew({ onClose }) {
                     <input
                       type="text"
                       defaultValue="50.000đ"
-                      className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1"
+                      className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1 outline-none"
                     />
                   </div>
                 </div>
