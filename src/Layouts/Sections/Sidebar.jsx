@@ -16,8 +16,12 @@ export default function Sidebar() {
   const handleClick = (index) => {
     setActiveIndex(index);
   };
+  const Bgmain = {
+    background:
+      "radial-gradient(72.57% 49.33% at 70.82% 114.03%, rgba(195, 45, 180, 0.15) 16.65%, rgba(233, 120, 222, 0.00) 100%), radial-gradient(45.21% 68.82% at 48.05% -2.24%, rgba(101, 179, 234, 0.15) 0%, rgba(0, 163, 255, 0.00) 92.46%), linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), var(--Purple-Prymary---50, #EFE6FD)",
+  };
   return (
-    <div>
+    <div style={Bgmain}>
       <button
         data-drawer-target="logo-sidebar"
         data-drawer-toggle="logo-sidebar"
@@ -44,7 +48,7 @@ export default function Sidebar() {
         className=" fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-slate-200"
         aria-label="Sidebar"
       >
-        <div className="h-full px-6 py-7 overflow-y-auto bg-sky-300 dark:bg-gray-800 ">
+        <div className="h-full px-6 py-7 overflow-y-auto bg-white dark:bg-gray-800 ">
           <div className="flex items-center ps-2.5 mb-7 gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
