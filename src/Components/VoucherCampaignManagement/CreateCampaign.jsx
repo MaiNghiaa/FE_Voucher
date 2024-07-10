@@ -77,6 +77,14 @@ export default function CreateCampaign({ onClose }) {
     });
     setopenmodalcuoicung(true);
   };
+
+  //endCreate
+  const endCreate = () => {
+    onClose();
+    setopenmodalcuoicung(false);
+    setIsOpen(false);
+  };
+
   const boxShadow = {
     boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25);",
   };
@@ -94,7 +102,7 @@ export default function CreateCampaign({ onClose }) {
   };
   return (
     <>
-      {openmodalcuoicung ? (
+      {!openmodalcuoicung ? (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
             <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
@@ -515,7 +523,12 @@ export default function CreateCampaign({ onClose }) {
                   </label>
                 </div>
               </div>
-              <button></button>
+              <button
+                className="w-full bg-purple-500 text-white p-2 rounded-full mt-4"
+                onClick={() => endCreate}
+              >
+                Đăng
+              </button>
             </div>
           </div>
         </div>
