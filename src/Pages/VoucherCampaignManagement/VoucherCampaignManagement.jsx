@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import VoucherCampaignManagementDetail from "../../Components/VoucherCampaignManagement/VoucherCampaignManagementDetail";
+import CreateCampaign from "../../Components/VoucherCampaignManagement/CreateCampaign";
 
 export default function VoucherCampaignManagement() {
-  const ClickAddnew = () => {};
+  const [ModalAddnew, setModalAddnew] = useState();
+  const openModalAddnew = () => {
+    setModalAddnew(true);
+  };
 
   const items = [
     {
@@ -77,7 +81,7 @@ export default function VoucherCampaignManagement() {
             </div>
             <div>
               <div className="flex items-center justify-center">
-                <button className="btn btnVoucher" onClick={ClickAddnew}>
+                <button className="btn btnVoucher" onClick={openModalAddnew}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="19"
@@ -185,6 +189,7 @@ export default function VoucherCampaignManagement() {
           }}
         />
       )}
+      {ModalAddnew && <CreateCampaign onClose={() => setModalAddnew(false)} />}
     </div>
   );
 }

@@ -83,7 +83,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                 />
               </svg>
             </div>
-            <div className="shadow-[0px_0px_2px_0px_rgba(0,0,0,0.25)] rounded-lg py-4">
+            <div className="shadow-[0px_0px_2px_0px_rgba(0,0,0,0.25)] rounded-t-lg py-4">
               <div className="flex justify-center items-center">
                 <h1 className="font-bold text-[28px] leading-9 text-black">
                   Chi tiết chiến dịch
@@ -93,7 +93,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
 
             <div className="mt-8 mb-12 mx-[24px] py-4 px-[25px] sm:px-[56px] flex flex-col shadow-[0px_0px_2px_0px_rgba(0,0,0,0.25)] relative">
               <div
-                className="absolute top-[8px] right-[8px]"
+                className="absolute top-[8px] right-[8px] cursor-pointer"
                 onClick={() => {
                   openModalUpdate();
                 }}
@@ -145,7 +145,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                   Danh sách voucher
                 </button>
                 <div
-                  className="absolute top-[10px] right-0 delete"
+                  className="absolute top-[10px] right-0 delete cursor-pointer"
                   onClick={toggleDropdown}
                 >
                   <svg
@@ -187,7 +187,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                   <div className="absolute top-[28px] right-0 bg-white border shadow-lg rounded-lg mt-1">
                     <ul>
                       <li
-                        className="flex py-5 pl-5 pr-[68px] gap-2"
+                        className="flex py-5 pl-5 pr-[68px] gap-2 cursor-pointer"
                         onClick={() => handleDeleteClick()}
                       >
                         <span>
@@ -267,7 +267,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                         className="flex items-center justify-center flex-1"
                         onClick={() => showmodalDetailChiendich()}
                       >
-                        <p className="text-[#36D39E] font-medium text-base leading-6">
+                        <p className="text-[#36D39E] font-medium text-base leading-6 cursor-pointer">
                           {itemvoucher.tenVoucher}
                         </p>
                       </div>
