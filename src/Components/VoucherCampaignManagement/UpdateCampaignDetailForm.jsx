@@ -66,12 +66,13 @@ export default function UpdateCampaignDetailForm({ onClose }) {
 
           <div className="mb-5 py-2.5 px-[25px] rounded-lg shadow-[0px_0px_5px_0px_rgba(0,0,0,0.25)]">
             <div className="flex items-center gap-3">
-              <label className="block text-black whitespace-nowrap">
+              <label className="block text-black whitespace-nowrap font-medium text-xl tracking-[-1px]">
                 Tên chiến dịch:
               </label>
               <input
                 type="text"
-                className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-xl tracking-[-1px]"
+                readOnly
+                className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base font-medium tracking-[-1px] outline-none"
                 value={campaignName}
                 onChange={(e) => setCampaignName(e.target.value)}
               />
@@ -79,7 +80,8 @@ export default function UpdateCampaignDetailForm({ onClose }) {
           </div>
           <div className="mb-5 relative">
             <textarea
-              className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-base font-medium text-black min-h-[194px] "
+              readOnly
+              className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-base font-medium text-black min-h-[194px] outline-none "
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -108,20 +110,21 @@ export default function UpdateCampaignDetailForm({ onClose }) {
                 Ngày bắt đầu chiến dịch:
               </label>
               <input
-                type="date"
-                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg"
+                readOnly
+                type="text"
+                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg outline-none"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 ref={dateInputRef}
               />
               <button
                 type="button"
-                className="absolute right-0 top-[2px]"
+                className="absolute right-0 top-[4px]"
                 onClick={handleClick}
               >
                 <svg
-                  width="48"
-                  height="54"
+                  width="49"
+                  height="49"
                   viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -143,20 +146,21 @@ export default function UpdateCampaignDetailForm({ onClose }) {
                 Ngày kết thúc chiến dịch:
               </label>
               <input
-                type="date"
-                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg"
+                readOnly
+                type="text"
+                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 rounded-lg outline-none"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 ref={dateInputRef}
               />
               <button
                 type="button"
-                className="absolute right-0 top-[2px]"
+                className="absolute right-0 top-[4px]"
                 onClick={handleClick}
               >
                 <svg
-                  width="48"
-                  height="54"
+                  width="49"
+                  height="49"
                   viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

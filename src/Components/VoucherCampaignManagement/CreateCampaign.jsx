@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
+import { datacheckbox, dataVoucher } from "../../MookData/DataCheckboxCampaign";
+import { Calendar } from "primereact/calendar";
 
 export default function CreateCampaign({ onClose }) {
   const [campaignName, setCampaignName] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("21-12-2023");
-  const [endDate, setEndDate] = useState("21-12-2023");
+  const [startDate, setStartDate] = useState("2023-12-21");
+  const [endDate, setEndDate] = useState("2023-12-21");
   const dateInputRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [openmodalcuoicung, setopenmodalcuoicung] = useState(false);
@@ -20,34 +22,8 @@ export default function CreateCampaign({ onClose }) {
     setDatacheckboxItem(updatedItems);
   };
 
-  const [checkboxes, setCheckboxes] = useState([
-    { option1: false, value: "0h - 6h" },
-    { option2: false, value: "6h - 12h" },
-    { option3: false, value: "12h - 18h" },
-    { option4: false, value: "18h - 0h" },
-  ]);
-  const [datacheckboxItem, setDatacheckboxItem] = useState([
-    {
-      img: "./Voucher/vc1.png",
-      name: "Sản phẩm 1",
-      boxItem1: false,
-    },
-    {
-      img: "./Voucher/vc2.png",
-      name: "Sản phẩm 2",
-      boxItem1: false,
-    },
-    {
-      img: "./Voucher/vc3.png",
-      name: "Sản phẩm 3",
-      boxItem1: false,
-    },
-    {
-      img: "./Voucher/vc4.png",
-      name: "Sản phẩm 4",
-      boxItem1: false,
-    },
-  ]);
+  const [checkboxes, setCheckboxes] = useState(datacheckbox);
+  const [datacheckboxItem, setDatacheckboxItem] = useState(dataVoucher);
 
   const handleCheckboxChange = (event) => {
     const { id, checked } = event.target;
@@ -83,10 +59,6 @@ export default function CreateCampaign({ onClose }) {
     onClose();
     setopenmodalcuoicung(false);
     setIsOpen(false);
-  };
-
-  const boxShadow = {
-    boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25);",
   };
 
   const checkedValues = checkboxes
@@ -149,7 +121,7 @@ export default function CreateCampaign({ onClose }) {
                   </label>
                   <input
                     type="text"
-                    className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base tracking-[-1px] placeholder:text-[#B0B0B0] placeholder:tracking-[0.5px] text-black outline-none"
+                    className="outline-none w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base tracking-[-1px] placeholder:text-[#B0B0B0] placeholder:tracking-[0.5px] text-black font-medium"
                     value={campaignName}
                     placeholder="Voucher tháng 10"
                     onChange={(e) => setCampaignName(e.target.value)}
@@ -158,7 +130,7 @@ export default function CreateCampaign({ onClose }) {
               </div>
               <div className="mb-5 relative">
                 <textarea
-                  className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-xl placeholder:text-xl placeholder:text-[#BABABA] placeholder:tracking-[-1px] font-normal text-black min-h-[194px] "
+                  className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-xl placeholder:text-xl placeholder:text-[#BABABA] placeholder:tracking-[-1px] font-normal text-black min-h-[194px] outline-none"
                   value={description}
                   placeholder={"Bạn muốn nói gì với khách hàng của mình ?"}
                   onChange={(e) => setDescription(e.target.value)}
@@ -184,12 +156,12 @@ export default function CreateCampaign({ onClose }) {
               <div className="mb-5 py-2.5 px-[25px] rounded-lg shadow-[0px_0px_5px_0px_rgba(0,0,0,0.25)]">
                 <div className="flex items-center gap-3">
                   <label className="block text-black whitespace-nowrap text-xl tracking-[-1px] font-medium">
-                    Tên chiến dịch:
+                    Khung giờ hiển thị:
                   </label>
                   <div className="flex flex-col gap-2.5">
                     {checkedValues.length > 0
                       ? checkedValues.map((value, index) => (
-                          <div className="min-w-[100px] py-1 px-2.5 flex items-center gap-2 justify-between bg-[#C1F1E1] rounded-full">
+                          <div className="min-w-[100px] py-1 px-2.5 flex items-center gap-2 justify-between bg-[#C1F1E1] rounded-full outline-none">
                             <div
                               key={index}
                               className="text-base text-gray-700"
@@ -271,7 +243,7 @@ export default function CreateCampaign({ onClose }) {
               <div className="mb-5 py-2.5 px-[25px] rounded-lg shadow-[0px_0px_5px_0px_rgba(0,0,0,0.25)]">
                 <div className="flex items-center gap-3 mb-3">
                   <label className="block text-black whitespace-nowrap text-xl tracking-[-1px] font-medium">
-                    Tên chiến dịch:
+                    Chọn Voucher:
                   </label>
                   <input
                     type="text"
@@ -415,6 +387,12 @@ export default function CreateCampaign({ onClose }) {
                     onChange={(e) => setEndDate(e.target.value)}
                     ref={dateInputRef}
                   />
+                  {/* <Calendar
+                    value={endDate}
+                    onChange={(e) => setStartDate(e.value)}
+                    showIcon
+                  /> */}
+
                   <button
                     type="button"
                     className="absolute right-0 top-[5px]"
