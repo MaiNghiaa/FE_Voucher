@@ -1,17 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CreateHangmuc from "../../Components/ProductManagement/CreateHangmuc";
 // import "";
 export default function Quanlysanpham() {
   const [showmodalThemHangmuc, setshowmodalThemHangmuc] = useState(false);
   const [showRenameModal, setShowRenameModal] = useState(false);
+  const [showDeleteModal, setshowDeleteModal] = useState(false);
+  const [Deletehangmuc, setDeletehangmuc] = useState();
   const [currentCategory, setCurrentCategory] = useState("");
   const [renameValue, setRenameValue] = useState("");
 
+  const [showCreateModal, setshowCreateModal] = useState(null);
   //dropdown
   const [dropdownVisible, setDropdownVisible] = useState(null);
 
   const [hangmuc, sethangmuc] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(["đồ ăn", "Thức uống"]);
+
+  const [dataitems, setdataitems] = useState([
+    {
+      image: "ád",
+      name: "trà hoa quả",
+      desc: "Đây là đồ úng ngon ngon ngon",
+      price: "123456",
+      status: "có sẵn",
+    },
+    {
+      image: "ád",
+      name: "trà mãng cầu",
+      desc: "Đây là đồ úng ngon lém nhe",
+      price: "456436",
+      status: "Không có sẵn",
+    },
+    {
+      image: "ád",
+      name: "trà hoa quả nhiệt đới",
+      desc: "Đây là đồ úng cũng có phần thú vị phết",
+      price: "123654",
+      status: "có sẵn",
+    },
+    {
+      image: "ád",
+      name: "trà trung nghĩa",
+      desc: "Đây là đồ úng tuyệt hảo",
+      price: "999999",
+      status: "có sẵn",
+    },
+  ]);
+
+  const [formData, setFormData] = useState({
+    images: [],
+    name: "",
+    desc: "",
+    price: "",
+    status: "",
+  });
+
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData((prevData) => ({
+      ...prevData,
+      images: files,
+    }));
+  };
 
   //Handle them moi hang muc
   const handleSubmit = (e) => {
@@ -25,7 +77,6 @@ export default function Quanlysanpham() {
       setshowmodalThemHangmuc(false);
     }
   };
-  console.log(categories);
 
   //Handle dropdown
   const toggleDropdown = (index) => {
@@ -41,6 +92,7 @@ export default function Quanlysanpham() {
     setCurrentCategory(item);
     setRenameValue(item);
     setShowRenameModal(true);
+    setDropdownVisible(null);
   };
 
   const handleRenameSubmit = (e) => {
@@ -50,7 +102,42 @@ export default function Quanlysanpham() {
     );
     setCategories(updatedCategories);
     setShowRenameModal(false);
+  };
+
+  const handleDeletehangmuc = (item) => {
     setDropdownVisible(null);
+    setshowDeleteModal(true);
+    setDeletehangmuc(item);
+  };
+  const handleDeletesubmit = (hangmuc) => {
+    console.log(hangmuc);
+    const newCategories = categories.filter((item) => item !== hangmuc);
+    setCategories(newCategories);
+    setshowDeleteModal(false);
+  };
+
+  const handleCreateSanpham = (itemhangmuc) => {
+    console.log(itemhangmuc);
+    setDropdownVisible(null);
+    setshowCreateModal(itemhangmuc);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCreateSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Data Submitted:", formData);
+    // Add your form submission logic here (e.g., API call)
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
   };
   return (
     <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
@@ -172,7 +259,10 @@ export default function Quanlysanpham() {
                             </span>
                             Đổi tên
                           </li>
-                          <li className="flex items-center gap-2 cursor-pointer px-5 py-2 w-full hover:bg-gray-200 whitespace-nowrap">
+                          <li
+                            className="flex items-center gap-2 cursor-pointer px-5 py-2 w-full hover:bg-gray-200 whitespace-nowrap"
+                            onClick={() => handleCreateSanpham(item)}
+                          >
                             <span>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +275,10 @@ export default function Quanlysanpham() {
                             </span>
                             Thêm sản phẩm
                           </li>
-                          <li className="flex items-center gap-2 cursor-pointer px-5 py-2 w-full hover:bg-gray-200 whitespace-nowrap">
+                          <li
+                            className="flex items-center gap-2 cursor-pointer px-5 py-2 w-full hover:bg-gray-200 whitespace-nowrap"
+                            onClick={() => handleDeletehangmuc(item)}
+                          >
                             <span>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -262,6 +355,231 @@ export default function Quanlysanpham() {
                 </button>
               </form>
             </div>
+          </div>
+        </div>
+      )}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+          <div className="bg-white px-6 rounded-lg w-[640px]">
+            <div className="flex items-center justify-between py-6 ">
+              <h4 className="text-[#1E293B] text-2xl font-semibold">Xóa</h4>
+              <button
+                className=" text-white px-4 py-2 rounded mr-2"
+                onClick={() => {
+                  setshowDeleteModal(false);
+                }}
+              >
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 1L13 13"
+                      stroke="black"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M13 1L1 13"
+                      stroke="black"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+            <div className="">
+              <p className="font-normal text-base text-[#1E293B]">
+                Bạn có chắc chắn xóa voucher này không ?
+              </p>
+              <p className="font-normal text-base text-[#1E293B] pb-3">
+                (Tất cả sản phẩm trong hạng mục này cũng bị xóa)
+              </p>
+              <div>
+                <div className="cta py-3 px-5 flex justify-end gap-2">
+                  <button
+                    onClick={() => {
+                      setshowDeleteModal(false);
+                    }}
+                    className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
+                  >
+                    <p className="">Trở lại</p>
+                  </button>
+                  <button
+                    onClick={() => handleDeletesubmit(Deletehangmuc)}
+                    className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
+                  >
+                    Xóa
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {showCreateModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
+            <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
+              <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
+                Thêm sản phẩm cho trà
+              </h1>
+              <div
+                className="absolute top-[35%] left-[32px] cursor-pointer "
+                onClick={() => setshowCreateModal(false)}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12H3M3 12L10 19M3 12L10 5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+            <form
+              onSubmit={handleCreateSubmit}
+              className=" px-8 bg-white rounded shadow-md pb-[96px]"
+            >
+              <div className="mb-5">
+                <label
+                  htmlFor="name"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Tên
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Đây là nước uống bestsaler"
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="desc"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Mô tả
+                </label>
+                <textarea
+                  name="desc"
+                  id="desc"
+                  value={formData.desc}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="price"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Giá
+                </label>
+                <input
+                  type="text"
+                  name="price"
+                  id="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="status"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Trạng thái
+                </label>
+                <select
+                  name="status"
+                  id="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                >
+                  <option className="py-2 px-3" value="" disabled hidden>
+                    Select status
+                  </option>
+                  <option className="py-2 px-3" value="Có sẵn">
+                    Có sẵn
+                  </option>
+                  <option className="py-2 px-3" value="Không có sẵn">
+                    Không có sẵn
+                  </option>
+                </select>
+              </div>
+              <div className="mb-12">
+                <label
+                  htmlFor="image"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Ảnh sản phẩm
+                </label>
+
+                <input
+                  type="file"
+                  name="images"
+                  id="images"
+                  multiple
+                  onChange={handleFileChange}
+                  className="hidden"
+                  ref={fileInputRef}
+                />
+
+                <div className="flex flex-wrap justify-between mt-2">
+                  {formData.images.length > 0 ? (
+                    Array.from(formData.images).map((file, index) => (
+                      <div
+                        key={index}
+                        className="w-[144px] h-[88px] object-cover border rounded-[5px] border-[rgba(176,176,176,1)] my-3"
+                        style={{
+                          backgroundImage: `url(${URL.createObjectURL(file)})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                        onClick={handleImageClick}
+                      ></div>
+                    ))
+                  ) : (
+                    <div
+                      className="w-[144px] h-[88px] border rounded-[5px] border-[rgba(176,176,176,1)] flex items-center justify-center text-gray-400"
+                      onClick={handleImageClick}
+                    >
+                      Chọn ảnh
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 px-5 flex justify-center items-center text-base font-medium bg-[rgba(150,84,244,1)] border border-[rgba(150,84,244,1)] text-white rounded-full"
+              >
+                Xác nhận
+              </button>
+            </form>
           </div>
         </div>
       )}
