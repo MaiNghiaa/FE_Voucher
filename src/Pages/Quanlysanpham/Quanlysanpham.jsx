@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
-import CreateHangmuc from "../../Components/ProductManagement/CreateHangmuc";
+import { formatVND } from "../../Common/formatVND";
 // import "";
 export default function Quanlysanpham() {
   const [showmodalThemHangmuc, setshowmodalThemHangmuc] = useState(false);
+  const [showmodalThemsanpham, setshowmodalThemsanpham] = useState(false);
+
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showDeleteModal, setshowDeleteModal] = useState(false);
   const [Deletehangmuc, setDeletehangmuc] = useState();
@@ -14,42 +16,49 @@ export default function Quanlysanpham() {
   const [dropdownVisible, setDropdownVisible] = useState(null);
 
   const [hangmuc, sethangmuc] = useState("");
+  const [iconhangmuc, seticonhangmuc] = useState();
   const [categories, setCategories] = useState(["đồ ăn", "Thức uống"]);
-
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [dataitems, setdataitems] = useState([
     {
-      image: "ád",
+      image: "ttsanpham/tt23.jpg",
       name: "trà hoa quả",
       desc: "Đây là đồ úng ngon ngon ngon",
       price: "123456",
+      hangmuc: "đồ ăn",
       status: "có sẵn",
     },
     {
-      image: "ád",
+      image: "ttsanpham/tt24.jpg",
       name: "trà mãng cầu",
       desc: "Đây là đồ úng ngon lém nhe",
       price: "456436",
+      hangmuc: "Thức uống",
       status: "Không có sẵn",
     },
     {
-      image: "ád",
+      image: "ttsanpham/tt25.jpg",
       name: "trà hoa quả nhiệt đới",
       desc: "Đây là đồ úng cũng có phần thú vị phết",
       price: "123654",
+      hangmuc: "Thức uống",
       status: "có sẵn",
     },
     {
-      image: "ád",
+      image: "ttsanpham/tt26.png",
       name: "trà trung nghĩa",
       desc: "Đây là đồ úng tuyệt hảo",
       price: "999999",
+      hangmuc: "Thức uống",
       status: "có sẵn",
     },
   ]);
 
   const [formData, setFormData] = useState({
     images: [],
+    imageUrls: [],
     name: "",
+    type: "",
     desc: "",
     price: "",
     status: "",
@@ -59,9 +68,12 @@ export default function Quanlysanpham() {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+    const urls = Array.from(files).map((file) => URL.createObjectURL(file));
+
     setFormData((prevData) => ({
       ...prevData,
       images: files,
+      imageUrls: urls,
     }));
   };
 
@@ -119,6 +131,11 @@ export default function Quanlysanpham() {
   const handleCreateSanpham = (itemhangmuc) => {
     console.log(itemhangmuc);
     setDropdownVisible(null);
+    setFormData((prevData) => ({
+      ...prevData,
+      type: itemhangmuc,
+    }));
+
     setshowCreateModal(itemhangmuc);
   };
 
@@ -133,12 +150,32 @@ export default function Quanlysanpham() {
   const handleCreateSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
-    // Add your form submission logic here (e.g., API call)
+    setshowCreateModal(false);
+    setshowmodalThemsanpham(false);
+    setFormData({
+      images: [],
+      imageUrls: [],
+      name: "",
+      type: "",
+      desc: "",
+      price: "",
+      status: "",
+    });
   };
 
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
+
+  const handleCategoryClick = (category) => {
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+      seticonhangmuc();
+    } else {
+      setSelectedCategory(category);
+    }
+  };
+
   return (
     <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
       <div className=" border-1 border-gray-200 rounded-lg dark:border-gray-700 bg-white h-auto">
@@ -176,7 +213,10 @@ export default function Quanlysanpham() {
                 Thêm hạng mục
               </span>
             </button>
-            <button className="btn btnVoucher btn_themsanpham">
+            <button
+              className="btn btnVoucher btn_themsanpham"
+              onClick={() => setshowmodalThemsanpham(true)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="19"
@@ -206,32 +246,43 @@ export default function Quanlysanpham() {
         </div>
         <div className="table px-8 w-full pb-[69px]">
           {categories &&
-            categories.map((item, index) => {
-              return (
+            categories.map((item, index) => (
+              <div key={index} className="">
                 <div
-                  key={index}
-                  className="flex justify-between items-center m-2.5 pb-4 border-b border-[rgba(219,219,219,1)]"
+                  className={`flex justify-between items-center m-2.5 pb-4 ${
+                    selectedCategory === item
+                      ? " border-none"
+                      : "border-b border-[rgba(219,219,219,1)]"
+                  }`}
                 >
                   <div className="flex items-center justify-center">
                     <div className="px-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="14"
-                        width="8.75"
-                        viewBox="0 0 320 512"
-                      >
-                        <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                      </svg>
-                      {/* <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="14"
-                        width="14"
-                        viewBox="0 0 512 512"
-                      >
-                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                      </svg> */}
+                      {selectedCategory === item ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="14"
+                          width="14"
+                          viewBox="0 0 512 512"
+                        >
+                          <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="14"
+                          width="14"
+                          viewBox="0 0 320 512"
+                        >
+                          <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                        </svg>
+                      )}
                     </div>
-                    <p className="name">{item}</p>
+                    <p
+                      className="name cursor-pointer"
+                      onClick={() => handleCategoryClick(item)}
+                    >
+                      {item}
+                    </p>
                   </div>
                   <div className="relative">
                     <button
@@ -296,8 +347,50 @@ export default function Quanlysanpham() {
                     )}
                   </div>
                 </div>
-              );
-            })}
+
+                {selectedCategory === item && (
+                  <div className="  py-4 flex items-stretch gap-10 flex-wrap border-b border-[rgba(219,219,219,1)]">
+                    {dataitems
+                      .filter((dataItem) => dataItem.hangmuc === item)
+                      .map((filteredItem, idx) => (
+                        <div
+                          key={idx}
+                          className=" w-[220px] rounded-[20px] overflow-hidden box-border "
+                        >
+                          <img
+                            src={`./${filteredItem.image}`}
+                            alt=""
+                            className="w-[220px] object-cover rounded-t-[20px]"
+                          />
+                          {/* bg-[rgba(255,255,255,0.25)] */}
+                          <div className="flex flex-col flex-grow text px-3 bg-[#cebeffb0] pt-3 pb-[14px] rounded-b-[20px]">
+                            <div className="flex items-center justify-between">
+                              <p className="title font-medium text-base">
+                                {filteredItem.name}
+                              </p>
+                              <button className="more">.</button>
+                            </div>
+
+                            <p
+                              className="subTitle_qlsp text-sm leading-[22px] font-normal pt-2 pb-3"
+                              style={{
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
+                              {filteredItem.desc}
+                            </p>
+                            <p className="font-medium text-sm leading-[22px] py-1 text-white w-full flex justify-center items-center rounded-full bg-[rgba(150,84,244,1)]">
+                              {formatVND(filteredItem.price)}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
+            ))}
         </div>
       </div>
       {showmodalThemHangmuc && (
@@ -443,9 +536,9 @@ export default function Quanlysanpham() {
                   <path
                     d="M21 12H3M3 12L10 19M3 12L10 5"
                     stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
@@ -538,7 +631,6 @@ export default function Quanlysanpham() {
                 >
                   Ảnh sản phẩm
                 </label>
-
                 <input
                   type="file"
                   name="images"
@@ -548,15 +640,14 @@ export default function Quanlysanpham() {
                   className="hidden"
                   ref={fileInputRef}
                 />
-
                 <div className="flex flex-wrap justify-between mt-2">
-                  {formData.images.length > 0 ? (
-                    Array.from(formData.images).map((file, index) => (
+                  {formData.imageUrls.length > 0 ? (
+                    formData.imageUrls.map((url, index) => (
                       <div
                         key={index}
-                        className="w-[144px] h-[88px] object-cover border rounded-[5px] border-[rgba(176,176,176,1)] my-3"
+                        className="w-[144px] h-[88px] object-cover border rounded-[5px] border-[rgba(176,176,176,1)] my-3 cursor-pointer"
                         style={{
-                          backgroundImage: `url(${URL.createObjectURL(file)})`,
+                          backgroundImage: `url(${url})`,
                           backgroundSize: "cover",
                           backgroundPosition: "center",
                         }}
@@ -565,7 +656,191 @@ export default function Quanlysanpham() {
                     ))
                   ) : (
                     <div
-                      className="w-[144px] h-[88px] border rounded-[5px] border-[rgba(176,176,176,1)] flex items-center justify-center text-gray-400"
+                      className="w-[144px] h-[88px] border rounded-[5px] border-[rgba(176,176,176,1)] flex items-center justify-center text-gray-400 cursor-pointer"
+                      onClick={handleImageClick}
+                    >
+                      Chọn ảnh
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 px-5 flex justify-center items-center text-base font-medium bg-[rgba(150,84,244,1)] border border-[rgba(150,84,244,1)] text-white rounded-full"
+              >
+                Xác nhận
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+      {showmodalThemsanpham && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
+            <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
+              <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
+                Thêm sản phẩm
+              </h1>
+              <div
+                className="absolute top-[35%] left-[32px] cursor-pointer "
+                onClick={() => setshowmodalThemsanpham(false)}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12H3M3 12L10 19M3 12L10 5"
+                    stroke="black"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+            <form
+              onSubmit={handleCreateSubmit}
+              className=" px-8 bg-white rounded shadow-md pb-[96px]"
+            >
+              <div className="mb-5">
+                <label
+                  htmlFor="type"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Loại
+                </label>
+                <select
+                  name="type"
+                  id="type"
+                  value={formData.type}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                >
+                  <option value="" disabled hidden>
+                    Chọn loại sản phẩm
+                  </option>
+                  {categories.map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="name"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Tên
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Đây là nước uống bestsaler"
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="desc"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Mô tả
+                </label>
+                <textarea
+                  name="desc"
+                  id="desc"
+                  value={formData.desc}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="price"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Giá
+                </label>
+                <input
+                  type="text"
+                  name="price"
+                  id="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="status"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Trạng thái
+                </label>
+                <select
+                  name="status"
+                  id="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+                  required
+                >
+                  <option className="py-2 px-3" value="" disabled hidden>
+                    Select status
+                  </option>
+                  <option className="py-2 px-3" value="Có sẵn">
+                    Có sẵn
+                  </option>
+                  <option className="py-2 px-3" value="Không có sẵn">
+                    Không có sẵn
+                  </option>
+                </select>
+              </div>
+              <div className="mb-12">
+                <label
+                  htmlFor="image"
+                  className="block text-base font-medium text-black mb-2"
+                >
+                  Ảnh sản phẩm
+                </label>
+                <input
+                  type="file"
+                  name="images"
+                  id="images"
+                  multiple
+                  onChange={handleFileChange}
+                  className="hidden"
+                  ref={fileInputRef}
+                />
+                <div className="flex flex-wrap justify-between mt-2">
+                  {formData.imageUrls.length > 0 ? (
+                    formData.imageUrls.map((url, index) => (
+                      <div
+                        key={index}
+                        className="w-[144px] h-[88px] object-cover border rounded-[5px] border-[rgba(176,176,176,1)] my-3 cursor-pointer"
+                        style={{
+                          backgroundImage: `url(${url})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                        onClick={handleImageClick}
+                      ></div>
+                    ))
+                  ) : (
+                    <div
+                      className="w-[144px] h-[88px] border rounded-[5px] border-[rgba(176,176,176,1)] flex items-center justify-center text-gray-400 cursor-pointer"
                       onClick={handleImageClick}
                     >
                       Chọn ảnh
