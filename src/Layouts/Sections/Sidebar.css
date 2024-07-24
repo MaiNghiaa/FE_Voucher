@@ -7,6 +7,10 @@
   fill: white;
 }
 
+.selected.hover-effect svg path {
+  fill: white;
+}
+
 .hover-effect.stroke:hover svg path,
 .hover-effect:hover .icon rect {
   fill: white;
@@ -31,4 +35,18 @@
 .active-items-more.icon rect {
   fill: white;
   stroke: white;
+}
+
+.nav-item {
+  background-color: #ffffff; /* Màu nền pink-300 */
+  transition: background-color 0.3s ease;
+  color: black;
+  border-radius: 8px;
+}
+
+/* Định dạng khi mục được chọn */
+.nav-item.selected {
+  background: #9654f4;
+  color: white;
+  border-radius: 8px;
 }

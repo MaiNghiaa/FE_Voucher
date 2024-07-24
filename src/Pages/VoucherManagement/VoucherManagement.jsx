@@ -193,7 +193,10 @@ export default function VoucherManagement() {
                         />
                       </td>
                       <td className="py-2 px-[69px] border border-gray-300 text-center">
-                        <p className="flex items-center justify-center">
+                        <p
+                          className="flex items-center justify-center cursor-pointer"
+                          onClick={() => handleDetail()}
+                        >
                           {item.voucherName}
                         </p>
                       </td>

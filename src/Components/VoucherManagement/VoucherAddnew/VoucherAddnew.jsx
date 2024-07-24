@@ -314,7 +314,7 @@ export default function VoucherAddnew({ onClose }) {
                     </div>
                     <div className="flex flex-col gap-2 mt-5">
                       <p className="flex-1 font-medium text-base text-black">
-                        Tối đa
+                        Số tiền giảm tối đa
                       </p>
                       <input
                         type="text"

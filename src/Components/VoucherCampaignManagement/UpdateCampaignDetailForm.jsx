@@ -71,7 +71,6 @@ export default function UpdateCampaignDetailForm({ onClose }) {
               </label>
               <input
                 type="text"
-                readOnly
                 className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base font-medium tracking-[-1px] outline-none"
                 value={campaignName}
                 onChange={(e) => setCampaignName(e.target.value)}
@@ -80,7 +79,6 @@ export default function UpdateCampaignDetailForm({ onClose }) {
           </div>
           <div className="mb-5 relative">
             <textarea
-              readOnly
               className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-base font-medium text-black min-h-[194px] outline-none "
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -110,11 +108,10 @@ export default function UpdateCampaignDetailForm({ onClose }) {
                 Ngày bắt đầu chiến dịch:
               </label>
               <input
-                readOnly
                 type="text"
-                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg outline-none"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
+                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2  rounded-lg outline-none"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
                 ref={dateInputRef}
               />
               <button
@@ -146,7 +143,6 @@ export default function UpdateCampaignDetailForm({ onClose }) {
                 Ngày kết thúc chiến dịch:
               </label>
               <input
-                readOnly
                 type="text"
                 className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 rounded-lg outline-none"
                 value={endDate}
