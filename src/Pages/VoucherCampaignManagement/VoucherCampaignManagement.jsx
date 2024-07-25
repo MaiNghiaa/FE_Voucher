@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import VoucherCampaignManagementDetail from "../../Components/VoucherCampaignManagement/VoucherCampaignManagementDetail";
 import CreateCampaign from "../../Components/VoucherCampaignManagement/CreateCampaign";
+import {
+  bigticket_svg,
+  more_present_3_svg,
+  more_present_4_svg,
+  plus_svg,
+  present_2_svf,
+  present_svg,
+  smallticket_svg,
+  ticket_2_svg,
+  ticket_present_1_svg,
+} from "../../Common/svg";
 
 export default function VoucherCampaignManagement() {
   const [ModalAddnew, setModalAddnew] = useState();
@@ -72,7 +83,7 @@ export default function VoucherCampaignManagement() {
       {" "}
       {!showModalDetail ? (
         <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
-          <div className="pt-4 px-[42px] pb-[99px] border-1 border-gray-200 rounded-lg dark:border-gray-700 bg-white h-auto">
+          <div className="pt-4 px-[42px] pb-[99px] border-1 border-gray-200 rounded-lg  bg-white h-auto">
             <div className="Logo-nhatuyendung flex justify-end gap-4 items-center mb-4">
               <p className="ten-ntd font-medium text-base">Thead</p>
               <picture className="w-10 h-10 object-contain rounded-[40px]">
@@ -82,26 +93,7 @@ export default function VoucherCampaignManagement() {
             <div>
               <div className="flex items-center justify-center">
                 <button className="btn btnVoucher" onClick={openModalAddnew}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="19"
-                    height="18"
-                    viewBox="0 0 19 18"
-                    fill="none"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0.5 9C0.5 8.44772 0.947715 8 1.5 8H17.5C18.0523 8 18.5 8.44772 18.5 9C18.5 9.55228 18.0523 10 17.5 10H1.5C0.947715 10 0.5 9.55228 0.5 9Z"
-                      fill="#5900D9"
-                    />
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M9.5 -4.37114e-08C10.0523 -1.95703e-08 10.5 0.447715 10.5 1L10.5 17C10.5 17.5523 10.0523 18 9.5 18C8.94771 18 8.5 17.5523 8.5 17L8.5 1C8.5 0.447715 8.94772 -6.78525e-08 9.5 -4.37114e-08Z"
-                      fill="#5900D9"
-                    />
-                  </svg>
+                  {plus_svg}
                   <span className="font-medium text-base text-[#5900D9]">
                     Tạo chiến dịch
                   </span>
@@ -135,9 +127,40 @@ export default function VoucherCampaignManagement() {
                   {filteredItems.map((item) => (
                     <li
                       key={item.id}
-                      className="mb-10 py-5 px-7 border rounded-lg bg-[#DBDBDB]"
+                      className={`mb-10 py-5 px-7 border rounded-lg ${
+                        filter === "Còn hạn" &&
+                        parseDate(item.ngayhethanvoucher) >= currentDate
+                          ? "bg-[#EFE6FD]"
+                          : "bg-[#DBDBDB]"
+                      } relative`}
                       onClick={() => handleDetail()}
                     >
+                      <div className="relative ">
+                        <div className="absolute top-[-44px] right-[-55px]">
+                          {more_present_4_svg}
+                        </div>
+                        <div className="box absolute top-[35px] right-[152px]">
+                          {more_present_3_svg}
+                        </div>
+                        <div className="box absolute top-[55px] left-[0px]">
+                          {present_2_svf}
+                        </div>
+                        <div className="box absolute top-[60px] left-[400px]">
+                          {ticket_2_svg}
+                        </div>
+                        <div className="box absolute top-[75px] left-[330px]">
+                          {ticket_present_1_svg}
+                        </div>
+                        <div className="box absolute top-[30px] left-[50%]">
+                          {bigticket_svg}
+                        </div>
+                        <div className="box absolute top-[30px] right-[30%]">
+                          {present_svg}
+                        </div>
+                        <div className="box absolute top-[30px] right-[35%]">
+                          {smallticket_svg}
+                        </div>
+                      </div>
                       <div className="mb-2.5">
                         <p className="text-xl font-bold tracking-[-1px] text-black">
                           {item.namechiendich}

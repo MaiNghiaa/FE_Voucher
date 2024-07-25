@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../VoucherManagement/VoucherManagement.css";
 import VoucherDetail from "../../Components/VoucherManagement/VoucherDetail/VoucherDetail";
 import VoucherAddnew from "../../Components/VoucherManagement/VoucherAddnew/VoucherAddnew";
+import { delete_svg_1, plus_svg } from "../../Common/svg";
 // import Sidebar from "../../Layouts/Sections/Sidebar";
 
 export default function VoucherManagement() {
@@ -115,26 +116,7 @@ export default function VoucherManagement() {
             </div>
             <div className="flex items-center justify-center">
               <button className="btn btnVoucher" onClick={ClickAddnew}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="19"
-                  height="18"
-                  viewBox="0 0 19 18"
-                  fill="none"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M0.5 9C0.5 8.44772 0.947715 8 1.5 8H17.5C18.0523 8 18.5 8.44772 18.5 9C18.5 9.55228 18.0523 10 17.5 10H1.5C0.947715 10 0.5 9.55228 0.5 9Z"
-                    fill="#5900D9"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M9.5 -4.37114e-08C10.0523 -1.95703e-08 10.5 0.447715 10.5 1L10.5 17C10.5 17.5523 10.0523 18 9.5 18C8.94771 18 8.5 17.5523 8.5 17L8.5 1C8.5 0.447715 8.94772 -6.78525e-08 9.5 -4.37114e-08Z"
-                    fill="#5900D9"
-                  />
-                </svg>
+                {plus_svg}
 
                 <span className="font-medium text-base text-[#5900D9]">
                   Tạo voucher
@@ -253,28 +235,7 @@ export default function VoucherManagement() {
                         setShowModal(false);
                       }}
                     >
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                        >
-                          <path
-                            d="M1 1L13 13"
-                            stroke="black"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M13 1L1 13"
-                            stroke="black"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </div>
+                      <div>{delete_svg_1}</div>
                     </button>
                   </div>
                   <div className="">

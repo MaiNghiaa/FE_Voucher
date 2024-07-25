@@ -10,6 +10,7 @@ export default function CreateCampaign({ onClose }) {
   const dateInputRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [openmodalcuoicung, setopenmodalcuoicung] = useState(false);
+  const [filtertypeVoucher, setfiltertypeVoucher] = useState();
   //checkbox cua voucher
   const handledataCheckboxItemClick = (index) => {
     const updatedItems = datacheckboxItem.map((item, idx) => {
@@ -51,7 +52,6 @@ export default function CreateCampaign({ onClose }) {
       startDate,
       endDate,
     });
-    setopenmodalcuoicung(true);
   };
 
   //endCreate
@@ -102,7 +102,7 @@ export default function CreateCampaign({ onClose }) {
                 </svg>
               </div>
             </div>{" "}
-            <form onSubmit={handleSubmit} className="px-8 pb-10">
+            <div className="px-8 pb-10">
               <div className="flex items-center mb-4">
                 <img
                   src="./hinhnen.png"
@@ -248,9 +248,9 @@ export default function CreateCampaign({ onClose }) {
                   <input
                     type="text"
                     className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base tracking-[-1px] placeholder:text-[#B0B0B0] placeholder:tracking-[0.5px] text-black outline-none"
-                    value={campaignName}
+                    value={filtertypeVoucher}
                     placeholder="Chọn loại voucher"
-                    onChange={(e) => setCampaignName(e.target.value)}
+                    onChange={(e) => setfiltertypeVoucher(e.target.value)}
                   />
                 </div>
                 <div>
@@ -331,6 +331,11 @@ export default function CreateCampaign({ onClose }) {
                                 type="number"
                                 defaultValue={120}
                                 className="rounded-sm shadow-[0px_0px_0px_2px_#EFE6FD] w-[90px] py-[5px] pr-[31px] pl-[13px] outline-none"
+                                style={{
+                                  WebkitAppearance: "none",
+                                  MozAppearance: "textfield",
+                                  Appearance: "none",
+                                }}
                               />
                             </div>
                           </div>
@@ -348,8 +353,8 @@ export default function CreateCampaign({ onClose }) {
                   <input
                     type="date"
                     className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
                     ref={dateInputRef}
                   />
                   <button
@@ -418,99 +423,105 @@ export default function CreateCampaign({ onClose }) {
                 </div>
               </div>
               <button
-                type="submit"
+                onClick={() => setopenmodalcuoicung(true)}
                 className="w-full bg-purple-500 text-white p-2 rounded-full mt-4"
               >
                 Tiếp tục
               </button>
-            </form>
+            </div>
           </div>
         </div>
       ) : (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
-            <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
-              <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
-                Tạo chiến dịch
-              </h1>
-              <div
-                className="absolute top-[35%] left-[32px] cursor-pointer "
-                onClick={() => setopenmodalcuoicung(false)}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+            <form onSubmit={handleSubmit} className="">
+              <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
+                <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
+                  Tạo chiến dịch
+                </h1>
+                <div
+                  className="absolute top-[35%] left-[32px] cursor-pointer "
+                  onClick={() => setopenmodalcuoicung(false)}
                 >
-                  <path
-                    d="M21 12H3M3 12L10 19M3 12L10 5"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21 12H3M3 12L10 19M3 12L10 5"
+                      stroke="black"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>{" "}
+              <div className="flex items-center mb-8 mt-5 ml-8">
+                <img
+                  src="./hinhnen.png"
+                  alt="User avatar"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <p className="text-xl font-bold track-[-1px]">Jasdi</p>
+                </div>
               </div>
-            </div>{" "}
-            <div className="flex items-center mb-8 mt-5 ml-8">
-              <img
-                src="./hinhnen.png"
-                alt="User avatar"
-                className="w-12 h-12 rounded-full mr-4"
-              />
-              <div>
-                <p className="text-xl font-bold track-[-1px]">Jasdi</p>
-              </div>
-            </div>
-            <div className="rounded-lg shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] py-2.5 px-[25px] mb-8 mt-5 mx-8">
-              <p className="title text-xl font-bold tracking-[-1px] mb-6">
-                Ai có thể nhìn thấy chiến dịch của bạn ?{" "}
-              </p>
+              <div className="rounded-lg shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] py-2.5 px-[25px] mb-8 mt-5 mx-8">
+                <p className="title text-xl font-bold tracking-[-1px] mb-6">
+                  Ai có thể nhìn thấy chiến dịch của bạn ?{" "}
+                </p>
 
-              <div className="flex flex-col gap-4 mb-12">
-                <div className="flex items-center gap-4">
-                  <input
-                    type="radio"
-                    id="tat-ca"
-                    name="type"
-                    value="tat-ca"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  />
-                  <label
-                    htmlFor="tat-ca"
-                    className="ml-2 text-black text-base font-medium"
-                  >
-                    Tất cả
-                  </label>
+                <div className="flex flex-col gap-4 mb-12">
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="radio"
+                      id="tat-ca"
+                      name="type"
+                      value="tat-ca"
+                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    />
+                    <label
+                      htmlFor="tat-ca"
+                      className="ml-2 text-black text-base font-medium"
+                    >
+                      Tất cả
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="radio"
+                      id="khach-hang-quay-lai"
+                      name="type"
+                      value="khach-hang-quay-lai"
+                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    />
+                    <label
+                      htmlFor="khach-hang-quay-lai"
+                      className="ml-2 text-black text-base font-medium"
+                    >
+                      Khách hàng quay lại
+                    </label>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <input
-                    type="radio"
-                    id="khach-hang-quay-lai"
-                    name="type"
-                    value="khach-hang-quay-lai"
-                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  />
-                  <label
-                    htmlFor="khach-hang-quay-lai"
-                    className="ml-2 text-black text-base font-medium"
-                  >
-                    Khách hàng quay lại
-                  </label>
-                </div>
+                <button
+                  className="w-full bg-purple-500 text-white p-2 rounded-full mt-4"
+                  type="submit"
+                >
+                  Đăng
+                </button>
               </div>
-              <button
-                className="w-full bg-purple-500 text-white p-2 rounded-full mt-4"
-                onClick={() => endCreate}
-              >
-                Đăng
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       )}
     </>
   );
+}
+
+{
+  /*  */
 }

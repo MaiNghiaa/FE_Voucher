@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../Sections/Sidebar.css";
+import { logo_vouchers_Blog_Business_svg } from "../../Common/svg";
 export default function Sidebar() {
   const location = useLocation();
 
@@ -17,7 +18,7 @@ export default function Sidebar() {
         data-drawer-toggle="logo-sidebar"
         aria-controls="logo-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400  dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden focus:outline-none focus:ring-2 "
       >
         <svg
           className="w-6 h-6"
@@ -38,34 +39,10 @@ export default function Sidebar() {
         className=" fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-slate-200"
         aria-label="Sidebar"
       >
-        <div className="h-full px-6 py-7 overflow-y-auto bg-white dark:bg-gray-800 ">
+        <div className="h-full px-6 py-7 overflow-y-auto bg-white  ">
           <div className="flex items-center ps-2.5 mb-7 gap-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="32"
-              viewBox="0 0 28 32"
-              fill="none"
-            >
-              <path
-                d="M1.75 15.8734H12.25V31.6268H2.7526C2.3151 31.6268 1.91406 31.4217 1.6224 31.114C1.33073 30.7858 1.14844 30.3551 1.14844 29.8628V16.5503V15.8939H1.73177L1.75 15.8734ZM15.75 15.8734H26.25H26.8333V16.5298V29.8423C26.8333 30.3346 26.651 30.7858 26.3594 31.0935C26.0677 31.4217 25.6667 31.6063 25.2292 31.6063H15.7318V15.8529L15.75 15.8734Z"
-                fill="#9654F4"
-              />
-              <path
-                d="M14 1.18674C14.1823 0.961107 14.3646 0.776496 14.5833 0.612398C14.9844 0.325227 15.4583 0.181641 16.0599 0.181641C16.7344 0.181641 17.3359 0.550861 17.7917 1.04316C18.3021 1.6175 18.612 2.39697 18.612 3.05336C18.612 4.12 18.0469 5.14561 17.1719 6.1302C16.3698 7.05325 15.3125 7.9763 14.2734 8.87884L13.9818 9.1455L13.6901 8.87884C12.6328 7.95579 11.5938 7.05325 10.7917 6.1302C9.9349 5.1251 9.35156 4.12 9.35156 3.05336C9.35156 2.39697 9.66146 1.6175 10.1719 1.04316C10.6276 0.530349 11.2292 0.181641 11.9036 0.181641C12.5234 0.181641 12.9792 0.325227 13.3802 0.612398C13.599 0.755984 13.7995 0.961107 13.9635 1.18674H14Z"
-                fill="#9654F4"
-              />
-              <path
-                d="M27.4167 15.2171H15.75V9.96594H25.8672C26.4505 9.96594 26.9792 10.2326 27.362 10.6428C27.7448 11.0736 28 11.6479 28 12.3043V14.5607V15.2171H27.4167ZM12.25 15.2171H0.583333H0V14.5607V12.3043C0 11.6479 0.236979 11.0736 0.638021 10.6428C1.02083 10.2121 1.54948 9.96594 2.13281 9.96594H12.25V15.2171Z"
-                fill="#9654F4"
-              />
-              <path
-                d="M11.5753 8.75582C11.0102 8.26352 10.2992 7.68918 9.53361 7.17637C8.64038 6.561 7.71069 6.0482 6.87215 5.80205C6.10652 5.59693 5.41382 5.82256 5.04923 6.23281C4.88517 6.41742 4.79402 6.64305 4.79402 6.84817C4.81225 7.07381 4.93986 7.34047 5.21329 7.58662C6.05184 8.34557 7.98413 8.94043 11.5753 8.75582ZM14.5649 8.81735C15.0935 8.26352 16.406 7.0533 17.9008 6.0482C18.8852 5.37129 19.9242 4.79695 20.8904 4.53029C22.0753 4.20209 23.169 4.59182 23.807 5.28924C24.2081 5.74051 24.4268 6.29434 24.4086 6.8892C24.3904 7.48405 24.1169 8.07891 23.5518 8.59172C21.0544 10.8481 15.8409 9.71989 12.5961 9.98655C8.05704 10.3558 5.59611 9.59682 4.50236 8.59172C3.93725 8.07891 3.68204 7.48405 3.64559 6.8892C3.62736 6.29434 3.84611 5.72 4.24715 5.28924C4.88517 4.59182 5.97892 4.18158 7.16382 4.53029C8.11173 4.79695 9.16902 5.3918 10.1534 6.0482C11.63 7.0533 12.9607 8.26352 13.4893 8.81735L14.0362 9.3917L14.5831 8.81735H14.5649ZM18.5024 7.17637C17.755 7.68918 17.0258 8.26352 16.4607 8.75582C20.0518 8.94043 21.9841 8.36608 22.8227 7.58662C23.1143 7.34047 23.2419 7.07381 23.2419 6.84817C23.2419 6.64305 23.1508 6.41742 22.9867 6.23281C22.6039 5.82256 21.9294 5.59693 21.1638 5.80205C20.3253 6.02768 19.3956 6.561 18.5024 7.17637Z"
-                fill="#9654F4"
-              />
-            </svg>
-
-            <span className="flex flex-wrap self-center text-xl tracking-[-2.105px] font-normal whitespace-normal dark:text-white w-[178px]">
+            {logo_vouchers_Blog_Business_svg}
+            <span className="flex flex-wrap self-center text-xl tracking-[-2.105px] font-normal whitespace-normal  w-[178px]">
               Vouchers Blog Business
             </span>
           </div>
@@ -104,7 +81,7 @@ export default function Sidebar() {
             >
               <Link to="/Khachhangquaytrolai">
                 <div
-                  className={`flex items-center py-2.5 px-4  rounded-lg dark:text-white group hover-effect `}
+                  className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
                   {" "}
                   <svg
@@ -139,7 +116,7 @@ export default function Sidebar() {
             >
               <Link to="/Thongbao">
                 <div
-                  className={`flex items-center py-2.5 px-4  rounded-lg dark:text-white group hover-effect `}
+                  className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
                   {" "}
                   <svg
@@ -164,7 +141,7 @@ export default function Sidebar() {
                       selected === "/Thongbao"
                         ? "bg-white text-black"
                         : " bg-[#9654F4] text-white"
-                    } rounded-full dark:bg-blue-900 dark:text-blue-300`}
+                    } rounded-full `}
                   >
                     3
                   </span>
@@ -179,7 +156,7 @@ export default function Sidebar() {
             >
               <Link to="/VoucherCampaignManagement">
                 <div
-                  className={`flex items-center py-2.5 px-4  rounded-lg dark:text-white group hover-effect `}
+                  className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
                   {" "}
                   <svg
@@ -216,7 +193,7 @@ export default function Sidebar() {
             >
               <Link to="/VoucherManagerment">
                 <div
-                  className={`flex items-center py-2.5 px-4  rounded-lg dark:text-white group hover-effect `}
+                  className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
                   {" "}
                   <svg
@@ -249,7 +226,7 @@ export default function Sidebar() {
             >
               <Link to="/Quanlysanpham">
                 <div
-                  className={`flex items-center py-2.5 px-4 rounded-lg dark:text-white group hover-effect`}
+                  className={`flex items-center py-2.5 px-4 rounded-lg  group hover-effect`}
                 >
                   <svg
                     className="icon"
@@ -307,7 +284,7 @@ export default function Sidebar() {
             >
               <Link to="/Quanlytienthuong">
                 <div
-                  className={`flex items-center py-2.5 px-4  rounded-lg dark:text-white group hover-effect`}
+                  className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect`}
                 >
                   <svg
                     className="icon"
@@ -335,7 +312,7 @@ export default function Sidebar() {
             >
               <Link to="/Xemthem">
                 <div
-                  className={`flex items-center py-2.5 px-4  rounded-lg dark:text-white group hover-effect `}
+                  className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
                   <svg
                     className="icon"

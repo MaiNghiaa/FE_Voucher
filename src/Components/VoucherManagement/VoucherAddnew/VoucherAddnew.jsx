@@ -3,10 +3,10 @@ import React, { useState } from "react";
 export default function VoucherAddnew({ onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [checkboxes, setCheckboxes] = useState([
-    { option1: false, value: "0h - 6h" },
-    { option2: false, value: "6h - 12h" },
-    { option3: false, value: "12h - 18h" },
-    { option4: false, value: "18h - 0h" },
+    { id: 1, option1: false, value: "0h - 6h" },
+    { id: 2, option2: false, value: "6h - 12h" },
+    { id: 3, option3: false, value: "12h - 18h" },
+    { id: 4, option4: false, value: "18h - 0h" },
   ]);
 
   const toggleDropdown = () => {
@@ -29,38 +29,53 @@ export default function VoucherAddnew({ onClose }) {
       img: "./Voucher/vc1.png",
       name: "Sản phẩm 1",
       boxItem1: false,
+      checked: false,
     },
     {
       img: "./Voucher/vc2.png",
       name: "Sản phẩm 2",
       boxItem1: false,
+      checked: false,
     },
     {
       img: "./Voucher/vc3.png",
       name: "Sản phẩm 3",
       boxItem1: false,
+      checked: false,
     },
     {
       img: "./Voucher/vc4.png",
       name: "Sản phẩm 4",
       boxItem1: false,
+      checked: false,
+    },
+    {
+      img: "./Voucher/vc4.png",
+      name: "Sản phẩm 5",
+      boxItem1: false,
+      checked: false,
+    },
+    {
+      img: "./Voucher/vc4.png",
+      name: "Sản phẩm 6",
+      boxItem1: false,
+      checked: false,
     },
   ]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const ValidateCheck = () => {
-    const checkedCount = datacheckboxItem.filter((item) => item.checked).length;
-    return checkedCount < 3;
+  const handledataCheckboxItemClick = (name) => {
+    setDatacheckboxItem((prevItems) =>
+      prevItems.map((item) =>
+        item.name === name ? { ...item, checked: !item.checked } : item
+      )
+    );
   };
-  const handledataCheckboxItemClick = (index) => {
-    const updatedItems = datacheckboxItem.map((item, idx) => {
-      if (idx === index) {
-        return { ...item, checked: !item.checked };
-      }
-
-      return item;
-    });
-    setDatacheckboxItem(updatedItems);
-  };
+  const filteredItems = datacheckboxItem
+    .filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => b.checked - a.checked);
   const [type, setType] = useState(false);
   const [typeSale, settypeSale] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -82,13 +97,17 @@ export default function VoucherAddnew({ onClose }) {
   const checkedValues = checkboxes
     .filter((checkbox) => checkbox[`option${checkboxes.indexOf(checkbox) + 1}`])
     .map((checkbox) => checkbox.value);
-  console.log(checkboxes);
-  const handleButtonToggle = (id) => {
+  // console.log(checkboxes);
+  const handleButtonToggle = (value, idx) => {
+    console.log(value, idx);
     setCheckboxes((prevCheckboxes) =>
       prevCheckboxes.map((checkbox) =>
-        checkbox.id === id ? { ...checkbox, checked: false } : checkbox
+        checkbox.value === value
+          ? { ...checkbox, [`option${idx + 1}`]: false }
+          : checkbox
       )
     );
+    // console.log(checkboxes);
   };
 
   return (
@@ -301,7 +320,7 @@ export default function VoucherAddnew({ onClose }) {
 
                 {typeSale === 1 && (
                   <div className="mt-5">
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 relative ">
                       <p className="flex-1 font-medium text-base text-black">
                         phần trăm giảm
                       </p>
@@ -309,8 +328,15 @@ export default function VoucherAddnew({ onClose }) {
                         type="number"
                         name="phantramgiam"
                         className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
+                        style={{
+                          WebkitAppearance: "none",
+                          MozAppearance: "textfield",
+                        }}
                         placeholder="nhập mô tả vào đây"
                       />
+                      <span className="absolute inset-y-0 right-3 top-[36px] bottom-0 flex items-center text-gray-500">
+                        %{" "}
+                      </span>
                     </div>
                     <div className="flex flex-col gap-2 mt-5">
                       <p className="flex-1 font-medium text-base text-black">
@@ -361,8 +387,8 @@ export default function VoucherAddnew({ onClose }) {
                 <p className="tracking-[-1px] text-lg font-bold text-black">
                   Điều kiện sử dụng
                 </p>
-                <div className="flex flex-col gap-4">
-                  <div className="flex-1 flex items-center justify-start p-4 border rounded-lg">
+                <div className="flex flex-col">
+                  <div className="flex-1 flex items-center justify-start pt-4 px-4 rounded-lg">
                     <div className="flex flex-col flex-1 justify-start">
                       <span className="font-medium text-base text-black">
                         Giá trị hóa đơn tối thiểu từ:{" "}
@@ -377,7 +403,7 @@ export default function VoucherAddnew({ onClose }) {
                       className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1 outline-none"
                     />
                   </div>
-                  <div className="flex-1 flex justify-start p-4 border rounded-lg">
+                  <div className="flex-1 flex justify-start p-4 rounded-lg">
                     <div className="flex flex-1 flex-col justify-start">
                       <span className="font-medium text-base text-black">
                         Áp dụng khi mua sản phẩm nào:{" "}
@@ -388,7 +414,9 @@ export default function VoucherAddnew({ onClose }) {
                     </div>
                     <input
                       type="text"
-                      defaultValue="50.000đ"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Chọn sản phẩm"
                       className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1 outline-none"
                     />
                   </div>
@@ -425,16 +453,18 @@ export default function VoucherAddnew({ onClose }) {
                   </div>
                 ) : (
                   typeSale === 1 && (
-                    <div className="mt-3 rounded-lg flex flex-col gap-2">
-                      {datacheckboxItem &&
-                        datacheckboxItem.map((item, index) => (
+                    <div className="mt-3 rounded-lg flex flex-col gap-2 max-h-[240px] overflow-y-auto">
+                      {filteredItems &&
+                        filteredItems.map((item, index) => (
                           <div
                             className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3"
                             key={index}
                           >
                             <div
                               className="checkbox-custom"
-                              onClick={() => handledataCheckboxItemClick(index)}
+                              onClick={() =>
+                                handledataCheckboxItemClick(item.name)
+                              }
                             >
                               {item.checked ? (
                                 <svg
@@ -515,7 +545,7 @@ export default function VoucherAddnew({ onClose }) {
                                 {value}
                               </div>
                               <button
-                                onClick={() => handleButtonToggle(value.id)}
+                                onClick={() => handleButtonToggle(value, index)}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
