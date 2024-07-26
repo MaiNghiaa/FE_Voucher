@@ -1,8 +1,8 @@
 export const datacheckbox = [
-  { option1: false, value: "0h - 6h" },
-  { option2: false, value: "6h - 12h" },
-  { option3: false, value: "12h - 18h" },
-  { option4: false, value: "18h - 0h" },
+  { check: false, value: "0h - 6h" },
+  { check: false, value: "6h - 12h" },
+  { check: false, value: "12h - 18h" },
+  { check: false, value: "18h - 0h" },
 ];
 
 export const dataVoucher = [

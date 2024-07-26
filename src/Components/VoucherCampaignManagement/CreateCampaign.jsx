@@ -6,37 +6,126 @@ export default function CreateCampaign({ onClose }) {
   const [campaignName, setCampaignName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("2023-12-21");
+  const [datacheckboxItem, setDatacheckboxItem] = useState([
+    {
+      img: "./Voucher/vc1.png",
+      name: "Sản phẩm 1",
+      boxItem1: false,
+      checked: false,
+      value: ["0h-6h", "6h - 12h"],
+    },
+    {
+      img: "./Voucher/vc2.png",
+      name: "Sản phẩm 2",
+      boxItem1: false,
+      checked: false,
+      value: ["0h-6h", "18h - 0h"],
+    },
+    {
+      img: "./Voucher/vc3.png",
+      name: "Sản phẩm 3",
+      boxItem1: false,
+      checked: false,
+      value: ["12h - 18h", "6h - 12h"],
+    },
+    {
+      img: "./Voucher/vc4.png",
+      name: "Sản phẩm 4",
+      boxItem1: false,
+      checked: false,
+      value: ["0h-6h", "12h - 18h"],
+    },
+    {
+      img: "./Voucher/vc4.png",
+      name: "Sản phẩm 5",
+      boxItem1: false,
+      checked: false,
+      value: ["0h-6h", "12h - 18h"],
+    },
+    {
+      img: "./Voucher/vc4.png",
+      name: "Sản phẩm 6",
+      boxItem1: false,
+      checked: false,
+      value: ["0h-6h", "12h - 18h"],
+    },
+  ]);
   const [endDate, setEndDate] = useState("2023-12-21");
   const dateInputRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [openmodalcuoicung, setopenmodalcuoicung] = useState(false);
-  const [filtertypeVoucher, setfiltertypeVoucher] = useState();
+  const [SearchTerm, setSearchTerm] = useState();
+  const [filteredItems, setFilteredItems] = useState(datacheckboxItem);
+
+  const [checkboxes, setCheckboxes] = useState([
+    { id: 1, check: false, value: "0h - 6h" },
+    { id: 2, check: false, value: "6h - 12h" },
+    { id: 3, check: false, value: "12h - 18h" },
+    { id: 4, check: false, value: "18h - 0h" },
+  ]);
+
   //checkbox cua voucher
   const handledataCheckboxItemClick = (index) => {
-    const updatedItems = datacheckboxItem.map((item, idx) => {
-      if (idx === index) {
-        return { ...item, checked: !item.checked };
-      }
-
-      return item;
-    });
-    setDatacheckboxItem(updatedItems);
-  };
-
-  const [checkboxes, setCheckboxes] = useState(datacheckbox);
-  const [datacheckboxItem, setDatacheckboxItem] = useState(dataVoucher);
-
-  const handleCheckboxChange = (event) => {
-    const { id, checked } = event.target;
-    setCheckboxes((prevCheckboxes) =>
-      prevCheckboxes.map((checkbox) => {
-        if (id in checkbox) {
-          return { ...checkbox, [id]: checked };
-        }
-        return checkbox;
-      })
+    // Update checkbox state in datacheckboxItem
+    const updatedItems = datacheckboxItem.map((item, idx) =>
+      idx === index ? { ...item, checked: !item.checked } : item
     );
+    setDatacheckboxItem(updatedItems);
+
+    // Determine selected values from the updated items
+    const selectedValues = updatedItems
+      .filter((item) => item.checked)
+      .flatMap((item) => item.value);
+
+    // Filter items based on selected values
+    const filtered = updatedItems.filter((item) =>
+      item.value.some((val) => selectedValues.includes(val))
+    );
+    // .sort((a, b) => b.checked - a.checked);
+
+    const checkedfalse = updatedItems.every((item) => !item.checked);
+    if (checkedfalse) {
+      setFilteredItems(datacheckboxItem);
+    }
+    setFilteredItems(filtered);
   };
+  const handleCheckboxChange = (id) => {
+    console.log(id);
+
+    // const allCheckboxesUnchecked = checkboxes.every(
+    //   (checkbox) => !checkbox.check
+    // );
+    // if (allCheckboxesUnchecked) {
+    //   setFilteredItems(datacheckboxItem);
+    // } else {
+    setCheckboxes((prevCheckboxes) =>
+      prevCheckboxes.map((checkbox) =>
+        checkbox.id === id ? { ...checkbox, check: !checkbox.check } : checkbox
+      )
+    );
+    // console.log(checkboxes);
+    // Cập nhật filteredItems
+    const selectedValues = checkboxes
+      .filter((checkbox) =>
+        checkbox.id === id ? !checkbox.check : checkbox.check
+      )
+      .map((checkbox) => checkbox.value);
+
+    const filtered = datacheckboxItem.filter((item) =>
+      item.value.some((value) => selectedValues.includes(value))
+    );
+    if (filtered.length === 0) {
+      console.log("rỗng", filtered);
+      setFilteredItems(datacheckboxItem);
+    } else {
+      console.log("Hello", filtered);
+
+      setFilteredItems(filtered);
+    }
+
+    // }
+  };
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -60,17 +149,32 @@ export default function CreateCampaign({ onClose }) {
     setopenmodalcuoicung(false);
     setIsOpen(false);
   };
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    console.log(SearchTerm);
+  };
 
   const checkedValues = checkboxes
-    .filter((checkbox) => checkbox[`option${checkboxes.indexOf(checkbox) + 1}`])
+    .filter((checkbox) => checkbox.check)
     .map((checkbox) => checkbox.value);
-  console.log(checkboxes);
-  const handleButtonToggle = (id) => {
+  // console.log(checkboxes);
+  const handleButtonToggle = (value) => {
+    // console.log(value);
     setCheckboxes((prevCheckboxes) =>
       prevCheckboxes.map((checkbox) =>
-        checkbox.id === id ? { ...checkbox, checked: false } : checkbox
+        checkbox.value === value ? { ...checkbox, check: false } : checkbox
       )
     );
+    // Cập nhật filteredItems sau khi bỏ chọn checkbox
+    const selectedValues = checkboxes
+      .filter((checkbox) => checkbox.value !== value && checkbox.check)
+      .map((checkbox) => checkbox.value);
+
+    const filtered = datacheckboxItem.filter((item) =>
+      item.value.some((val) => selectedValues.includes(val))
+    );
+
+    setFilteredItems(filtered);
   };
   return (
     <>
@@ -168,9 +272,7 @@ export default function CreateCampaign({ onClose }) {
                             >
                               {value}
                             </div>
-                            <button
-                              onClick={() => handleButtonToggle(value.id)}
-                            >
+                            <button onClick={() => handleButtonToggle(value)}>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
@@ -215,18 +317,23 @@ export default function CreateCampaign({ onClose }) {
                       {isOpen && (
                         <div className="absolute mt-2 py-5 px-[25px] bg-white border rounded-lg shadow-lg w-[207px] z-50">
                           <div className="flex flex-col gap-4">
-                            {checkboxes.map((checkbox, index) => (
-                              <div className="flex items-center " key={index}>
+                            {checkboxes.map((checkbox) => (
+                              <div
+                                className="flex items-center"
+                                key={checkbox.id}
+                              >
                                 <input
                                   type="checkbox"
-                                  id={`option${index + 1}`}
-                                  name={`option${index + 1}`}
-                                  checked={checkbox[`option${index + 1}`]}
-                                  onChange={handleCheckboxChange}
+                                  id={`option${checkbox.id}`}
+                                  name={`option${checkbox.id}`}
+                                  checked={checkbox.check}
+                                  onChange={() =>
+                                    handleCheckboxChange(checkbox.id)
+                                  }
                                   className="mr-2"
                                 />
                                 <label
-                                  htmlFor={`option${index + 1}`}
+                                  htmlFor={`option${checkbox.id}`}
                                   className="text-base text-black font-medium"
                                 >
                                   {checkbox.value}
@@ -248,99 +355,96 @@ export default function CreateCampaign({ onClose }) {
                   <input
                     type="text"
                     className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base tracking-[-1px] placeholder:text-[#B0B0B0] placeholder:tracking-[0.5px] text-black outline-none"
-                    value={filtertypeVoucher}
+                    value={SearchTerm}
                     placeholder="Chọn loại voucher"
-                    onChange={(e) => setfiltertypeVoucher(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div>
                   {" "}
-                  <div className="mt-3 rounded-lg flex flex-col gap-2 h-[240px] overflow-y-auto">
-                    {datacheckboxItem &&
-                      datacheckboxItem.map((item, index) => (
-                        <div
-                          className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3 rounded-lg"
-                          key={index}
-                        >
-                          <div className="w-full flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <div
-                                className="checkbox-custom"
-                                onClick={() =>
-                                  handledataCheckboxItemClick(index)
-                                }
-                              >
-                                {item.checked ? (
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM10.6931 16.3335C10.306 16.7058 9.694 16.7058 9.30689 16.3335L5.72744 12.8918C5.33038 12.51 5.33038 11.8746 5.72744 11.4928C6.10307 11.1317 6.69693 11.1317 7.07256 11.4928L9.30689 13.6412C9.694 14.0135 10.306 14.0135 10.6931 13.6412L16.9274 7.64669C17.3031 7.2855 17.8969 7.2855 18.2726 7.64669C18.6696 8.02848 18.6696 8.66383 18.2726 9.04562L10.6931 16.3335Z"
-                                      fill="#9654F4"
-                                    />
-                                  </svg>
-                                ) : (
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      clipRule="evenodd"
-                                      d="M19 5V19H5V5H19ZM19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"
-                                      fill="#9654F4"
-                                    />
-                                  </svg>
-                                )}
-                              </div>
-                              <input
-                                type="checkbox"
-                                name={item.name}
-                                checked={item.checked}
-                                onChange={() =>
-                                  handledataCheckboxItemClick(index)
-                                }
-                                style={{ display: "none" }}
+                  <div className="mt-3 rounded-lg flex flex-col gap-2 max-h-[240px] overflow-y-auto">
+                    {filteredItems.map((item, index) => (
+                      <div
+                        className="flex w-full items-center justify-start gap-3 border border-[#CACACA] p-3 rounded-lg"
+                        key={index}
+                      >
+                        <div className="w-full flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className="checkbox-custom"
+                              onClick={() => handledataCheckboxItemClick(index)}
+                            >
+                              {item.checked ? (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM10.6931 16.3335C10.306 16.7058 9.694 16.7058 9.30689 16.3335L5.72744 12.8918C5.33038 12.51 5.33038 11.8746 5.72744 11.4928C6.10307 11.1317 6.69693 11.1317 7.07256 11.4928L9.30689 13.6412C9.694 14.0135 10.306 14.0135 10.6931 13.6412L16.9274 7.64669C17.3031 7.2855 17.8969 7.2855 18.2726 7.64669C18.6696 8.02848 18.6696 8.66383 18.2726 9.04562L10.6931 16.3335Z"
+                                    fill="#9654F4"
+                                  />
+                                </svg>
+                              ) : (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M19 5V19H5V5H19ZM19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"
+                                    fill="#9654F4"
+                                  />
+                                </svg>
+                              )}
+                            </div>
+                            <input
+                              type="checkbox"
+                              name={item.name}
+                              checked={item.checked}
+                              onChange={() =>
+                                handledataCheckboxItemClick(index)
+                              }
+                              style={{ display: "none" }}
+                            />
+                            <picture className="w-[48px] h-[48px]">
+                              <img
+                                src={item.img}
+                                alt={item.name}
+                                className="w-full h-full object-cover"
                               />
-                              <picture className="w-[48px] h-[48px]">
-                                <img
-                                  src={item.img}
-                                  alt={item.name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </picture>
+                            </picture>
 
-                              <p className="title text-base font-medium text-[#B0B0B0]">
-                                {item.name}
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <p className="text-black text-base font-medium whitespace-nowrap">
-                                số lượng:{" "}
-                              </p>
-                              <input
-                                type="number"
-                                defaultValue={120}
-                                className="rounded-sm shadow-[0px_0px_0px_2px_#EFE6FD] w-[90px] py-[5px] pr-[31px] pl-[13px] outline-none"
-                                style={{
-                                  WebkitAppearance: "none",
-                                  MozAppearance: "textfield",
-                                  Appearance: "none",
-                                }}
-                              />
-                            </div>
+                            <p className="title text-base font-medium text-[#B0B0B0]">
+                              {item.name}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <p className="text-black text-base font-medium whitespace-nowrap">
+                              số lượng:{" "}
+                            </p>
+                            <input
+                              type="number"
+                              defaultValue={120}
+                              className="rounded-sm shadow-[0px_0px_0px_2px_#EFE6FD] w-[90px] py-[5px] pr-[31px] pl-[13px] outline-none"
+                              style={{
+                                WebkitAppearance: "none",
+                                MozAppearance: "textfield",
+                                Appearance: "none",
+                              }}
+                            />
                           </div>
                         </div>
-                      ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -523,5 +627,7 @@ export default function CreateCampaign({ onClose }) {
 }
 
 {
-  /*  */
+  /* 
+ 
+  */
 }
