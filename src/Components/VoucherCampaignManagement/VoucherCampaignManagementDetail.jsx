@@ -2,51 +2,51 @@ import React, { useState } from "react";
 import VoucherDetail from "../VoucherManagement/VoucherDetail/VoucherDetail";
 import UpdateCampaignDetailForm from "./UpdateCampaignDetailForm";
 import {
-  delete_svg_1,
-  left_arrow_svg,
-  more_toggleDropdown_svg,
-  trash_svg_1,
-  update_svg_1,
+  deleteSvg1,
+  leftArrowSvg,
+  moreToggleDropdownSvg,
+  trashSvg1,
+  updateSvg1,
 } from "../../Common/svg";
 
 export default function VoucherCampaignManagementDetail({ onClose }) {
-  const [data, setdata] = useState([
+  const [data, setData] = useState([
     {
       id: 1,
       tenVoucher: "Giảm 10%",
-      dalay: "5",
-      dasudung: "5",
+      daLay: "5",
+      daSuDung: "5",
       tong: "5",
-      loaivoucher: "Giảm giá",
+      loaiVoucher: "Giảm giá",
     },
     {
       id: 2,
       tenVoucher: "Giảm 20% áp dụng cho trà",
-      dalay: "5",
-      dasudung: "5",
+      daLay: "5",
+      daSuDung: "5",
       tong: "5",
-      loaivoucher: "Giảm giá",
+      loaiVoucher: "Giảm giá",
     },
     {
       id: 3,
       tenVoucher: "Quà tặng",
-      dalay: "5",
-      dasudung: "5",
+      daLay: "5",
+      daSuDung: "5",
       tong: "5",
-      loaivoucher: "Giảm giá",
+      loaiVoucher: "Giảm giá",
     },
     {
       id: 4,
       tenVoucher: "Giảm 10%",
-      dalay: "5",
-      dasudung: "5",
+      daLay: "5",
+      daSuDung: "5",
       tong: "5",
-      loaivoucher: "Giảm giá",
+      loaiVoucher: "Giảm giá",
     },
   ]);
   const [showModal, setShowModal] = useState(false);
-  const [modalChiendichDetail, setModalChienDichDetail] = useState(false);
-  const [modalUpdate, setmodalUpdate] = useState(false);
+  const [modalChienDichDetail, setModalChienDichDetail] = useState(false);
+  const [modalUpdate, setModalUpdate] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const toggleDropdown = () => {
@@ -62,19 +62,19 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
     setShowModal(false);
   };
 
-  const showmodalDetailChiendich = () => {
+  const showModalDetailChienDich = () => {
     setModalChienDichDetail(true);
   };
   const openModalUpdate = () => {
-    setmodalUpdate(true);
+    setModalUpdate(true);
   };
   return (
     <div>
-      {!modalChiendichDetail ? (
+      {!modalChienDichDetail ? (
         <div className="p-4 sm:ml-80 inner-bg">
           <div className="relative pb-[100px] border-2 border-gray-200 rounded-lg dark:border-gray-700 bg-white">
             <div className="absolute left-[28px] top-[28px]" onClick={onClose}>
-              {left_arrow_svg}
+              {leftArrowSvg}
             </div>
             <div className="shadow-[0px_0px_2px_0px_rgba(0,0,0,0.25)] rounded-t-lg py-4">
               <div className="flex justify-center items-center">
@@ -91,7 +91,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                   openModalUpdate();
                 }}
               >
-                {update_svg_1}
+                {updateSvg1}
               </div>
               <div className="">
                 <p className="text-[#9654F4] text-4xl font-bold text-center mb-8">
@@ -116,7 +116,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                   className="absolute top-[10px] right-0 delete cursor-pointer"
                   onClick={toggleDropdown}
                 >
-                  {more_toggleDropdown_svg}
+                  {moreToggleDropdownSvg}
                 </div>
                 {dropdownVisible && (
                   <div className="absolute top-[28px] right-0 bg-white border shadow-lg rounded-lg mt-1">
@@ -125,7 +125,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                         className="flex py-5 pl-5 pr-[68px] gap-2 cursor-pointer"
                         onClick={() => handleDeleteClick()}
                       >
-                        <span>{trash_svg_1}</span>
+                        <span>{trashSvg1}</span>
                         <p>xóa</p>
                       </li>
                     </ul>
@@ -173,7 +173,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                     >
                       <div
                         className="flex items-center justify-center flex-1"
-                        onClick={() => showmodalDetailChiendich()}
+                        onClick={() => showModalDetailChienDich()}
                       >
                         <p className="text-[#36D39E] font-medium text-base leading-6 cursor-pointer">
                           {itemvoucher.tenVoucher}
@@ -181,12 +181,12 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                       </div>
                       <div className="flex items-center justify-center flex-1">
                         <p className="text-black font-medium text-base leading-6">
-                          {itemvoucher.dalay}
+                          {itemvoucher.daLay}
                         </p>
                       </div>
                       <div className="flex items-center justify-center flex-1">
                         <p className="text-black font-medium text-base leading-6">
-                          {itemvoucher.dasudung}
+                          {itemvoucher.daSuDung}
                         </p>
                       </div>
                       <div className="flex items-center justify-center flex-1">
@@ -196,7 +196,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                       </div>
                       <div className="flex items-center justify-center flex-1">
                         <p className="text-black font-medium text-base leading-6">
-                          {itemvoucher.loaivoucher}
+                          {itemvoucher.loaiVoucher}
                         </p>
                       </div>
                     </li>
@@ -215,7 +215,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                       setShowModal(false);
                     }}
                   >
-                    <div>{delete_svg_1}</div>
+                    <div>{deleteSvg1}</div>
                   </button>
                 </div>
                 <div className="">
@@ -251,7 +251,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
           {modalUpdate && (
             <UpdateCampaignDetailForm
               onClose={() => {
-                setmodalUpdate(false);
+                setModalUpdate(false);
               }}
             />
           )}

@@ -6,11 +6,11 @@ import LandingPage from "../Pages/LandingPage/LandingPage";
 import VoucherManagement from "../Pages/VoucherManagement/VoucherManagement";
 
 import VoucherCampaignManagement from "../Pages/VoucherCampaignManagement/VoucherCampaignManagement";
-import Khachhangquaytrolai from "../Pages/Khachhangquaytrolai/Khachhangquaytrolai";
-import Quanlysanpham from "../Pages/Quanlysanpham/Quanlysanpham";
-import Quanlytienthuong from "../Pages/Quanlytienthuong/Quanlytienthuong";
-import Xemthem from "../Pages/Xemthem/Xemthem";
-import Thongbao from "../Pages/Thongbao/Thongbao";
+import CombackCustomers from "../Pages/CombackCustomers/CombackCustomers";
+import ProductManagement from "../Pages/ProductManagement/ProductManagement";
+import MoneyManagement from "../Pages/MoneyManagement/MoneyManagement";
+import MorePage from "../Pages/MorePage/MorePage";
+import InformPage from "../Pages/InformPage/InformPage";
 
 const PageLayout = lazy(() => import("../Layouts/PageLayout"));
 
@@ -43,24 +43,24 @@ function RouterComponent() {
           element: <VoucherCampaignManagement />,
         },
         {
-          path: "/Khachhangquaytrolai",
-          element: <Khachhangquaytrolai />,
+          path: "/CombackCustomers",
+          element: <CombackCustomers />,
         },
         {
-          path: "/Thongbao",
-          element: <Thongbao />,
+          path: "/InformPage",
+          element: <InformPage />,
         },
         {
-          path: "/Quanlysanpham",
-          element: <Quanlysanpham />,
+          path: "/ProductManagement",
+          element: <ProductManagement />,
         },
         {
-          path: "/Quanlytienthuong",
-          element: <Quanlytienthuong />,
+          path: "/MoneyManagement",
+          element: <MoneyManagement />,
         },
         {
-          path: "/Xemthem",
-          element: <Xemthem />,
+          path: "/MorePage",
+          element: <MorePage />,
         },
       ],
     },

@@ -13,7 +13,7 @@ export default function PageLayout() {
     <main className="relative" style={Bgmain}>
       <div id="body" className="xl:mt-auto" style={Bgmain}>
         <Sidebar />
-        <Outlet className="transition" />
+        <Outlet className="" />
       </div>
     </main>
   );

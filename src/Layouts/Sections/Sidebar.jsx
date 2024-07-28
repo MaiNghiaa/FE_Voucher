@@ -4,9 +4,12 @@ import "../Sections/Sidebar.css";
 import { logo_vouchers_Blog_Business_svg } from "../../Common/svg";
 export default function Sidebar() {
   const location = useLocation();
-
   const [selected, setSelected] = useState(location.pathname);
-  console.log(selected);
+
+  useEffect(() => {
+    setSelected(location.pathname);
+    console.log(selected);
+  }, [location.pathname, selected]);
   const Bgmain = {
     background:
       "radial-gradient(72.57% 49.33% at 70.82% 114.03%, rgba(195, 45, 180, 0.15) 16.65%, rgba(233, 120, 222, 0.00) 100%), radial-gradient(45.21% 68.82% at 48.05% -2.24%, rgba(101, 179, 234, 0.15) 0%, rgba(0, 163, 255, 0.00) 92.46%), linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), var(--Purple-Prymary---50, #EFE6FD)",
@@ -53,7 +56,7 @@ export default function Sidebar() {
             >
               <Link to="/">
                 <div
-                  className={`flex items-center py-2.5 px-4 rounded-lggroup hover-effect `}
+                  className={`flex items-center py-2.5 px-4 rounded-lggroup hover-effect hover:rounded-lg `}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -74,12 +77,12 @@ export default function Sidebar() {
               </Link>
             </li>
             <li
-              onClick={() => setSelected("/Khachhangquaytrolai")}
+              onClick={() => setSelected("/CombackCustomers")}
               className={`nav-item ${
-                selected === "/Khachhangquaytrolai" ? "selected" : ""
+                selected === "/CombackCustomers" ? "selected" : ""
               }`}
             >
-              <Link to="/Khachhangquaytrolai">
+              <Link to="/CombackCustomers">
                 <div
                   className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
@@ -89,16 +92,14 @@ export default function Sidebar() {
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    fill={
-                      selected === "/Khachhangquaytrolai" ? "white" : "black"
-                    }
+                    fill={selected === "/CombackCustomers" ? "white" : "black"}
                   >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M5.25006 6C5.25006 4.74022 5.7505 3.53204 6.6413 2.64124C7.5321 1.75044 8.74028 1.25 10.0001 1.25C11.2598 1.25 12.468 1.75044 13.3588 2.64124C14.2496 3.53204 14.7501 4.74022 14.7501 6C14.7501 7.25978 14.2496 8.46796 13.3588 9.35876C12.468 10.2496 11.2598 10.75 10.0001 10.75C8.74028 10.75 7.5321 10.2496 6.6413 9.35876C5.7505 8.46796 5.25006 7.25978 5.25006 6ZM10.0001 2.75C9.1381 2.75 8.31145 3.09241 7.70196 3.7019C7.09247 4.3114 6.75006 5.13805 6.75006 6C6.75006 6.86195 7.09247 7.6886 7.70196 8.2981C8.31145 8.90759 9.1381 9.25 10.0001 9.25C10.862 9.25 11.6887 8.90759 12.2982 8.2981C12.9076 7.6886 13.2501 6.86195 13.2501 6C13.2501 5.13805 12.9076 4.3114 12.2982 3.7019C11.6887 3.09241 10.862 2.75 10.0001 2.75ZM3.97606 13.664C5.55606 12.776 7.68606 12.25 10.0001 12.25C12.3141 12.25 14.4451 12.776 16.0251 13.664C17.5811 14.54 18.7501 15.866 18.7501 17.5V17.602C18.7511 18.764 18.7531 20.222 17.4741 21.264C16.8441 21.776 15.9641 22.141 14.7741 22.381C13.5811 22.623 12.0261 22.75 10.0001 22.75C7.97406 22.75 6.42006 22.623 5.22606 22.381C4.03606 22.141 3.15606 21.776 2.52606 21.264C1.24806 20.222 1.24906 18.764 1.25006 17.602V17.5C1.25006 15.866 2.42006 14.54 3.97606 13.664ZM4.71106 14.972C3.37106 15.725 2.75106 16.649 2.75106 17.5C2.75106 18.808 2.79106 19.544 3.47406 20.1C3.84406 20.402 4.46406 20.697 5.52406 20.911C6.58106 21.125 8.02606 21.25 10.0001 21.25C11.9741 21.25 13.4201 21.125 14.4761 20.911C15.5361 20.697 16.1561 20.402 16.5261 20.101C17.2101 19.544 17.2501 18.808 17.2501 17.5C17.2501 16.649 16.6291 15.725 15.2901 14.972C13.9731 14.232 12.1051 13.75 10.0001 13.75C7.89506 13.75 6.02706 14.232 4.71106 14.972ZM16.6901 7.447C17.4111 7.128 18.2481 7.188 19.0001 7.679C19.7521 7.189 20.5901 7.128 21.3101 7.447C21.7422 7.64319 22.1081 7.9604 22.3637 8.36026C22.6193 8.76011 22.7535 9.22546 22.7501 9.7C22.7501 10.648 22.3361 11.362 21.8401 11.903C21.4521 12.325 20.9731 12.682 20.5951 12.963L20.3671 13.135L20.3651 13.136C20.2151 13.25 20.0241 13.396 19.8211 13.511C19.573 13.6604 19.2905 13.7427 19.0011 13.75C18.6661 13.75 18.3831 13.627 18.1791 13.511C17.9898 13.3984 17.8084 13.2731 17.6361 13.136L17.6341 13.135C17.5641 13.081 17.4871 13.025 17.4061 12.964C17.0271 12.682 16.5481 12.325 16.1611 11.904C15.6641 11.362 15.2511 10.648 15.2511 9.7C15.2511 8.7 15.8341 7.825 16.6901 7.447ZM16.7501 9.7C16.7501 9.288 16.9901 8.955 17.2971 8.819C17.5641 8.701 17.9871 8.689 18.4681 9.172C18.5378 9.24215 18.6206 9.29781 18.712 9.3358C18.8033 9.37379 18.9012 9.39334 19.0001 9.39334C19.0989 9.39334 19.1969 9.37379 19.2882 9.3358C19.3795 9.29781 19.4624 9.24215 19.5321 9.172C20.0121 8.689 20.4371 8.701 20.7021 8.819C20.8684 8.89735 21.0086 9.02207 21.1059 9.17817C21.2031 9.33428 21.2531 9.51513 21.2501 9.699C21.2501 10.164 21.0611 10.532 20.7341 10.889C20.4521 11.197 20.1161 11.448 19.7441 11.726L19.4571 11.942C19.3378 12.0379 19.2126 12.1261 19.0821 12.206C19.0558 12.2214 19.0284 12.2348 19.0001 12.246C18.9717 12.2348 18.9443 12.2214 18.9181 12.206C18.8181 12.15 18.7061 12.066 18.5441 11.942L18.2561 11.726C17.8841 11.448 17.5481 11.196 17.2661 10.889C16.9391 10.532 16.7501 10.165 16.7501 9.7Z"
                       fill={
-                        selected === "/Khachhangquaytrolai" ? "white" : "black"
+                        selected === "/CombackCustomers" ? "white" : "black"
                       }
                     />
                   </svg>
@@ -109,12 +110,12 @@ export default function Sidebar() {
               </Link>
             </li>
             <li
-              onClick={() => setSelected("/Thongbao")}
+              onClick={() => setSelected("/InformPage")}
               className={`nav-item ${
-                selected === "/Thongbao" ? "selected" : ""
+                selected === "/InformPage" ? "selected" : ""
               }`}
             >
-              <Link to="/Thongbao">
+              <Link to="/InformPage">
                 <div
                   className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
@@ -124,13 +125,13 @@ export default function Sidebar() {
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    fill={selected === "/Thongbao" ? "white" : "black"}
+                    fill={selected === "/InformPage" ? "white" : "black"}
                   >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M15.0008 19C15.001 19.5046 14.8104 19.9906 14.4673 20.3605C14.1242 20.7305 13.654 20.9572 13.1508 20.995L13.0008 21H11.0008C10.4962 21.0002 10.0103 20.8096 9.64028 20.4665C9.2703 20.1234 9.04367 19.6532 9.00583 19.15L9.00082 19H15.0008ZM12.0008 2C13.8158 1.99997 15.5598 2.70489 16.8651 3.96607C18.1703 5.22726 18.9346 6.94609 18.9968 8.76L19.0008 9V12.764L20.8228 16.408C20.9023 16.567 20.9421 16.7429 20.9388 16.9206C20.9355 17.0984 20.8891 17.2727 20.8037 17.4286C20.7183 17.5845 20.5963 17.7174 20.4483 17.8158C20.3003 17.9143 20.1306 17.9754 19.9538 17.994L19.8388 18H4.16283C3.98499 18.0001 3.80979 17.957 3.65225 17.8745C3.4947 17.792 3.3595 17.6725 3.25824 17.5264C3.15698 17.3802 3.09267 17.2116 3.07083 17.0351C3.04899 16.8586 3.07026 16.6795 3.13283 16.513L3.17883 16.408L5.00083 12.764V9C5.00083 7.14348 5.73832 5.36301 7.05108 4.05025C8.36383 2.7375 10.1443 2 12.0008 2ZM12.0008 4C10.7124 4.00007 9.47366 4.49754 8.54305 5.38866C7.61243 6.27978 7.06174 7.49575 7.00583 8.783L7.00083 9V12.764C7.00084 13.012 6.95472 13.2579 6.86483 13.489L6.78983 13.659L5.61983 16H18.3828L17.2128 13.658C17.1018 13.4363 17.033 13.1959 17.0098 12.949L17.0008 12.764V9C17.0008 7.67392 16.474 6.40215 15.5364 5.46447C14.5987 4.52678 13.3269 4 12.0008 4Z"
-                      fill={selected === "/Thongbao" ? "white" : "black"}
+                      fill={selected === "/InformPage" ? "white" : "black"}
                     />
                   </svg>
                   <span className="flex-1 ms-4 whitespace-nowrap">
@@ -138,7 +139,7 @@ export default function Sidebar() {
                   </span>
                   <span
                     className={`count flex items-center justify-center w-3 h-3 py-2.5 px-4 ms-4 text-sm font-medium  ${
-                      selected === "/Thongbao"
+                      selected === "/InformPage"
                         ? "bg-white text-black"
                         : " bg-[#9654F4] text-white"
                     } rounded-full `}
@@ -219,12 +220,12 @@ export default function Sidebar() {
               </Link>
             </li>
             <li
-              onClick={() => setSelected("/Quanlysanpham")}
+              onClick={() => setSelected("/ProductManagement")}
               className={`nav-item ${
-                selected === "/Quanlysanpham" ? "selected" : ""
+                selected === "/ProductManagement" ? "selected" : ""
               }`}
             >
-              <Link to="/Quanlysanpham">
+              <Link to="/ProductManagement">
                 <div
                   className={`flex items-center py-2.5 px-4 rounded-lg  group hover-effect`}
                 >
@@ -240,7 +241,7 @@ export default function Sidebar() {
                       <path
                         d="M2.35575 21.2141L19.6415 21.2141C20.5093 21.2141 21.2129 20.5106 21.2129 19.6427L21.2129 2.35697C21.2129 1.48909 20.5093 0.785538 19.6415 0.785538L2.35575 0.785538C1.48787 0.785538 0.784319 1.48909 0.784319 2.35697L0.784319 19.6427C0.784319 20.5106 1.48787 21.2141 2.35575 21.2141Z"
                         stroke={
-                          selected === "/Quanlysanpham" ? "white" : "black"
+                          selected === "/ProductManagement" ? "white" : "black"
                         } // Thay đổi màu của stroke
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -248,7 +249,7 @@ export default function Sidebar() {
                       <path
                         d="M4.71289 4.71411H7.85575M4.71289 8.64268H11.7843M18.07 8.64268L13.3557 16.4998L7.85575 13.357L4.71289 18.0713"
                         stroke={
-                          selected === "/Quanlysanpham" ? "white" : "black"
+                          selected === "/ProductManagement" ? "white" : "black"
                         } // Thay đổi màu của stroke
                         strokeWidth="1.5"
                         strokeLinecap="round"
@@ -261,7 +262,9 @@ export default function Sidebar() {
                       width="20.5"
                       height="20.5"
                       rx="1.25"
-                      stroke={selected === "/Quanlysanpham" ? "white" : "black"} // Thay đổi màu của stroke
+                      stroke={
+                        selected === "/ProductManagement" ? "white" : "black"
+                      } // Thay đổi màu của stroke
                       strokeWidth="1.5"
                     />
                     <defs>
@@ -277,12 +280,12 @@ export default function Sidebar() {
               </Link>
             </li>
             <li
-              onClick={() => setSelected("/Quanlytienthuong")}
+              onClick={() => setSelected("/MoneyManagement")}
               className={`nav-item ${
-                selected === "/Quanlytienthuong" ? "selected" : ""
+                selected === "/MoneyManagement" ? "selected" : ""
               }`}
             >
-              <Link to="/Quanlytienthuong">
+              <Link to="/MoneyManagement">
                 <div
                   className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect`}
                 >
@@ -309,12 +312,12 @@ export default function Sidebar() {
               </Link>
             </li>
             <li
-              onClick={() => setSelected("/Xemthem")}
+              onClick={() => setSelected("/MorePage")}
               className={`nav-item ${
-                selected === "/Xemthem" ? "selected" : ""
+                selected === "/MorePage" ? "selected" : ""
               }`}
             >
-              <Link to="/Xemthem">
+              <Link to="/MorePage">
                 <div
                   className={`flex items-center py-2.5 px-4  rounded-lg  group hover-effect `}
                 >
@@ -323,7 +326,7 @@ export default function Sidebar() {
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    fill={selected === "/Xemthem" ? "white" : "black"}
+                    fill={selected === "/MorePage" ? "white" : "black"}
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -331,28 +334,28 @@ export default function Sidebar() {
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z"
-                      fill={selected === "/Xemthem" ? "white" : "black"}
+                      fill={selected === "/MorePage" ? "white" : "black"}
                     />
                     <path
                       stroke="currentColor"
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M7.99922 13.3C8.71719 13.3 9.29922 12.7179 9.29922 12C9.29922 11.282 8.71719 10.7 7.99922 10.7C7.28125 10.7 6.69922 11.282 6.69922 12C6.69922 12.7179 7.28125 13.3 7.99922 13.3Z"
-                      fill={selected === "/Xemthem" ? "white" : "black"}
+                      fill={selected === "/MorePage" ? "white" : "black"}
                     />
                     <path
                       stroke="currentColor"
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M15.9992 13.3C16.7172 13.3 17.2992 12.7179 17.2992 12C17.2992 11.282 16.7172 10.7 15.9992 10.7C15.2812 10.7 14.6992 11.282 14.6992 12C14.6992 12.7179 15.2812 13.3 15.9992 13.3Z"
-                      fill={selected === "/Xemthem" ? "white" : "black"}
+                      fill={selected === "/MorePage" ? "white" : "black"}
                     />
                     <path
                       stroke="currentColor"
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M11.9992 13.3C12.7172 13.3 13.2992 12.7179 13.2992 12C13.2992 11.282 12.7172 10.7 11.9992 10.7C11.2812 10.7 10.6992 11.282 10.6992 12C10.6992 12.7179 11.2812 13.3 11.9992 13.3Z"
-                      fill={selected === "/Xemthem" ? "white" : "black"}
+                      fill={selected === "/MorePage" ? "white" : "black"}
                     />
                   </svg>
 

@@ -1,24 +1,21 @@
 import React, { useState, useRef } from "react";
-import { datacheckbox, dataVoucher } from "../../MookData/DataCheckboxCampaign";
-// import { Calendar } from "primereact/calendar";
 import DatePicker from "react-datepicker";
 
-import "react-datepicker/dist/react-datepicker.css"; // Đừng quên import CSS
+import "react-datepicker/dist/react-datepicker.css";
 
 import {
-  dropdown_angle_svg,
-  smile_svg,
-  calendar_svg_3,
-  calendar_svg_4,
-  left_arrow_svg,
-  delete_svg_1,
-  delete_small,
+  dropdownAngleSvg,
+  smileSvg,
+  calendarSvg3,
+  calendarSvg4,
+  leftArrowSvg,
+  deleteSvg1,
 } from "../../Common/svg";
 
 export default function CreateCampaign({ onClose }) {
   const [campaignName, setCampaignName] = useState("");
   const [description, setDescription] = useState("");
-  const [datacheckboxItem, setDatacheckboxItem] = useState([
+  const [dataCheckboxItem, setDataCheckboxItem] = useState([
     {
       img: "./Voucher/vc1.png",
       name: "Sản phẩm 1",
@@ -68,37 +65,34 @@ export default function CreateCampaign({ onClose }) {
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [openmodalcuoicung, setopenmodalcuoicung] = useState(false);
-  const [SearchTerm, setSearchTerm] = useState(""); // Đảm bảo SearchTerm là chuỗi
-  // const [filteredItems, setFilteredItems] = useState(datacheckboxItem);
+  const [openModalCuoicung, setOpenModalCuoicung] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
   const options = ["0h - 6h", "6h - 12h", "12h - 18h", "18h - 0h"];
   const handleClickStart = () => {
     setShowStartDatePicker(!showStartDatePicker);
-    setShowEndDatePicker(false); // Ẩn DatePicker của ngày kết thúc khi hiện DatePicker của ngày bắt đầu
+    setShowEndDatePicker(false);
   };
 
   const handleClickEnd = () => {
     setShowEndDatePicker(!showEndDatePicker);
-    setShowStartDatePicker(false); // Ẩn DatePicker của ngày bắt đầu khi hiện DatePicker của ngày kết thúc
+    setShowStartDatePicker(false);
   };
-  //checkbox cua voucher
-  const handledataCheckboxItemClick = (index) => {
-    // Cập nhật trạng thái checked của item tại vị trí index
-    setDatacheckboxItem((prevItems) =>
+  // checkbox của voucher
+  const handleDataCheckboxItemClick = (index) => {
+    setDataCheckboxItem((prevItems) =>
       prevItems.map((item, i) =>
         i === index ? { ...item, checked: !item.checked } : item
       )
     );
   };
+
   const handleCheckboxChange = (value) => {
     setSelectedCheckboxes((prevSelected) => {
       if (prevSelected.includes(value)) {
-        // Xóa giá trị khỏi danh sách nếu đã chọn
         return prevSelected.filter((item) => item !== value);
       } else {
-        // Thêm giá trị vào danh sách nếu chưa chọn
         return [...prevSelected, value];
       }
     });
@@ -110,7 +104,6 @@ export default function CreateCampaign({ onClose }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic
     console.log({
       campaignName,
       description,
@@ -119,28 +112,29 @@ export default function CreateCampaign({ onClose }) {
     });
     onClose();
   };
-  //endCreate
-  const endCreate = () => {
-    onClose();
-    setopenmodalcuoicung(false);
-    setIsOpen(false);
-  };
-  const handleSearchTermChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+
+  // const endCreate = () => {
+  //   onClose();
+  //   setOpenModalCuoicung(false);
+  //   setIsOpen(false);
+  // };
+
+  // const handleSearchTermChange = (e) => {
+  //   setSearchTerm(e.target.value);
+  // };
 
   const handleButtonToggle = (value) => {
     console.log(value);
-
-    // handle button toggle logic
+    // Xử lý logic khi nhấn nút toggle
     setSelectedCheckboxes((prevSelected) =>
       prevSelected.filter((item) => item !== value)
     );
   };
-  const filteredItems = datacheckboxItem.filter((item) => {
+
+  const filteredItems = dataCheckboxItem.filter((item) => {
     const matchesSearchTerm = item.name
       .toLowerCase()
-      .includes(SearchTerm.toLowerCase());
+      .includes(searchTerm.toLowerCase());
 
     const matchesCheckboxes =
       selectedCheckboxes.length === 0 ||
@@ -149,7 +143,7 @@ export default function CreateCampaign({ onClose }) {
     return matchesSearchTerm && matchesCheckboxes;
   });
 
-  const uncheck_svg = (
+  const uncheckSvg = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -165,7 +159,8 @@ export default function CreateCampaign({ onClose }) {
       />
     </svg>
   );
-  const check_svg = (
+
+  const checkSvg = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -181,24 +176,25 @@ export default function CreateCampaign({ onClose }) {
       />
     </svg>
   );
-  const [selectedValueradio, setSelectedValueradio] = useState("");
-  const [submitvalueradio, setSubmitValueradio] = useState("");
-  const [showDropdownkhachhangquaylai, setShowDropdownkhachhangquaylai] =
+
+  const [selectedValueRadio, setSelectedValueRadio] = useState("");
+  const [submitValueRadio, setSubmitValueRadio] = useState("");
+  const [showDropdownKhachHangQuayLai, setShowDropdownKhachHangQuayLai] =
     useState(false);
 
   const handleRadioChange = (value) => {
-    setSelectedValueradio(value);
+    setSelectedValueRadio(value);
 
     if (value === "khach-hang-quay-lai") {
-      setShowDropdownkhachhangquaylai(true);
+      setShowDropdownKhachHangQuayLai(true);
     } else {
-      setSubmitValueradio(value);
-      setShowDropdownkhachhangquaylai(false);
+      setSubmitValueRadio(value);
+      setShowDropdownKhachHangQuayLai(false);
     }
   };
   return (
     <>
-      {!openmodalcuoicung ? (
+      {!openModalCuoicung ? (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
             <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
@@ -260,7 +256,7 @@ export default function CreateCampaign({ onClose }) {
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
                 <div className="absolute w-6 h-6 bottom-3 left-2">
-                  {smile_svg}
+                  {smileSvg}
                 </div>
               </div>
               <div className="mb-5 py-2.5 px-[25px] rounded-lg shadow-[0px_0px_5px_0px_rgba(0,0,0,0.25)]">
@@ -279,7 +275,7 @@ export default function CreateCampaign({ onClose }) {
                               {value}
                             </div>
                             <button onClick={() => handleButtonToggle(value)}>
-                              {delete_small}
+                              {deleteSvg1}
                             </button>
                           </div>
                         ))
@@ -288,7 +284,7 @@ export default function CreateCampaign({ onClose }) {
                   <div className="z-50" onClick={toggleDropdown}>
                     <div>
                       <div className="rounded-lg bg-[#B78AF7] w-12 h-8  px-[5px] py-[5px] flex justify-center items-center">
-                        {dropdown_angle_svg}
+                        {dropdownAngleSvg}
                       </div>
                     </div>
                   </div>
@@ -331,7 +327,7 @@ export default function CreateCampaign({ onClose }) {
                   <input
                     type="text"
                     className="w-full p-3 border border-[#CACACA] rounded-lg mt-1 text-base tracking-[-1px] placeholder:text-[#B0B0B0] placeholder:tracking-[0.5px] text-black outline-none"
-                    value={SearchTerm}
+                    value={searchTerm}
                     placeholder="Chọn loại voucher"
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -350,17 +346,17 @@ export default function CreateCampaign({ onClose }) {
                               <div
                                 className="checkbox-custom"
                                 onClick={() =>
-                                  handledataCheckboxItemClick(index)
+                                  handleDataCheckboxItemClick(index)
                                 }
                               >
-                                {item.checked ? uncheck_svg : check_svg}
+                                {item.checked ? uncheckSvg : checkSvg}
                               </div>
                               <input
                                 type="checkbox"
                                 name={item.name}
                                 checked={item.checked}
                                 onChange={() =>
-                                  handledataCheckboxItemClick(index)
+                                  handleDataCheckboxItemClick(index)
                                 }
                                 style={{ display: "none" }}
                               />
@@ -434,7 +430,7 @@ export default function CreateCampaign({ onClose }) {
                     className="absolute right-0 top-[3px] z-40"
                     onClick={handleClickStart}
                   >
-                    {calendar_svg_3}
+                    {calendarSvg3}
                   </button>
                 </div>
 
@@ -466,12 +462,12 @@ export default function CreateCampaign({ onClose }) {
                     className="absolute right-0 top-[5px] z-40"
                     onClick={handleClickEnd}
                   >
-                    {calendar_svg_4}
+                    {calendarSvg4}
                   </button>
                 </div>
               </div>
               <button
-                onClick={() => setopenmodalcuoicung(true)}
+                onClick={() => setOpenModalCuoicung(true)}
                 className="w-full bg-purple-500 text-white p-2 rounded-full mt-4"
               >
                 Tiếp tục
@@ -489,9 +485,9 @@ export default function CreateCampaign({ onClose }) {
                 </h1>
                 <div
                   className="absolute top-[35%] left-[32px] cursor-pointer "
-                  onClick={() => setopenmodalcuoicung(false)}
+                  onClick={() => setOpenModalCuoicung(false)}
                 >
-                  {left_arrow_svg}
+                  {leftArrowSvg}
                 </div>
               </div>{" "}
               <div className="flex items-center mb-8 mt-5 ml-8">
@@ -517,7 +513,7 @@ export default function CreateCampaign({ onClose }) {
                       name="type"
                       value="tat-ca"
                       className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                      checked={selectedValueradio === "tat-ca"}
+                      checked={selectedValueRadio === "tat-ca"}
                       onChange={(e) => handleRadioChange(e.target.value)}
                     />
                     <label
@@ -534,7 +530,7 @@ export default function CreateCampaign({ onClose }) {
                       name="type"
                       value="khach-hang-quay-lai"
                       className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                      checked={selectedValueradio === "khach-hang-quay-lai"}
+                      checked={selectedValueRadio === "khach-hang-quay-lai"}
                       onChange={(e) => handleRadioChange(e.target.value)}
                     />
                     <label
@@ -545,7 +541,7 @@ export default function CreateCampaign({ onClose }) {
                     </label>
                   </div>
 
-                  {showDropdownkhachhangquaylai && (
+                  {showDropdownKhachHangQuayLai && (
                     <div className="mt-4 p-4 bg-white border border-gray-300 rounded-lg shadow-lg">
                       <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-4">
@@ -555,9 +551,9 @@ export default function CreateCampaign({ onClose }) {
                             name="dropdown-type"
                             value="nhom-khach-hang-1"
                             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                            checked={submitvalueradio === "nhom-khach-hang-1"}
+                            checked={submitValueRadio === "nhom-khach-hang-1"}
                             onChange={(e) =>
-                              setSubmitValueradio(e.target.value)
+                              setSubmitValueRadio(e.target.value)
                             }
                           />
                           <label
@@ -574,9 +570,9 @@ export default function CreateCampaign({ onClose }) {
                             name="dropdown-type"
                             value="nhom-khach-hang-2"
                             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                            checked={submitvalueradio === "nhom-khach-hang-2"}
+                            checked={submitValueRadio === "nhom-khach-hang-2"}
                             onChange={(e) =>
-                              setSubmitValueradio(e.target.value)
+                              setSubmitValueRadio(e.target.value)
                             }
                           />
                           <label
@@ -593,9 +589,9 @@ export default function CreateCampaign({ onClose }) {
                             name="dropdown-type"
                             value="khac"
                             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                            checked={submitvalueradio === "khac"}
+                            checked={submitValueRadio === "khac"}
                             onChange={(e) =>
-                              setSubmitValueradio(e.target.value)
+                              setSubmitValueRadio(e.target.value)
                             }
                           />
                           <label

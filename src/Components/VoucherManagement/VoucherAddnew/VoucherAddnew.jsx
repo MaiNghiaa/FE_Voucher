@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function VoucherAddnew({ onClose }) {
+export default function VoucherAddNew({ onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [checkboxes, setCheckboxes] = useState([
     { id: 1, option1: false, value: "0h - 6h" },
@@ -24,7 +24,8 @@ export default function VoucherAddnew({ onClose }) {
       })
     );
   };
-  const [datacheckboxItem, setDatacheckboxItem] = useState([
+
+  const [dataCheckboxItem, setDataCheckboxItem] = useState([
     {
       img: "./Voucher/vc1.png",
       name: "Sản phẩm 1",
@@ -64,25 +65,28 @@ export default function VoucherAddnew({ onClose }) {
   ]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handledataCheckboxItemClick = (name) => {
-    setDatacheckboxItem((prevItems) =>
+  const handleDataCheckboxItemClick = (name) => {
+    setDataCheckboxItem((prevItems) =>
       prevItems.map((item) =>
         item.name === name ? { ...item, checked: !item.checked } : item
       )
     );
   };
-  const filteredItems = datacheckboxItem
+
+  const filteredItems = dataCheckboxItem
     .filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => b.checked - a.checked);
+
   const [type, setType] = useState(false);
-  const [typeSale, settypeSale] = useState(null);
+  const [typeSale, setTypeSale] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleFileInputClick = () => {
     document.getElementById("fileInput").click();
   };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -97,7 +101,7 @@ export default function VoucherAddnew({ onClose }) {
   const checkedValues = checkboxes
     .filter((checkbox) => checkbox[`option${checkboxes.indexOf(checkbox) + 1}`])
     .map((checkbox) => checkbox.value);
-  // console.log(checkboxes);
+
   const handleButtonToggle = (value, idx) => {
     console.log(value, idx);
     setCheckboxes((prevCheckboxes) =>
@@ -107,9 +111,7 @@ export default function VoucherAddnew({ onClose }) {
           : checkbox
       )
     );
-    // console.log(checkboxes);
   };
-
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white rounded-lg max-h-[90vh] overflow-y-auto">
@@ -169,7 +171,7 @@ export default function VoucherAddnew({ onClose }) {
                   }`}
                   onClick={() => {
                     setType(true);
-                    settypeSale(1);
+                    setTypeSale(1);
                   }}
                 >
                   <p
@@ -186,7 +188,7 @@ export default function VoucherAddnew({ onClose }) {
                   }`}
                   onClick={() => {
                     setType(false);
-                    settypeSale(null);
+                    setTypeSale(null);
                   }}
                 >
                   <p
@@ -276,7 +278,7 @@ export default function VoucherAddnew({ onClose }) {
                         className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
                           typeSale === 1 ? "bg-white" : ""
                         }`}
-                        onClick={() => settypeSale(1)}
+                        onClick={() => setTypeSale(1)}
                       >
                         <p
                           className={`text-base  text-black ${
@@ -290,7 +292,7 @@ export default function VoucherAddnew({ onClose }) {
                         className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
                           typeSale === 2 ? "bg-white" : ""
                         }`}
-                        onClick={() => settypeSale(2)}
+                        onClick={() => setTypeSale(2)}
                       >
                         <p
                           className={`text-base  text-black ${
@@ -304,7 +306,7 @@ export default function VoucherAddnew({ onClose }) {
                         className={`flex-1 flex justify-center items-center p-2 rounded-[5px] cursor-pointer ${
                           typeSale === 3 ? "bg-white" : ""
                         }`}
-                        onClick={() => settypeSale(3)}
+                        onClick={() => setTypeSale(3)}
                       >
                         <p
                           className={`text-base  text-black ${
@@ -463,7 +465,7 @@ export default function VoucherAddnew({ onClose }) {
                             <div
                               className="checkbox-custom"
                               onClick={() =>
-                                handledataCheckboxItemClick(item.name)
+                                handleDataCheckboxItemClick(item.name)
                               }
                             >
                               {item.checked ? (
@@ -503,7 +505,7 @@ export default function VoucherAddnew({ onClose }) {
                               name={item.name}
                               checked={item.checked}
                               onChange={() =>
-                                handledataCheckboxItemClick(index)
+                                handleDataCheckboxItemClick(index)
                               }
                               style={{ display: "none" }}
                             />

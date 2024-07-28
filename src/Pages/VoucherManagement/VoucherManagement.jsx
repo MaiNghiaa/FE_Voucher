@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "../VoucherManagement/VoucherManagement.css";
 import VoucherDetail from "../../Components/VoucherManagement/VoucherDetail/VoucherDetail";
-import VoucherAddnew from "../../Components/VoucherManagement/VoucherAddnew/VoucherAddnew";
-import { delete_svg_1, plus_svg } from "../../Common/svg";
-// import Sidebar from "../../Layouts/Sections/Sidebar";
+import VoucherAddNew from "../../Components/VoucherManagement/VoucherAddnew/VoucherAddnew";
+import VoucherTable from "../../Components/VoucherManagement/VoucherTable";
+import DeleteModal from "../../Components/VoucherManagement/DeleteModalVM";
+import { plusSvg } from "../../Common/svg";
 
 export default function VoucherManagement() {
   const [visibleCount, setVisibleCount] = useState(3);
   const [showModal, setShowModal] = useState(false);
   const [showModalDetail, setShowModalDetail] = useState(false);
   const [idVoucher, setIdVoucher] = useState();
-  const [isOpenModalAddnew, SetisOpenModallAddnew] = useState(false);
-  const [data, setdata] = useState([
+  const [isOpenModalAddNew, setIsOpenModalAddNew] = useState(false);
+  const [data, setData] = useState([
     {
       id: 1,
       image: "./Voucher/vc1.png",
@@ -69,18 +70,11 @@ export default function VoucherManagement() {
       status: "Không hoạt động",
     },
   ]);
-  //
-  const [open, setOpen] = useState(0);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
-
-  //
   const moreInfo = () => {
     setVisibleCount((prevVisibleCount) => prevVisibleCount + 3);
   };
+
   const lessInfo = () => {
     setVisibleCount(3);
   };
@@ -92,7 +86,6 @@ export default function VoucherManagement() {
 
   const handleDelete = (id) => {
     console.log(`Deleting voucher with ID: ${id}`);
-
     setShowModal(false);
   };
 
@@ -100,204 +93,71 @@ export default function VoucherManagement() {
     setShowModalDetail(true);
   };
 
-  const ClickAddnew = () => {
-    SetisOpenModallAddnew(true);
+  const clickAddNew = () => {
+    setIsOpenModalAddNew(true);
   };
+
   return (
     <div>
       {!showModalDetail ? (
         <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
-          <div className="pt-4 px-[42px] pb-[99px] border-1 border-gray-200  rounded-lg dark:border-gray-700 bg-white h-auto">
+          <div className="pt-4 px-[42px] pb-[99px] border-1 border-gray-200 rounded-lg dark:border-gray-700 bg-white h-auto">
             <div className="Logo-nhatuyendung flex justify-end gap-4 items-center mb-4">
               <p className="ten-ntd font-medium text-base">Thead</p>
               <picture className="w-10 h-10 object-contain rounded-[40px]">
-                <img src="./Thead.png" alt="" className="w-full h-full " />
+                <img src="./Thead.png" alt="" className="w-full h-full" />
               </picture>
             </div>
-            <div className="flex items-center justify-center">
-              <button className="btn btnVoucher" onClick={ClickAddnew}>
-                {plus_svg}
-
-                <span className="font-medium text-base text-[#5900D9]">
-                  Tạo voucher
-                </span>
+            <div className="flex items-center justify-between">
+              <h2 className="text-[#344054] text-2xl font-semibold">Voucher</h2>
+              <button
+                className="border border-gray-300 rounded-lg flex items-center bg-[#EFE6FD] py-2 px-4 text-base font-semibold cursor-pointer"
+                onClick={clickAddNew}
+              >
+                <div className="mr-2">{plusSvg}</div>
+                Thêm mới
               </button>
             </div>
-            <div className="mt-6 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.2)] rounded-lg overflow-hidden overflow-x-auto">
-              <table className="min-w-full text-left border-collapse border box-border">
-                <thead className="bg-[#EFE6FD] text-black text-base leading-normal table-header-height font-bold">
-                  <tr className="bg-[#EFE6FD] text-black text-base leading-bold h-12">
-                    <th className="py-3 px-[25px] border border-gray-300 text-center">
-                      <p className="w-[44px] whitespace-normal mx-auto">
-                        Ảnh/
-                        <br />
-                        video
-                      </p>
-                    </th>
-                    <th className="py-3 px-[69px] text-center border border-gray-300">
-                      <div className="py-3 px-[111.5px]">
-                        <p>Tên Voucher</p>
-                      </div>
-                    </th>
-                    <th className="py-3 px-6 border border-gray-300 text-center">
-                      <p className="w-[40px] whitespace-normal mx-auto">
-                        Phân loại
-                      </p>
-                    </th>
-                    <th className="py-3 px-6 border border-gray-300 text-center">
-                      <p className="w-[102px] whitespace-normal mx-auto">
-                        Đối tượng sử dụng
-                      </p>
-                    </th>
-                    <th className="py-3 px-6 border border-gray-300 text-center">
-                      <p className="w-[80px] whitespace-normal mx-auto">
-                        Trạng thái
-                      </p>
-                    </th>
-                    <th className="py-3 px-6 border border-gray-300 text-center">
-                      <p className="w-[69px] whitespace-normal mx-auto">
-                        Thao tác
-                      </p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.slice(0, visibleCount).map((item, index) => (
-                    <tr
-                      key={index}
-                      className="bg-white text-center text-base font-medium"
-                    >
-                      <td className="py-2 px-[25px] border border-gray-300 text-center">
-                        <img
-                          src={item.image}
-                          alt="Voucher"
-                          className="w-[76px] h-[80px] object-cover mx-auto"
-                        />
-                      </td>
-                      <td className="py-2 px-[69px] border border-gray-300 text-center">
-                        <p
-                          className="flex items-center justify-center cursor-pointer"
-                          onClick={() => handleDetail()}
-                        >
-                          {item.voucherName}
-                        </p>
-                      </td>
-                      <td className="py-2 px-6 border border-gray-300 text-center">
-                        <p>{item.category}</p>
-                      </td>
-                      <td className="py-2 px-6 border border-gray-300 text-center">
-                        <p>{item.usageTarget}</p>
-                      </td>
-                      <td className="py-2 px-6 border border-gray-300 text-center">
-                        <p
-                          className={` ${
-                            item.status === "Hoạt động"
-                              ? "text-green-500 text-base font-medium"
-                              : "text-red-500 text-base font-medium"
-                          }`}
-                        >
-                          {item.status}
-                        </p>
-                      </td>
-                      <td className="py-2 px-6 border border-gray-300 text-center">
-                        <div className="flex flex-col items-center justify-center">
-                          <button
-                            className="text-blue-500 cursor-pointer mb-1"
-                            onClick={() => handleDetail()}
-                          >
-                            Chi tiết
-                          </button>
-                          <button
-                            className="text-red-500 cursor-pointer"
-                            onClick={() => {
-                              handleDeleteClick(item.id);
-                            }}
-                          >
-                            Xóa
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {showModal && (
-              <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-                <div className="bg-white px-6 rounded-lg w-[640px]">
-                  <div className="flex items-center justify-between py-6 ">
-                    <h4 className="text-[#1E293B] text-2xl font-semibold">
-                      Xóa
-                    </h4>
-                    <button
-                      className=" text-white px-4 py-2 rounded mr-2"
-                      onClick={() => {
-                        setShowModal(false);
-                      }}
-                    >
-                      <div>{delete_svg_1}</div>
-                    </button>
-                  </div>
-                  <div className="">
-                    <p className="font-normal text-base text-[#1E293B] pb-[24px]">
-                      Bạn có chắc chắn xóa voucher này không ? {idVoucher}
-                    </p>
-                    <div>
-                      <div className="cta py-3 px-5 flex justify-end gap-2">
-                        <button
-                          onClick={() => {
-                            setShowModal(false);
-                          }}
-                          className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
-                        >
-                          <p className="">Trở lại</p>
-                        </button>
-                        <button
-                          onClick={() => {
-                            handleDelete(idVoucher);
-                          }}
-                          className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
-                        >
-                          Xóa
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {visibleCount < data.length && (
-              <div
-                className="mt-[22px] flex items-center justify-center"
-                onClick={moreInfo}
-              >
-                <p className="text-base font-normal text-black text-more">
+            <VoucherTable
+              data={data}
+              visibleCount={visibleCount}
+              handleDetail={handleDetail}
+              handleDeleteClick={handleDeleteClick}
+            />
+            <div className="mt-4 flex justify-end">
+              {visibleCount < data.length ? (
+                <button
+                  onClick={moreInfo}
+                  className="text-[#6941C6] font-semibold cursor-pointer"
+                >
                   Xem thêm
-                </p>
-              </div>
-            )}
-
-            {visibleCount >= data.length && (
-              <div
-                className="mt-[22px] flex items-center justify-center"
-                onClick={lessInfo}
-              >
-                <p className="text-base font-normal text-black text-more">
+                </button>
+              ) : (
+                <button
+                  onClick={lessInfo}
+                  className="text-[#6941C6] font-semibold cursor-pointer"
+                >
                   Thu gọn
-                </p>
-              </div>
-            )}
-
-            {isOpenModalAddnew && (
-              <VoucherAddnew onClose={() => SetisOpenModallAddnew(false)} />
-            )}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       ) : (
-        <VoucherDetail
-          onClose={() => {
-            setShowModalDetail(false);
-          }}
+        <VoucherDetail setShowModalDetail={setShowModalDetail} />
+      )}
+      {showModal && (
+        <DeleteModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          idVoucher={idVoucher}
+          handleDelete={handleDelete}
+        />
+      )}
+      {isOpenModalAddNew && (
+        <VoucherAddNew
+          isOpenModalAddNew={isOpenModalAddNew}
+          setIsOpenModalAddNew={setIsOpenModalAddNew}
         />
       )}
     </div>

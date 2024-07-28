@@ -1,4 +1,4 @@
-export const bigticket_svg = (
+export const bigticketSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="150"
@@ -2590,7 +2590,7 @@ export const bigticket_svg = (
   </svg>
 );
 
-export const present_svg = (
+export const presentSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="65"
@@ -2619,7 +2619,7 @@ export const present_svg = (
   </svg>
 );
 
-export const smallticket_svg = (
+export const smallticketSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="47"
@@ -2917,7 +2917,7 @@ export const smallticket_svg = (
   </svg>
 );
 
-export const ticket_present_1_svg = (
+export const ticketPresent1Svg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="70"
@@ -3214,7 +3214,7 @@ export const ticket_present_1_svg = (
     </g>
   </svg>
 );
-export const ticket_2_svg = (
+export const ticket2Svg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="70"
@@ -3243,7 +3243,7 @@ export const ticket_2_svg = (
   </svg>
 );
 
-export const present_2_svf = (
+export const present2Svg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="43"
@@ -3272,7 +3272,7 @@ export const present_2_svf = (
   </svg>
 );
 
-export const more_present_3_svg = (
+export const morePresent3Svg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="65"
@@ -3301,7 +3301,7 @@ export const more_present_3_svg = (
   </svg>
 );
 
-export const more_present_4_svg = (
+export const morePresent4Svg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="118"
@@ -3345,7 +3345,7 @@ export const logo_vouchers_Blog_Business_svg = (
   </svg>
 );
 
-export const plus_svg = (
+export const plusSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="19"
@@ -3368,7 +3368,7 @@ export const plus_svg = (
   </svg>
 );
 
-export const left_arrow_svg = (
+export const leftArrowSvg = (
   <svg
     width="24"
     height="24"
@@ -3386,7 +3386,7 @@ export const left_arrow_svg = (
   </svg>
 );
 
-export const smile_svg = (
+export const smileSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -3404,7 +3404,7 @@ export const smile_svg = (
   </svg>
 );
 
-export const calendar_svg_1 = (
+export const calendarSvg1 = (
   <svg
     width="49"
     height="49"
@@ -3422,7 +3422,7 @@ export const calendar_svg_1 = (
     />
   </svg>
 );
-export const calendar_svg_2 = (
+export const calendarSvg2 = (
   <svg
     width="49"
     height="49"
@@ -3441,7 +3441,7 @@ export const calendar_svg_2 = (
   </svg>
 );
 
-export const update_svg_1 = (
+export const updateSvg1 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -3470,7 +3470,7 @@ export const update_svg_1 = (
   </svg>
 );
 
-export const trash_svg_1 = (
+export const trashSvg1 = (
   <svg
     width="24"
     height="24"
@@ -3498,7 +3498,7 @@ export const trash_svg_1 = (
     />
   </svg>
 );
-export const delete_svg_1 = (
+export const deleteSvg1 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="14"
@@ -3511,7 +3511,7 @@ export const delete_svg_1 = (
   </svg>
 );
 
-export const more_toggleDropdown_svg = (
+export const moreToggleDropdownSvg = (
   <svg
     width="24"
     height="24"
@@ -3565,7 +3565,7 @@ export const btn_x_svg = (
   </svg>
 );
 
-export const dropdown_angle_svg = (
+export const dropdownAngleSvg = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="12"
@@ -3580,7 +3580,7 @@ export const dropdown_angle_svg = (
   </svg>
 );
 
-export const calendar_svg_3 = (
+export const calendarSvg3 = (
   <svg
     width="52"
     height="52"
@@ -3598,7 +3598,7 @@ export const calendar_svg_3 = (
     />
   </svg>
 );
-export const calendar_svg_4 = (
+export const calendarSvg4 = (
   <svg
     width="52"
     height="52"
@@ -3651,7 +3651,7 @@ export const checkbox_svg = (
   </svg>
 );
 
-export const delete_small = (
+export const deleteSmall = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -3665,5 +3665,27 @@ export const delete_small = (
       d="M8.00065 1.3335C4.31875 1.3335 1.33398 4.31826 1.33398 8.00016C1.33398 11.6821 4.31875 14.6668 8.00065 14.6668C11.6825 14.6668 14.6673 11.6821 14.6673 8.00016C14.6673 4.31826 11.6825 1.3335 8.00065 1.3335ZM5.52925 5.52876C5.7896 5.26841 6.21171 5.26841 6.47206 5.52876L8.00065 7.05735L9.52925 5.52876C9.7896 5.26841 10.2117 5.26841 10.4721 5.52876C10.7324 5.78911 10.7324 6.21122 10.4721 6.47157L8.94346 8.00016L10.4721 9.52876C10.7324 9.78911 10.7324 10.2112 10.4721 10.4716C10.2117 10.7319 9.7896 10.7319 9.52925 10.4716L8.00065 8.94297L6.47206 10.4716C6.21171 10.7319 5.7896 10.7319 5.52925 10.4716C5.2689 10.2112 5.2689 9.78911 5.52925 9.52876L7.05784 8.00016L5.52925 6.47157C5.2689 6.21122 5.2689 5.78911 5.52925 5.52876Z"
       fill="black"
     />
+  </svg>
+);
+
+export const rightAngleDown = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="14"
+    width="14"
+    viewBox="0 0 512 512"
+  >
+    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+  </svg>
+);
+
+export const dropdownAngleCateSvg = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="14"
+    width="14"
+    viewBox="0 0 320 512"
+  >
+    <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
   </svg>
 );

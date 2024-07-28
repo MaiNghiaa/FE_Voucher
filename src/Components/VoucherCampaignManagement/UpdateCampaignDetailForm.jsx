@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import {
-  calendar_svg_1,
-  calendar_svg_2,
-  left_arrow_svg,
-  smile_svg,
+  calendarSvg1,
+  calendarSvg2,
+  leftArrowSvg,
+  smileSvg,
 } from "../../Common/svg";
 
 export default function UpdateCampaignDetailForm({ onClose }) {
@@ -32,16 +32,16 @@ export default function UpdateCampaignDetailForm({ onClose }) {
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-[638px]  bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
-          <h1 className="text-2xl font-bold text-center mb-4 py-5 ">
+      <div className="w-[638px] bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="relative px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
+          <h1 className="text-2xl font-bold text-center mb-4 py-5">
             Chi tiết chiến dịch
           </h1>
           <div
             className="absolute top-[35%] left-[32px] cursor-pointer"
             onClick={onClose}
           >
-            {left_arrow_svg}
+            {leftArrowSvg}
           </div>
         </div>
         <form onSubmit={handleSubmit} className="px-8 pb-10">
@@ -71,11 +71,11 @@ export default function UpdateCampaignDetailForm({ onClose }) {
           </div>
           <div className="mb-5 relative">
             <textarea
-              className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-base font-medium text-black min-h-[194px] outline-none "
+              className="w-full p-4 border border-[#B0B0B0] rounded-lg mt-1 text-base font-medium text-black min-h-[194px] outline-none"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            <div className="absolute w-6 h-6 bottom-3 left-2">{smile_svg}</div>
+            <div className="absolute w-6 h-6 bottom-3 left-2">{smileSvg}</div>
           </div>
 
           <div className="mb-12 py-2.5 px-[25px] rounded-lg shadow-[0px_0px_5px_0px_rgba(0,0,0,0.25)] flex flex-col gap-5">
@@ -85,7 +85,7 @@ export default function UpdateCampaignDetailForm({ onClose }) {
               </label>
               <input
                 type="text"
-                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2  rounded-lg outline-none"
+                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 rounded-lg outline-none"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 ref={dateInputRef}
@@ -95,7 +95,7 @@ export default function UpdateCampaignDetailForm({ onClose }) {
                 className="absolute right-0 top-[4px]"
                 onClick={handleClick}
               >
-                {calendar_svg_1}
+                {calendarSvg1}
               </button>
             </div>
 
@@ -115,7 +115,7 @@ export default function UpdateCampaignDetailForm({ onClose }) {
                 className="absolute right-0 top-[4px]"
                 onClick={handleClick}
               >
-                {calendar_svg_2}
+                {calendarSvg2}
               </button>
             </div>
           </div>
