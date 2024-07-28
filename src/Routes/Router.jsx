@@ -1,6 +1,5 @@
 import { lazy, memo, Suspense, useEffect } from "react";
-import { useRoutes, useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { useRoutes } from "react-router-dom";
 
 import LandingPage from "../Pages/LandingPage/LandingPage";
 import VoucherManagement from "../Pages/VoucherManagement/VoucherManagement";
@@ -15,24 +14,16 @@ import InformPage from "../Pages/InformPage/InformPage";
 const PageLayout = lazy(() => import("../Layouts/PageLayout"));
 
 function RouterComponent() {
-  const location = useLocation();
-
   const routes = [
     {
       path: "/",
       element: (
         <Suspense fallback={<p className="suspense_loading">Loading....</p>}>
-          <TransitionGroup>
-            <CSSTransition
-              key={location.key}
-              timeout={{ enter: 300, exit: 300 }}
-              classNames="fade"
-            >
-              <PageLayout>
-                <LandingPage />
-              </PageLayout>
-            </CSSTransition>
-          </TransitionGroup>
+          <div className="page-transition">
+            <PageLayout>
+              <LandingPage />
+            </PageLayout>
+          </div>
         </Suspense>
       ),
       children: [

@@ -1,7 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { formatVND } from "../../Common/formatVND";
-import { leftArrowSvg, plusSvg } from "../../Common/svg";
-
+import { editSvg, plusSvg, trash2Svg } from "../../Common/svg";
+import AddCategoryModal from "../../Components/ProductManagement/AddCategoryModal";
+import AddProductModal from "../../Components/ProductManagement/AddProductModal";
+import UpdateItemModal from "../../Components/ProductManagement/UpdateItemModal";
+import CreateItemModal from "../../Components/ProductManagement/CreateItemModal";
+import RenameCategoryModal from "../../Components/ProductManagement/RenameCategoryModal";
+import DeleteCategoryModal from "../../Components/ProductManagement/DeleteCategoryModal";
+import DeleteProductModal from "../../Components/ProductManagement/DeleteProductModal";
+import { dataProductManagement } from "../../MookData/DataCheckboxCampaign";
 export default function ProductManagement() {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showProductModal, setShowProductModal] = useState(false);
@@ -9,58 +16,16 @@ export default function ProductManagement() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteCategory, setDeleteCategory] = useState();
   const [currentCategory, setCurrentCategory] = useState("");
-  const [renameValue, setRenameValue] = useState("");
   const [deleteProduct, setDeleteProduct] = useState("");
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(null);
-  const [category, setCategory] = useState("");
-  const [categoryIcon, setCategoryIcon] = useState();
   const [categories, setCategories] = useState(["Food", "Drinks"]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const fileInputRef = useRef(null);
 
-  const [dataItems, setDataItems] = useState([
-    {
-      id: "1",
-      image: "productImages/tt23.jpg",
-      name: "Fruit Tea",
-      desc: "This is a delicious drink",
-      price: "123456",
-      category: "Food",
-      status: "Available",
-    },
-    {
-      id: "2",
-      image: "productImages/tt24.jpg",
-      name: "Soursop Tea",
-      desc: "This is a very delicious drink",
-      price: "456436",
-      category: "Drinks",
-      status: "Unavailable",
-    },
-    {
-      id: "3",
-      image: "productImages/tt25.jpg",
-      name: "Tropical Fruit Tea",
-      desc: "This drink is quite interesting",
-      price: "123654",
-      category: "Drinks",
-      status: "Available",
-    },
-    {
-      id: "4",
-      image: "productImages/tt26.png",
-      name: "Trung Nghia Tea",
-      desc: "This is an excellent drink",
-      price: "999999",
-      category: "Drinks",
-      status: "Available",
-    },
-  ]);
+  const [dataItems, setDataItems] = useState(dataProductManagement);
 
   const [showUpdateItemModal, setShowUpdateItemModal] = useState(false);
-  const [detailItemIndex, setDetailItemIndex] = useState();
   const [updatedDataItem, setUpdatedDataItem] = useState({
     images: [],
     imageUrls: [],
@@ -81,26 +46,14 @@ export default function ProductManagement() {
     status: "",
   });
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    const urls = files.map((file) => URL.createObjectURL(file));
-
-    setFormData((prevData) => ({
-      ...prevData,
-      images: files,
-      imageUrls: urls,
-    }));
-  };
-
   // Handle adding new category
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const exist = categories.find((item) => item === category);
+  const handleSubmit = (newCategory) => {
+    const exist = categories.find((item) => item === newCategory);
     if (exist) {
       console.log("Category already exists");
     } else {
-      setCategories([...categories, category]);
-      console.log("Category added:", category);
+      setCategories([...categories, newCategory]);
+      console.log("Category added:", newCategory);
       setShowCategoryModal(false);
     }
   };
@@ -117,15 +70,13 @@ export default function ProductManagement() {
   // Handle rename
   const handleRename = (item) => {
     setCurrentCategory(item);
-    setRenameValue(item);
     setShowRenameModal(true);
     setDropdownVisible(null);
   };
 
-  const handleRenameSubmit = (e) => {
-    e.preventDefault();
+  const handleRenameSubmit = (CateUpdate) => {
     const updatedCategories = categories.map((cat) =>
-      cat === currentCategory ? renameValue : cat
+      cat === currentCategory ? CateUpdate : cat
     );
     setCategories(updatedCategories);
     setShowRenameModal(false);
@@ -143,6 +94,7 @@ export default function ProductManagement() {
   };
 
   const handleDeleteSubmit = (category) => {
+    console.log(category);
     const newCategories = categories.filter((item) => item !== category);
     setCategories(newCategories);
     setShowDeleteModal(false);
@@ -169,14 +121,6 @@ export default function ProductManagement() {
     setShowCreateModal(category);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   const handleChangeUpdate = (e) => {
     const { name, value } = e.target;
     setUpdatedDataItem((prevData) => ({
@@ -185,8 +129,8 @@ export default function ProductManagement() {
     }));
   };
 
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
+  const handleCreateSubmit = (formnewData) => {
+    console.log("handleCreateSubmit", formnewData);
     const newId = (
       dataItems.length > 0
         ? Math.max(...dataItems.map((item) => parseInt(item.id))) + 1
@@ -194,16 +138,16 @@ export default function ProductManagement() {
     ).toString();
     const newItem = {
       id: newId,
-      image: formData.imageUrls[0], // Use the first image URL as a representation
-      name: formData.name,
-      desc: formData.desc,
-      price: formData.price,
-      category: formData.category,
-      status: formData.status,
+      image: formnewData.imageUrls[0],
+      name: formnewData.name,
+      desc: formnewData.desc,
+      price: formnewData.price,
+      category: formnewData.category,
+      status: formnewData.status,
     };
 
     setDataItems((prevDataItems) => [...prevDataItems, newItem]);
-    setShowCreateModal(false);
+
     setShowProductModal(false);
     setFormData({
       images: [],
@@ -235,24 +179,19 @@ export default function ProductManagement() {
     });
   };
 
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
-
   const handleCategoryClick = (category) => {
     console.log(category);
     if (selectedCategory === category) {
       setSelectedCategory(null);
-      setCategoryIcon();
     } else {
       setSelectedCategory(category);
     }
   };
-  useEffect(() => {
-    console.log("selectedCategory:", selectedCategory);
-    console.log("categories:", categories);
-    console.log("dataItems:", dataItems);
-  }, [showCategoryModal, showProductModal, categories, dataItems]);
+  // useEffect(() => {
+  //   console.log("selectedCategory:", selectedCategory);
+  //   console.log("categories:", categories);
+  //   console.log("dataItems:", dataItems);
+  // }, [showCategoryModal, showProductModal, categories, dataItems]);
   return (
     <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
       <div className=" border-1 border-gray-200 rounded-lg dark:border-gray-700 bg-white h-auto">
@@ -434,16 +373,7 @@ export default function ProductManagement() {
                                           handleUpdateItem(filteredItem, idx)
                                         }
                                       >
-                                        <span>
-                                          <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="14"
-                                            width="14"
-                                            viewBox="0 0 512 512"
-                                          >
-                                            <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z" />
-                                          </svg>
-                                        </span>
+                                        <span>{editSvg}</span>
                                         Chỉnh sửa
                                       </li>
 
@@ -453,16 +383,7 @@ export default function ProductManagement() {
                                           handleDeleteProduct(filteredItem)
                                         }
                                       >
-                                        <span>
-                                          <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            height="14"
-                                            width="12.25"
-                                            viewBox="0 0 448 512"
-                                          >
-                                            <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                                          </svg>
-                                        </span>
+                                        <span>{trash2Svg}</span>
                                         Xóa
                                       </li>
                                     </ul>
@@ -492,679 +413,67 @@ export default function ProductManagement() {
               </div>
             ))}
         </div>
+        {/* done */}
         {showCategoryModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
-              <div className="py-9 px-8 relative">
-                <p className="title text-2xl font-medium mb-6 flex justify-center items-center">
-                  Thêm hạng mục
-                </p>
-                <div
-                  className="absolute top-[12.5%] cursor-pointer "
-                  onClick={() => setShowCategoryModal(false)}
-                >
-                  {leftArrowSvg}
-                </div>
-
-                <form onSubmit={handleSubmit}>
-                  <label htmlFor="Name" className="text-base font-medium">
-                    Tên
-                  </label>
-                  <input
-                    name="category"
-                    id="category"
-                    type="text"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="mt-2 w-full p-3 border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="btn w-full py-3 text-base font-medium flex-justify-center items-center bg-[rgba(150,84,244,1)] mt-12 text-white rounded-full"
-                  >
-                    Xác nhận
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+          <AddCategoryModal
+            isOpen={showCategoryModal}
+            onClose={() => setShowCategoryModal(false)}
+            onAdd={handleSubmit}
+          />
         )}
+        {/* done */}
         {showRenameModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
-              <div className="py-9 px-8 relative">
-                <p className="title text-2xl font-medium mb-6 flex justify-center items-center">
-                  Đổi tên hạng mục
-                </p>
-
-                <div
-                  className="absolute top-[12.5%] cursor-pointer "
-                  onClick={() => setShowRenameModal(false)}
-                >
-                  {leftArrowSvg}
-                </div>
-                <form onSubmit={handleRenameSubmit}>
-                  <label htmlFor="rename" className="text-base font-medium">
-                    Tên mới
-                  </label>
-                  <input
-                    name="rename"
-                    id="rename"
-                    type="text"
-                    value={renameValue}
-                    onChange={(e) => setRenameValue(e.target.value)}
-                    className="mt-2 w-full p-3 border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="btn w-full py-3 text-base font-medium flex-justify-center items-center bg-[rgba(150,84,244,1)] mt-12 text-white rounded-full"
-                  >
-                    Xác nhận
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+          <RenameCategoryModal
+            isOpen={showRenameModal}
+            onClose={() => setShowRenameModal(false)}
+            onRename={handleRenameSubmit}
+            currentCategory={currentCategory}
+          />
         )}
+        {/* done */}
         {showDeleteModal && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-            <div className="bg-white px-6 rounded-lg w-[640px]">
-              <div className="flex items-center justify-between py-6 ">
-                <h4 className="text-[#1E293B] text-2xl font-semibold">Xóa</h4>
-                <button
-                  className=" text-white px-4 py-2 rounded mr-2"
-                  onClick={() => {
-                    setShowDeleteModal(false);
-                  }}
-                >
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                    >
-                      <path
-                        d="M1 1L13 13"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M13 1L1 13"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </div>
-                </button>
-              </div>
-              <div className="">
-                <p className="font-normal text-base text-[#1E293B]">
-                  Bạn có chắc chắn xóa voucher này không ?
-                </p>
-                <p className="font-normal text-base text-[#1E293B] pb-3">
-                  (Tất cả sản phẩm trong hạng mục này cũng bị xóa)
-                </p>
-                <div>
-                  <div className="cta py-3 px-5 flex justify-end gap-2">
-                    <button
-                      onClick={() => {
-                        setShowDeleteModal(false);
-                      }}
-                      className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
-                    >
-                      <p className="">Trở lại</p>
-                    </button>
-                    <button
-                      onClick={() => handleDeleteSubmit(deleteCategory)}
-                      className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
-                    >
-                      Xóa
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DeleteCategoryModal
+            isOpen={showDeleteModal}
+            onClose={() => setShowDeleteModal(false)}
+            onDelete={handleDeleteSubmit}
+            deleteCategory={deleteCategory}
+          />
         )}
+        {/* done */}
         {showDeleteProductModal && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-            <div className="bg-white px-6 rounded-lg w-[640px]">
-              <div className="flex items-center justify-between py-6 ">
-                <h4 className="text-[#1E293B] text-2xl font-semibold">Xóa</h4>
-                <button
-                  className=" text-white px-4 py-2 rounded mr-2"
-                  onClick={() => {
-                    setShowDeleteProductModal(false);
-                  }}
-                >
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                    >
-                      <path
-                        d="M1 1L13 13"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M13 1L1 13"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </div>
-                </button>
-              </div>
-              <div className="">
-                <p className="font-normal text-base text-[#1E293B] pb-6">
-                  Bạn có chắc chắn muốn xóa sản phẩm này không ?
-                </p>
-
-                <div>
-                  <div className="cta py-3 px-5 flex justify-end gap-2">
-                    <button
-                      onClick={() => {
-                        setShowDeleteProductModal(false);
-                      }}
-                      className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
-                    >
-                      <p className="">Trở lại</p>
-                    </button>
-                    <button
-                      onClick={() => handleDeleteProductSubmit(deleteProduct)}
-                      className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
-                    >
-                      Xóa
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DeleteProductModal
+            isOpen={showDeleteProductModal}
+            onClose={() => setShowDeleteProductModal(false)}
+            deleteProduct={deleteProduct}
+            onDelete={handleDeleteProductSubmit}
+          />
         )}
         {showCreateModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
-              <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
-                <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
-                  Thêm sản phẩm cho trà
-                </h1>
-                <div
-                  className="absolute top-[35%] left-[32px] cursor-pointer "
-                  onClick={() => setShowCreateModal(false)}
-                >
-                  {leftArrowSvg}
-                </div>
-              </div>
-              <form
-                onSubmit={handleCreateSubmit}
-                className=" px-8 bg-white rounded shadow-md pb-[96px]"
-              >
-                <div className="mb-5">
-                  <label
-                    htmlFor="name"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Tên
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={updatedDataItem.name}
-                    onChange={handleChange}
-                    placeholder="Đây là nước uống bestsaler"
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="desc"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Mô tả
-                  </label>
-                  <textarea
-                    name="desc"
-                    id="desc"
-                    value={updatedDataItem.desc}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="price"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Giá
-                  </label>
-                  <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    value={updatedDataItem.price}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="status"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Trạng thái
-                  </label>
-                  <select
-                    name="status"
-                    id="status"
-                    value={formData.status}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  >
-                    <option className="py-2 px-3" value="" disabled hidden>
-                      Select status
-                    </option>
-                    <option className="py-2 px-3" value="Có sẵn">
-                      Có sẵn
-                    </option>
-                    <option className="py-2 px-3" value="Không có sẵn">
-                      Không có sẵn
-                    </option>
-                  </select>
-                </div>
-                <div className="mb-12">
-                  <label
-                    htmlFor="image"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Ảnh sản phẩm
-                  </label>
-                  <input
-                    type="file"
-                    name="images"
-                    id="images"
-                    multiple
-                    onChange={handleFileChange}
-                    className="hidden"
-                    ref={fileInputRef}
-                  />
-                  <div className="flex flex-wrap justify-between mt-2">
-                    {formData.imageUrls.length > 0 ? (
-                      formData.imageUrls.map((url, index) => (
-                        <div
-                          key={index}
-                          className="w-[144px] h-[88px] object-cover border rounded-[5px] border-[rgba(176,176,176,1)] my-3 cursor-pointer"
-                          style={{
-                            backgroundImage: `url(${url})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                          }}
-                          onClick={handleImageClick}
-                        ></div>
-                      ))
-                    ) : (
-                      <div
-                        className="w-[144px] h-[88px] border rounded-[5px] border-[rgba(176,176,176,1)] flex items-center justify-center text-gray-400 cursor-pointer"
-                        onClick={handleImageClick}
-                      >
-                        Chọn ảnh
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-3 px-5 flex justify-center items-center text-base font-medium bg-[rgba(150,84,244,1)] border border-[rgba(150,84,244,1)] text-white rounded-full"
-                >
-                  Xác nhận
-                </button>
-              </form>
-            </div>
-          </div>
+          <CreateItemModal
+            isOpen={showCreateModal}
+            onClose={() => setShowCreateModal(false)}
+            onAdd={handleCreateSubmit}
+          />
         )}
+        {/* done */}
         {showProductModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
-              <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
-                <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
-                  Thêm sản phẩm
-                </h1>
-                <div
-                  className="absolute top-[35%] left-[32px] cursor-pointer "
-                  onClick={() => setShowProductModal(false)}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M21 12H3M3 12L10 19M3 12L10 5"
-                      stroke="black"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <form
-                onSubmit={handleCreateSubmit}
-                className=" px-8 bg-white rounded shadow-md pb-[96px]"
-              >
-                <div className="mb-5">
-                  <label
-                    htmlFor="type"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Loại
-                  </label>
-                  <select
-                    name="type"
-                    id="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  >
-                    <option value="" disabled hidden>
-                      Chọn loại sản phẩm
-                    </option>
-                    {categories.map((category, index) => (
-                      <option key={index} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="name"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Tên
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Đây là nước uống bestsaler"
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="desc"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Mô tả
-                  </label>
-                  <textarea
-                    name="desc"
-                    id="desc"
-                    value={formData.desc}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="price"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Giá
-                  </label>
-                  <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    value={formData.price}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="status"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Trạng thái
-                  </label>
-                  <select
-                    name="status"
-                    id="status"
-                    value={formData.status}
-                    onChange={handleChange}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  >
-                    <option className="py-2 px-3" value="" disabled hidden>
-                      Select status
-                    </option>
-                    <option className="py-2 px-3" value="Có sẵn">
-                      Có sẵn
-                    </option>
-                    <option className="py-2 px-3" value="Không có sẵn">
-                      Không có sẵn
-                    </option>
-                  </select>
-                </div>
-                <div className="mb-12">
-                  <label
-                    htmlFor="image"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Ảnh sản phẩm
-                  </label>
-                  <input
-                    type="file"
-                    name="images"
-                    id="images"
-                    multiple
-                    onChange={handleFileChange}
-                    className="hidden"
-                    ref={fileInputRef}
-                  />
-                  <div className="flex flex-wrap justify-between mt-2">
-                    {formData.imageUrls.length > 0 ? (
-                      formData.imageUrls.map((url, index) => (
-                        <div
-                          key={index}
-                          className="w-[144px] h-[88px] object-cover border rounded-[5px] border-[rgba(176,176,176,1)] my-3 cursor-pointer"
-                          style={{
-                            backgroundImage: `url(${url})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                          }}
-                          onClick={handleImageClick}
-                        ></div>
-                      ))
-                    ) : (
-                      <div
-                        className="w-[144px] h-[88px] border rounded-[5px] border-[rgba(176,176,176,1)] flex items-center justify-center text-gray-400 cursor-pointer"
-                        onClick={handleImageClick}
-                      >
-                        Chọn ảnh
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-3 px-5 flex justify-center items-center text-base font-medium bg-[rgba(150,84,244,1)] border border-[rgba(150,84,244,1)] text-white rounded-full"
-                >
-                  Xác nhận
-                </button>
-              </form>
-            </div>
-          </div>
+          <AddProductModal
+            isOpen={showProductModal}
+            onClose={() => setShowProductModal(false)}
+            onAdd={handleCreateSubmit}
+            categories={categories}
+          />
         )}
+        {/* done */}
         {showUpdateItemModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
-              <div className="relative  px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
-                <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
-                  Cập nhật sản phẩm
-                </h1>
-                <div
-                  className="absolute top-[35%] left-[32px] cursor-pointer "
-                  onClick={() => setShowUpdateItemModal(false)}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M21 12H3M3 12L10 19M3 12L10 5"
-                      stroke="black"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <form
-                onSubmit={handleUpdateItemSubmit}
-                className=" px-8 bg-white rounded shadow-md pb-[96px]"
-              >
-                <div className="mb-5 hidden">
-                  <label
-                    htmlFor="type"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Loại
-                  </label>
-                  <select
-                    name="type"
-                    id="type"
-                    value={updatedDataItem.category}
-                    onChange={handleChangeUpdate}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  >
-                    <option value="" disabled hidden>
-                      Chọn loại sản phẩm
-                    </option>
-                    {categories.map((category, index) => (
-                      <option key={index} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="name"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Tên
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={updatedDataItem.name}
-                    onChange={handleChangeUpdate}
-                    placeholder="Đây là nước uống bestsaler"
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="desc"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Mô tả
-                  </label>
-                  <textarea
-                    name="desc"
-                    id="desc"
-                    value={updatedDataItem.desc}
-                    onChange={handleChangeUpdate}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="price"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Giá
-                  </label>
-                  <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    value={updatedDataItem.price}
-                    onChange={handleChangeUpdate}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  />
-                </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="status"
-                    className="block text-base font-medium text-black mb-2"
-                  >
-                    Trạng thái
-                  </label>
-                  <select
-                    name="status"
-                    id="status"
-                    value={updatedDataItem.status}
-                    onChange={handleChangeUpdate}
-                    className="w-full pt-3 px-3 pb-[14px] text-base font-medium placeholder:text-gray-200 text-black border border-[rgba(202,202,202,1)] rounded-lg outline-none"
-                    required
-                  >
-                    <option className="py-2 px-3" value="" disabled hidden>
-                      Select status
-                    </option>
-                    <option className="py-2 px-3" value="Có sẵn">
-                      Có sẵn
-                    </option>
-                    <option className="py-2 px-3" value="Không có sẵn">
-                      Không có sẵn
-                    </option>
-                  </select>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-3 px-5 flex justify-center items-center text-base font-medium bg-[rgba(150,84,244,1)] border border-[rgba(150,84,244,1)] text-white rounded-full"
-                >
-                  Xác nhận
-                </button>
-              </form>
-            </div>
-          </div>
+          <UpdateItemModal
+            showUpdateItemModal={showUpdateItemModal}
+            setShowUpdateItemModal={setShowUpdateItemModal}
+            handleUpdateItemSubmit={handleUpdateItemSubmit}
+            updatedDataItem={updatedDataItem}
+            handleChangeUpdate={handleChangeUpdate}
+            categories={categories}
+          />
         )}
       </div>
     </div>

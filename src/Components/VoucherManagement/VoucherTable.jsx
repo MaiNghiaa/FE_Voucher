@@ -5,6 +5,7 @@ export default function VoucherTable({
   data,
   visibleCount,
   handleDetail,
+  onClose,
   handleDeleteClick,
 }) {
   return (
@@ -45,6 +46,7 @@ export default function VoucherTable({
             <VoucherTableRow
               key={index}
               item={item}
+              onClose={onClose}
               handleDetail={handleDetail}
               handleDeleteClick={handleDeleteClick}
             />

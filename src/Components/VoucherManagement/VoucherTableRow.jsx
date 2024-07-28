@@ -3,6 +3,7 @@ import React from "react";
 export default function VoucherTableRow({
   item,
   handleDetail,
+  onClose,
   handleDeleteClick,
 }) {
   return (

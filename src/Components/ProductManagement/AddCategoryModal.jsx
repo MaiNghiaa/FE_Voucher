@@ -1,0 +1,55 @@
+import React, { useState } from "react";
+import { leftArrowSvg } from "../../Common/svg";
+
+const AddCategoryModal = ({ isOpen, onClose, onAdd }) => {
+  const [categoryName, setCategoryName] = useState("");
+
+  const handleAddCategory = (e) => {
+    if (categoryName.trim()) {
+      onAdd(categoryName);
+      setCategoryName("");
+      onClose();
+    }
+  };
+
+  return (
+    isOpen && (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
+          <div className="py-9 px-8 relative">
+            <p className="title text-2xl font-medium mb-6 flex justify-center items-center">
+              Thêm hạng mục
+            </p>
+            <div
+              className="absolute top-[12.5%] cursor-pointer "
+              onClick={onClose}
+            >
+              {leftArrowSvg}
+            </div>
+            <form onSubmit={handleAddCategory}>
+              <label htmlFor="Name" className="text-base font-medium">
+                Tên
+              </label>
+              <input
+                name="category"
+                id="category"
+                type="text"
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
+                className="mt-2 w-full p-3 border border-[rgba(202,202,202,1)] rounded-lg outline-none"
+              />
+              <button
+                type="submit"
+                className="btn w-full py-3 text-base font-medium flex-justify-center items-center bg-[rgba(150,84,244,1)] mt-12 text-white rounded-full"
+              >
+                Xác nhận
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    )
+  );
+};
+
+export default AddCategoryModal;

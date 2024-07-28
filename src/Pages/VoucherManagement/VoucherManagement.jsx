@@ -12,7 +12,7 @@ export default function VoucherManagement() {
   const [showModalDetail, setShowModalDetail] = useState(false);
   const [idVoucher, setIdVoucher] = useState();
   const [isOpenModalAddNew, setIsOpenModalAddNew] = useState(false);
-  const [data, setData] = useState([
+  const data = [
     {
       id: 1,
       image: "./Voucher/vc1.png",
@@ -69,7 +69,7 @@ export default function VoucherManagement() {
       usageTarget: "Tất cả",
       status: "Không hoạt động",
     },
-  ]);
+  ];
 
   const moreInfo = () => {
     setVisibleCount((prevVisibleCount) => prevVisibleCount + 3);
@@ -108,20 +108,21 @@ export default function VoucherManagement() {
                 <img src="./Thead.png" alt="" className="w-full h-full" />
               </picture>
             </div>
-            <div className="flex items-center justify-between">
-              <h2 className="text-[#344054] text-2xl font-semibold">Voucher</h2>
-              <button
-                className="border border-gray-300 rounded-lg flex items-center bg-[#EFE6FD] py-2 px-4 text-base font-semibold cursor-pointer"
-                onClick={clickAddNew}
-              >
-                <div className="mr-2">{plusSvg}</div>
-                Thêm mới
-              </button>
+            <div className="flex items-center justify-center">
+              <button className="btn btnVoucher" onClick={clickAddNew}>
+                {" "}
+                {plusSvg}{" "}
+                <span className="font-medium text-base text-[#5900D9]">
+                  {" "}
+                  Thêm mới{" "}
+                </span>{" "}
+              </button>{" "}
             </div>
             <VoucherTable
               data={data}
               visibleCount={visibleCount}
               handleDetail={handleDetail}
+              onClose={() => setShowModalDetail(true)}
               handleDeleteClick={handleDeleteClick}
             />
             <div className="mt-4 flex justify-end">
@@ -144,12 +145,15 @@ export default function VoucherManagement() {
           </div>
         </div>
       ) : (
-        <VoucherDetail setShowModalDetail={setShowModalDetail} />
+        <VoucherDetail
+          setShowModalDetail={setShowModalDetail}
+          onClose={() => setShowModalDetail(false)}
+        />
       )}
       {showModal && (
         <DeleteModal
           showModal={showModal}
-          setShowModal={setShowModal}
+          onClose={() => setShowModal(false)}
           idVoucher={idVoucher}
           handleDelete={handleDelete}
         />
@@ -157,7 +161,7 @@ export default function VoucherManagement() {
       {isOpenModalAddNew && (
         <VoucherAddNew
           isOpenModalAddNew={isOpenModalAddNew}
-          setIsOpenModalAddNew={setIsOpenModalAddNew}
+          onClose={() => setIsOpenModalAddNew(false)}
         />
       )}
     </div>

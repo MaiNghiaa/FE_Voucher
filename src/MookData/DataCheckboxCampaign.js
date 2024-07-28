@@ -49,3 +49,42 @@ export const dataVoucher = [
     value: ["0h-6h", "12h - 18h"],
   },
 ];
+
+export const dataProductManagement = [
+  {
+    id: "1",
+    image: "productImages/tt23.jpg",
+    name: "Fruit Tea",
+    desc: "This is a delicious drink",
+    price: "123456",
+    category: "Food",
+    status: "Available",
+  },
+  {
+    id: "2",
+    image: "productImages/tt24.jpg",
+    name: "Soursop Tea",
+    desc: "This is a very delicious drink",
+    price: "456436",
+    category: "Drinks",
+    status: "Unavailable",
+  },
+  {
+    id: "3",
+    image: "productImages/tt25.jpg",
+    name: "Tropical Fruit Tea",
+    desc: "This drink is quite interesting",
+    price: "123654",
+    category: "Drinks",
+    status: "Available",
+  },
+  {
+    id: "4",
+    image: "productImages/tt26.png",
+    name: "Trung Nghia Tea",
+    desc: "This is an excellent drink",
+    price: "999999",
+    category: "Drinks",
+    status: "Available",
+  },
+];

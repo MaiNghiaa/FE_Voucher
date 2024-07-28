@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { leftArrowSvg } from "../../Common/svg";
 
-const RenameCategoryModal = ({
-  show,
+export default function RenameCategoryModal({
+  isOpen,
   onClose,
-  renameValue,
-  setRenameValue,
-  handleRenameSubmit,
-}) => {
-  if (!show) return null;
+  onRename,
+  currentCategory,
+}) {
+  const [renameValue, setRenameValue] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      setRenameValue(currentCategory);
+    }
+  }, [isOpen, currentCategory]);
+
+  const handleRenameSubmit = (e) => {
+    e.preventDefault();
+    onRename(renameValue);
+    onClose();
+  };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -16,26 +30,11 @@ const RenameCategoryModal = ({
           <p className="title text-2xl font-medium mb-6 flex justify-center items-center">
             Đổi tên hạng mục
           </p>
-
           <div
             className="absolute top-[12.5%] cursor-pointer"
             onClick={onClose}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 12H3M3 12L10 19M3 12L10 5"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            {leftArrowSvg}
           </div>
           <form onSubmit={handleRenameSubmit}>
             <label htmlFor="rename" className="text-base font-medium">
@@ -60,6 +59,4 @@ const RenameCategoryModal = ({
       </div>
     </div>
   );
-};
-
-export default RenameCategoryModal;
+}

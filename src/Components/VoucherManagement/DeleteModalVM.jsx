@@ -3,40 +3,36 @@ import { deleteSvg1 } from "../../Common/svg";
 
 export default function DeleteModal({
   showModal,
-  setShowModal,
+  onClose,
   idVoucher,
   handleDelete,
 }) {
   return (
     showModal && (
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div className="bg-white px-6 rounded-lg w-[640px]">
-          <div className="flex items-center justify-between py-6">
+        <div className="bg-white px-6 py-6 rounded-lg w-[640px]">
+          <div className="flex items-center justify-between mb-6">
             <h4 className="text-[#1E293B] text-2xl font-semibold">Xóa</h4>
             <button
               className="text-white px-4 py-2 rounded mr-2"
-              onClick={() => {
-                setShowModal(false);
-              }}
+              onClick={onClose}
             >
-              <div>{deleteSvg1}</div>
+              {deleteSvg1}
             </button>
           </div>
-          <p className="text-[#1E293B] text-[20px] font-normal">
-            Bạn chắc chắn muốn xóa voucher này?
+          <p className="font-normal text-base text-[#1E293B] pb-6">
+            Bạn có chắc chắn muốn xóa sản phẩm này không?
           </p>
-          <div className="flex justify-end mt-10 gap-x-3">
+          <div className="cta py-3 px-5 flex justify-end gap-2">
             <button
-              className="border rounded-lg bg-[#D0D5DD] text-[#344054] py-2.5 px-4 text-sm font-semibold"
-              onClick={() => {
-                setShowModal(false);
-              }}
+              onClick={onClose}
+              className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
             >
-              Hủy
+              Trở lại
             </button>
             <button
-              className="border rounded-lg bg-[#F04438] text-white py-2.5 px-4 text-sm font-semibold"
               onClick={() => handleDelete(idVoucher)}
+              className="h-10 w-[120px] flex justify-center items-center rounded-full border-[1px] border-[#9654F4] text-[#9654F4] hover:bg-[#9654F4] hover:text-white transition"
             >
               Xóa
             </button>
