@@ -8,7 +8,7 @@ export default function VoucherTableRow({
 }) {
   return (
     <tr className="bg-white text-center text-base font-medium">
-      <td className="py-2 px-[25px] border border-gray-300 text-center">
+      <td className="py-2 px-[25px] border border-gray-300 text-center cursor-default">
         <img
           src={item.image}
           alt="Voucher"
@@ -23,13 +23,13 @@ export default function VoucherTableRow({
           {item.voucherName}
         </p>
       </td>
-      <td className="py-2 px-6 border border-gray-300 text-center">
+      <td className="py-2 px-6 border border-gray-300 text-center cursor-default">
         <p>{item.category}</p>
       </td>
-      <td className="py-2 px-6 border border-gray-300 text-center">
+      <td className="py-2 px-6 border border-gray-300 text-center cursor-default">
         <p>{item.usageTarget}</p>
       </td>
-      <td className="py-2 px-6 border border-gray-300 text-center">
+      <td className="py-2 px-6 border border-gray-300 text-center cursor-default">
         <p
           className={` ${
             item.status === "Hoạt động"

@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 import RouterComponent from "./Routes/Router"; // Adjust the path as necessary

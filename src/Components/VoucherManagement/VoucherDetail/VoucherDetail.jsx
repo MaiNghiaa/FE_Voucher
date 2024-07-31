@@ -1,5 +1,6 @@
 import React from "react";
 import "../VoucherDetail/VoucherDetail.css";
+import { buttonDeleteSvg, leftArrowSvg } from "../../../Common/svg";
 export default function VoucherDetail({ onClose }) {
   const bgMain = {
     borderRadius: "8px",
@@ -10,22 +11,11 @@ export default function VoucherDetail({ onClose }) {
   return (
     <div className="p-4 sm:ml-80 inner-bg">
       <div className="relative pt-4 pb-[100px] border-2 border-gray-200 rounded-lg dark:border-gray-700 bg-white">
-        <div className="absolute left-[28px] top-[28px]" onClick={onClose}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="16"
-            viewBox="0 0 20 16"
-            fill="none"
-          >
-            <path
-              d="M19 8H1M1 8L8 15M1 8L8 1"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        <div
+          className="absolute left-[28px] top-[28px] cursor-pointer"
+          onClick={onClose}
+        >
+          {leftArrowSvg}
         </div>
         <div className="shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)] pb-4">
           <div className="flex justify-center items-center">
@@ -38,23 +28,7 @@ export default function VoucherDetail({ onClose }) {
         <div className="py-8 px-[24px] sm:px-[56px] flex flex-col">
           <div className="relative" style={bgMain}>
             <div className="absolute right-[8px] top-[8px]">
-              <button onClick={onClose}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                >
-                  <circle cx="16" cy="16" r="16" fill="#9654F4" />
-                  <path
-                    d="M11 11L21.5 21.5M21.5 11L11 21.5"
-                    stroke="white"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
+              <button onClick={onClose}>{buttonDeleteSvg}</button>
             </div>
             <div className="py-[42px] px-[16px] sm:px-[56px]">
               <h2 className="font-semibold text-xl tracking-[-1px]">
@@ -142,7 +116,10 @@ export default function VoucherDetail({ onClose }) {
           </div>
 
           <div className="cta flex justify-center items-center mt-[72px]">
-            <button className="py-3 px-5 bg-[#9654F4] border border-[#9654F4] w-full sm:w-[548px] text-white rounded-full shadow-[0px_1px_2px_0px_rgba(198,228,246,0.05)]">
+            <button
+              className="py-3 px-5 bg-[#9654F4] border border-[#9654F4] w-full sm:w-[548px] text-white rounded-full shadow-[0px_1px_2px_0px_rgba(198,228,246,0.05)]"
+              onClick={onClose}
+            >
               Xác nhận
             </button>
           </div>

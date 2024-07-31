@@ -1,20 +1,20 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-
+import "../../Common/CustomDatePicker.css";
 import {
   dropdownAngleSvg,
   smileSvg,
   calendarSvg3,
   calendarSvg4,
   leftArrowSvg,
-  deleteSvg1,
+  deleteSmall,
 } from "../../Common/svg";
 
 export default function CreateCampaign({ onClose }) {
-  const [campaignName, setCampaignName] = useState("");
-  const [description, setDescription] = useState("");
+  const [campaignName, setCampaignName] = useState(" ");
+  const [description, setDescription] = useState(" ");
   const [dataCheckboxItem, setDataCheckboxItem] = useState([
     {
       img: "./Voucher/vc1.png",
@@ -60,25 +60,25 @@ export default function CreateCampaign({ onClose }) {
     },
   ]);
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
-  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [isStartDateOpen, setIsStartDateOpen] = useState(false);
+  const [isEndDateOpen, setIsEndDateOpen] = useState(false);
+
+  const handleStartDateClick = () => {
+    setIsStartDateOpen(!isStartDateOpen);
+  };
+
+  const handleEndDateClick = () => {
+    setIsEndDateOpen(!isEndDateOpen);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
   const [openModalCuoicung, setOpenModalCuoicung] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
   const options = ["0h - 6h", "6h - 12h", "12h - 18h", "18h - 0h"];
-  const handleClickStart = () => {
-    setShowStartDatePicker(!showStartDatePicker);
-    setShowEndDatePicker(false);
-  };
-
-  const handleClickEnd = () => {
-    setShowEndDatePicker(!showEndDatePicker);
-    setShowStartDatePicker(false);
-  };
   // checkbox của voucher
   const handleDataCheckboxItemClick = (index) => {
     setDataCheckboxItem((prevItems) =>
@@ -112,16 +112,6 @@ export default function CreateCampaign({ onClose }) {
     });
     onClose();
   };
-
-  // const endCreate = () => {
-  //   onClose();
-  //   setOpenModalCuoicung(false);
-  //   setIsOpen(false);
-  // };
-
-  // const handleSearchTermChange = (e) => {
-  //   setSearchTerm(e.target.value);
-  // };
 
   const handleButtonToggle = (value) => {
     console.log(value);
@@ -205,21 +195,7 @@ export default function CreateCampaign({ onClose }) {
                 className="absolute top-[35%] left-[32px] cursor-pointer "
                 onClick={onClose}
               >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 12H3M3 12L10 19M3 12L10 5"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                {leftArrowSvg}
               </div>
             </div>{" "}
             <div className="px-8 pb-10">
@@ -275,7 +251,7 @@ export default function CreateCampaign({ onClose }) {
                               {value}
                             </div>
                             <button onClick={() => handleButtonToggle(value)}>
-                              {deleteSvg1}
+                              {deleteSmall}
                             </button>
                           </div>
                         ))
@@ -400,70 +376,52 @@ export default function CreateCampaign({ onClose }) {
               </div>
 
               <div className="mb-12 py-2.5 px-[25px] rounded-lg shadow-[0px_0px_5px_0px_rgba(0,0,0,0.25)] flex flex-col gap-5">
-                {/* Ngày bắt đầu chiến dịch */}
                 <div className="flex items-center gap-3 relative">
                   <label className="block text-black text-xl tracking-[-1px] font-medium whitespace-nowrap flex-1">
                     Ngày bắt đầu chiến dịch:
                   </label>
-                  <input
-                    type="text"
-                    className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg"
-                    value={
-                      startDate ? startDate.toLocaleDateString("en-GB") : ""
-                    }
-                    onClick={handleClickStart}
-                    readOnly
-                  />
-                  {showStartDatePicker && (
+                  <div className="relative flex-2 w-full">
                     <DatePicker
                       selected={startDate}
-                      onChange={(date) => {
-                        setStartDate(date);
-                        setShowStartDatePicker(false);
-                      }}
-                      className="absolute mt-2 w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg z-50"
+                      onChange={(date) => setStartDate(date)}
                       dateFormat="dd/MM/yyyy"
+                      className="w-full p-3 border border-[#B0B0B0] mt-1 rounded-lg outline-none custom-datepicker"
+                      open={isStartDateOpen}
+                      onClickOutside={() => setIsStartDateOpen(false)}
+                      onSelect={() => setIsStartDateOpen(false)}
                     />
-                  )}
-                  <button
-                    type="button"
-                    className="absolute right-0 top-[3px] z-40"
-                    onClick={handleClickStart}
-                  >
-                    {calendarSvg3}
-                  </button>
+                    <button
+                      type="button"
+                      className="absolute right-3 top-[29px] transform -translate-y-1/2"
+                      onClick={handleStartDateClick}
+                    >
+                      {calendarSvg3}
+                    </button>
+                  </div>
                 </div>
 
-                {/* Ngày kết thúc chiến dịch */}
                 <div className="flex items-center gap-3 relative">
                   <label className="block text-black text-xl tracking-[-1px] font-medium whitespace-nowrap flex-1">
                     Ngày kết thúc chiến dịch:
                   </label>
-                  <input
-                    type="text"
-                    className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg"
-                    value={endDate ? endDate.toLocaleDateString("en-GB") : ""}
-                    onClick={handleClickEnd}
-                    readOnly
-                  />
-                  {showEndDatePicker && (
+                  <div className="relative flex-2 w-full">
                     <DatePicker
                       selected={endDate}
-                      onChange={(date) => {
-                        setEndDate(date);
-                        setShowEndDatePicker(false);
-                      }}
-                      className="absolute mt-2 w-full p-3 border border-[#B0B0B0] mt-1 flex-2 outline-none rounded-lg z-50"
+                      onChange={(date) => setEndDate(date)}
                       dateFormat="dd/MM/yyyy"
+                      className="w-full p-3 border border-[#B0B0B0] mt-1 rounded-lg outline-none"
+                      open={isEndDateOpen}
+                      onClickOutside={() => setIsEndDateOpen(false)}
+                      onSelect={() => setIsEndDateOpen(false)}
                     />
-                  )}
-                  <button
-                    type="button"
-                    className="absolute right-0 top-[5px] z-40"
-                    onClick={handleClickEnd}
-                  >
-                    {calendarSvg4}
-                  </button>
+                    <button
+                      type="button"
+                      className="absolute right-3 top-[29px] transform -translate-y-1/2"
+                      onClick={handleEndDateClick}
+                    >
+                      {calendarSvg4}
+                    </button>
+                  </div>
                 </div>
               </div>
               <button
@@ -618,11 +576,4 @@ export default function CreateCampaign({ onClose }) {
       )}
     </>
   );
-}
-
-{
-  /* 
- 
-
-  */
 }

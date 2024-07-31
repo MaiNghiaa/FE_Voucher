@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "../VoucherAddnew/VoucherAdddnew.css";
 export default function VoucherAddNew({ onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [checkboxes, setCheckboxes] = useState([
@@ -326,30 +326,32 @@ export default function VoucherAddNew({ onClose }) {
                       <p className="flex-1 font-medium text-base text-black">
                         phần trăm giảm
                       </p>
-                      <input
-                        type="number"
-                        name="phantramgiam"
-                        className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
-                        style={{
-                          WebkitAppearance: "none",
-                          MozAppearance: "textfield",
-                        }}
-                        placeholder="nhập mô tả vào đây"
-                      />
-                      <span className="absolute inset-y-0 right-3 top-[36px] bottom-0 flex items-center text-gray-500">
+                      <div className="flex items-center border border-gray-300 rounded-lg p-3">
+                        <input
+                          type="number"
+                          name="phantramgiam"
+                          className="flex-1 outline-none appearance-none custom-number-input"
+                          placeholder="nhập mô tả vào đây"
+                        />
+                        <span className="ml-2 text-gray-500">%</span>
+                      </div>
+                      {/* <span className="absolute inset-y-0 right-3 top-[36px] bottom-0 flex items-center text-gray-500">
                         %{" "}
-                      </span>
+                      </span> */}
                     </div>
                     <div className="flex flex-col gap-2 mt-5">
                       <p className="flex-1 font-medium text-base text-black">
                         Số tiền giảm tối đa
                       </p>
-                      <input
-                        type="text"
-                        name="limit"
-                        className="flex-1 p-3  border border-[#CACACA] outline-none rounded-lg"
-                        placeholder="nhập mô tả vào đây"
-                      />
+                      <div className="flex items-center border border-gray-300 rounded-lg p-3">
+                        <input
+                          type="number"
+                          name="limit"
+                          className="flex-1 outline-none appearance-none custom-number-input"
+                          placeholder="nhập mô tả vào đây"
+                        />
+                        <span className="ml-2 text-gray-500">đ</span>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -399,11 +401,14 @@ export default function VoucherAddNew({ onClose }) {
                         (không bắt buộc)
                       </span>
                     </div>
-                    <input
-                      type="text"
-                      defaultValue="50.000đ"
-                      className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1 outline-none"
-                    />
+                    <div className="w-[410px] p-3 mt-2 rounded-lg border border-[#CACACA] flex-1 flex justify-between">
+                      <input
+                        type="number"
+                        defaultValue="50.000"
+                        className=" outline-none custom-number-input"
+                      />
+                      <span className="ml-2 text-base text-gray-500">đ</span>
+                    </div>
                   </div>
                   <div className="flex-1 flex justify-start p-4 rounded-lg">
                     <div className="flex flex-1 flex-col justify-start">

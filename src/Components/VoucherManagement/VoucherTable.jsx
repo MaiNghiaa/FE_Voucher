@@ -12,7 +12,7 @@ export default function VoucherTable({
     <div className="mt-6 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.2)] rounded-lg overflow-hidden overflow-x-auto">
       <table className="min-w-full text-left border-collapse border box-border">
         <thead className="bg-[#EFE6FD] text-black text-base leading-normal table-header-height font-bold">
-          <tr className="bg-[#EFE6FD] text-black text-base leading-bold h-12">
+          <tr className="bg-[#EFE6FD] text-black text-base leading-bold h-12 cursor-default">
             <th className="py-3 px-[25px] border border-gray-300 text-center">
               <p className="w-[44px] whitespace-normal mx-auto">
                 Ảnh/

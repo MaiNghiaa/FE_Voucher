@@ -10,7 +10,7 @@ import {
 } from "../../Common/svg";
 
 export default function VoucherCampaignManagementDetail({ onClose }) {
-  const [data, setData] = useState([
+  const data = [
     {
       id: 1,
       tenVoucher: "Giảm 10%",
@@ -43,7 +43,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
       tong: "5",
       loaiVoucher: "Giảm giá",
     },
-  ]);
+  ];
   const [showModal, setShowModal] = useState(false);
   const [modalChienDichDetail, setModalChienDichDetail] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
@@ -73,7 +73,10 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
       {!modalChienDichDetail ? (
         <div className="p-4 sm:ml-80 inner-bg">
           <div className="relative pb-[100px] border-2 border-gray-200 rounded-lg dark:border-gray-700 bg-white">
-            <div className="absolute left-[28px] top-[28px]" onClick={onClose}>
+            <div
+              className="absolute left-[28px] top-[28px] cursor-pointer"
+              onClick={onClose}
+            >
               {leftArrowSvg}
             </div>
             <div className="shadow-[0px_0px_2px_0px_rgba(0,0,0,0.25)] rounded-t-lg py-4">
@@ -109,7 +112,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
             </div>
             <div className="mx-[24px]">
               <div className="cta relative mb-[14px]">
-                <button className="py-2.5 px-[18px] bg-[#9654F4] flex justify-center items-center rounded-lg text-white">
+                <button className="py-2.5 px-[18px] bg-[#9654F4] flex justify-center items-center rounded-lg text-white cursor-default">
                   Danh sách voucher
                 </button>
                 <div
@@ -132,7 +135,7 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                   </div>
                 )}
               </div>
-              <div className="flex justify-between items-center py-3 bg-[#EFE6FD] rounded-lg mb-3">
+              <div className="flex justify-between items-center py-3 bg-[#EFE6FD] rounded-lg mb-3 cursor-default">
                 <div className="flex items-center justify-center flex-1">
                   {" "}
                   <p className="text-black font-medium text-base leading-6 ">
@@ -179,22 +182,22 @@ export default function VoucherCampaignManagementDetail({ onClose }) {
                           {itemvoucher.tenVoucher}
                         </p>
                       </div>
-                      <div className="flex items-center justify-center flex-1">
+                      <div className="flex items-center justify-center flex-1 cursor-default">
                         <p className="text-black font-medium text-base leading-6">
                           {itemvoucher.daLay}
                         </p>
                       </div>
-                      <div className="flex items-center justify-center flex-1">
+                      <div className="flex items-center justify-center flex-1 cursor-default">
                         <p className="text-black font-medium text-base leading-6">
                           {itemvoucher.daSuDung}
                         </p>
                       </div>
-                      <div className="flex items-center justify-center flex-1">
+                      <div className="flex items-center justify-center flex-1 cursor-default">
                         <p className="text-black font-medium text-base leading-6">
                           {itemvoucher.tong}
                         </p>
                       </div>
-                      <div className="flex items-center justify-center flex-1">
+                      <div className="flex items-center justify-center flex-1 cursor-default">
                         <p className="text-black font-medium text-base leading-6">
                           {itemvoucher.loaiVoucher}
                         </p>

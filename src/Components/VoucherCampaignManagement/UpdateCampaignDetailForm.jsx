@@ -1,4 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "../../Common/CustomDatePicker.css";
+
 import {
   calendarSvg1,
   calendarSvg2,
@@ -11,12 +16,20 @@ export default function UpdateCampaignDetailForm({ onClose }) {
   const [description, setDescription] = useState(
     "Mỗi buổi sáng là một trang sách mới"
   );
-  const [startDate, setStartDate] = useState("21-12-2023");
-  const [endDate, setEndDate] = useState("21-12-2023");
-  const dateInputRef = useRef(null);
-  const handleClick = () => {
-    dateInputRef.current.focus();
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [isStartDateOpen, setIsStartDateOpen] = useState(false);
+  const [isEndDateOpen, setIsEndDateOpen] = useState(false);
+
+  const handleStartDateClick = () => {
+    setIsStartDateOpen(!isStartDateOpen);
   };
+
+  const handleEndDateClick = () => {
+    setIsEndDateOpen(!isEndDateOpen);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic
@@ -26,10 +39,9 @@ export default function UpdateCampaignDetailForm({ onClose }) {
       startDate,
       endDate,
     });
+    onClose();
   };
-  const boxShadow = {
-    boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25);",
-  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="w-[638px] bg-white rounded-lg shadow-lg overflow-hidden">
@@ -83,40 +95,48 @@ export default function UpdateCampaignDetailForm({ onClose }) {
               <label className="block text-black text-xl tracking-[-1px] font-medium whitespace-nowrap flex-1">
                 Ngày bắt đầu chiến dịch:
               </label>
-              <input
-                type="text"
-                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 rounded-lg outline-none"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                ref={dateInputRef}
-              />
-              <button
-                type="button"
-                className="absolute right-0 top-[4px]"
-                onClick={handleClick}
-              >
-                {calendarSvg1}
-              </button>
+              <div className="relative flex-2 w-full">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                  className="w-full p-3 border border-[#B0B0B0] mt-1 rounded-lg outline-none"
+                  open={isStartDateOpen}
+                  onClickOutside={() => setIsStartDateOpen(false)}
+                  onSelect={() => setIsStartDateOpen(false)}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-[28.5px] transform -translate-y-1/2"
+                  onClick={handleStartDateClick}
+                >
+                  {calendarSvg1}
+                </button>
+              </div>
             </div>
 
             <div className="flex items-center gap-3 relative">
               <label className="block text-black text-xl tracking-[-1px] font-medium whitespace-nowrap flex-1">
                 Ngày kết thúc chiến dịch:
               </label>
-              <input
-                type="text"
-                className="w-full p-3 border border-[#B0B0B0] mt-1 flex-2 rounded-lg outline-none"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                ref={dateInputRef}
-              />
-              <button
-                type="button"
-                className="absolute right-0 top-[4px]"
-                onClick={handleClick}
-              >
-                {calendarSvg2}
-              </button>
+              <div className="relative flex-2 w-full">
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                  className="w-full p-3 border border-[#B0B0B0] mt-1 rounded-lg outline-none"
+                  open={isEndDateOpen}
+                  onClickOutside={() => setIsEndDateOpen(false)}
+                  onSelect={() => setIsEndDateOpen(false)}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-[28.5px] transform -translate-y-1/2"
+                  onClick={handleEndDateClick}
+                >
+                  {calendarSvg2}
+                </button>
+              </div>
             </div>
           </div>
           <button

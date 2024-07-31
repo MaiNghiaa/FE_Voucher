@@ -36,15 +36,15 @@ export default function ProductManagement() {
     status: "",
   });
   const [dropdownItemCategory, setDropdownItemCategory] = useState(false);
-  const [formData, setFormData] = useState({
-    images: [],
-    imageUrls: [],
-    name: "",
-    category: "",
-    desc: "",
-    price: "",
-    status: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   images: [],
+  //   imageUrls: [],
+  //   name: "",
+  //   category: "",
+  //   desc: "",
+  //   price: "",
+  //   status: "",
+  // });
 
   // Handle adding new category
   const handleSubmit = (newCategory) => {
@@ -84,6 +84,7 @@ export default function ProductManagement() {
 
   const handleUpdateItem = (item, idx) => {
     setUpdatedDataItem(item);
+    setDropdownItemCategory(false);
     setShowUpdateItemModal(true);
   };
 
@@ -114,10 +115,10 @@ export default function ProductManagement() {
 
   const handleCreateProduct = (category) => {
     setDropdownVisible(null);
-    setFormData((prevData) => ({
-      ...prevData,
-      category: category,
-    }));
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   category: category,
+    // }));
     setShowCreateModal(category);
   };
 
@@ -149,15 +150,15 @@ export default function ProductManagement() {
     setDataItems((prevDataItems) => [...prevDataItems, newItem]);
 
     setShowProductModal(false);
-    setFormData({
-      images: [],
-      imageUrls: [],
-      name: "",
-      category: "",
-      desc: "",
-      price: "",
-      status: "",
-    });
+    // setFormData({
+    //   images: [],
+    //   imageUrls: [],
+    //   name: "",
+    //   category: "",
+    //   desc: "",
+    //   price: "",
+    //   status: "",
+    // });
   };
 
   const handleUpdateItemSubmit = (e) => {
@@ -187,15 +188,11 @@ export default function ProductManagement() {
       setSelectedCategory(category);
     }
   };
-  // useEffect(() => {
-  //   console.log("selectedCategory:", selectedCategory);
-  //   console.log("categories:", categories);
-  //   console.log("dataItems:", dataItems);
-  // }, [showCategoryModal, showProductModal, categories, dataItems]);
+
   return (
     <div className="px-4 pt-4 pb-[69px] sm:ml-80 h-screen inner-bg">
       <div className=" border-1 border-gray-200 rounded-lg dark:border-gray-700 bg-white h-auto">
-        <h1 className="text-2xl font-bold text-center py-4 heading-title mx-auto border-b-[1px] border shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]">
+        <h1 className="text-2xl font-bold text-center py-4 heading-title mx-auto border-b-[1px] border shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)] cursor-default">
           Danh mục sản phẩm
         </h1>
         <div className="pt-8 pb-5">
@@ -467,8 +464,8 @@ export default function ProductManagement() {
         {/* done */}
         {showUpdateItemModal && (
           <UpdateItemModal
-            showUpdateItemModal={showUpdateItemModal}
-            setShowUpdateItemModal={setShowUpdateItemModal}
+            isOpen={showUpdateItemModal}
+            onClose={() => setShowUpdateItemModal(false)}
             handleUpdateItemSubmit={handleUpdateItemSubmit}
             updatedDataItem={updatedDataItem}
             handleChangeUpdate={handleChangeUpdate}

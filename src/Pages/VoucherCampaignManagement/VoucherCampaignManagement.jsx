@@ -10,7 +10,7 @@ export default function VoucherCampaignManagement() {
   const [modalAddNew, setModalAddNew] = useState();
   const [showModalDetail, setShowModalDetail] = useState(false);
   const [filter, setFilter] = useState("Còn hạn");
-  const [items, setItems] = useState([
+  const items = [
     {
       id: 1,
       nameChienDich: "Voucher tháng 10",
@@ -41,7 +41,7 @@ export default function VoucherCampaignManagement() {
       took: "134",
       totalTicket: "155",
     },
-  ]);
+  ];
 
   const openModalAddNew = () => {
     setModalAddNew(true);

@@ -15,7 +15,7 @@ const UpdateItemModal = ({
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <div className="w-[638px] max-h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden overflow-y-auto">
           <div className="relative px-8 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.25)]">
-            <h1 className="text-2xl font-bold text-center mb-5 py-5 ">
+            <h1 className="text-2xl font-bold text-center mb-5 py-5 cursor-default">
               Cập nhật sản phẩm
             </h1>
             <div
